@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- Ảnh nền chính của ứng dụng -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_window_bg"
+        android:scaleType="centerCrop" />
+
+    <!-- Overlay UI dạng Dashboard -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:layout_marginBottom="40dp"
+        android:padding="20dp">
+
+        <!-- Hàng 1: Ứng dụng, Ảnh, Emoji -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- 1. Ứng dụng (App Picker) -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:id="@+id/btnAppPicker"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_block_bt_bg"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/main_window_app_icon"
+                        android:scaleType="centerInside" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Ứng dụng"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+
+            <!-- 2. Ảnh cá nhân (Photo Picker) -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:id="@+id/btnPhotoPicker"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_block_bt_bg"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/main_window_photo_icon"
+                        android:scaleType="centerInside" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Ảnh cá nhân"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+
+            <!-- 3. Emoji -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:id="@+id/btnEmojiPicker"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_block_bt_bg"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/main_window_emoji_icon"
+                        android:scaleType="centerInside" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Emoji"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Hàng 2: Hình nền, Trò chơi, Cài đặt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="6dp">
+
+            <!-- 4. Hình nền + Nút Dừng hình nền động -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:layout_width="96dp"
+                    android:layout_height="96dp">
+
+                    <FrameLayout
+                        android:id="@+id/btnMainWallpaper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/main_block_bt_bg"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="84dp"
+                            android:layout_height="84dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/main_window_wallpaper"
+                            android:scaleType="centerInside" />
+                    </FrameLayout>
+
+                    <!-- Nút dừng hình nền động góc trên bên phải -->
+                    <ImageView
+                        android:id="@+id/main_window_wallpaper_stop"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="top|right"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="2dp"
+                        android:background="@drawable/circle_bg_black"
+                        android:src="@drawable/main_window_stop"
+                        android:padding="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Hình nền"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+
+            <!-- 5. Trò chơi (Game) -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:id="@+id/btnMainGame"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_block_bt_bg"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/main_window_icon_clear"
+                        android:scaleType="centerInside" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Trò chơi"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+
+            <!-- 6. Cài đặt -->
+            <LinearLayout
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="6dp">
+
+                <FrameLayout
+                    android:id="@+id/btnMainSettings"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/main_block_bt_bg"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/main_window_settings"
+                        android:scaleType="centerInside" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cài đặt"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nút Bắt đầu Launcher chính + Nút Dừng chế độ Launcher góc cạnh -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <!-- Nút Bắt đầu khởi chạy -->
+                <TextView
+                    android:id="@+id/btnMainStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bắt đầu"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:shadowColor="#80000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/main_window_start"
+                    android:drawablePadding="2dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground" />
+
+                <!-- Nút dừng chế độ Launcher mặc định cạnh nút Start -->
+                <ImageView
+                    android:id="@+id/main_window_launcher_stop"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_toRightOf="@id/btnMainStart"
+                    android:layout_alignTop="@id/btnMainStart"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/circle_bg_black"
+                    android:src="@drawable/main_window_stop"
+                    android:padding="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</FrameLayout>

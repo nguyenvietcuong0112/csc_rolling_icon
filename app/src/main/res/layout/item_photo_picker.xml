@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <!-- Square aspect ratio container (handled dynamically or using dimension/ratio) -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp"
+        android:radius="4dp">
+
+        <!-- Trạng thái 1: Hiển thị Ảnh đã chọn -->
+        <RelativeLayout
+            android:id="@+id/photo_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <!-- Bottom bar controls -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_alignParentBottom="true"
+                android:background="#80000000"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp">
+
+                <!-- Nút Sửa/Cắt ảnh -->
+                <ImageView
+                    android:id="@+id/btnEditPhoto"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/photo_icon_picker_edit_button"
+                    android:padding="2dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <!-- Nút Xóa ảnh -->
+                <ImageView
+                    android:id="@+id/btnDeletePhoto"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/photo_icon_picker_delete_button"
+                    android:padding="2dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- Trạng thái 2: Nút thêm ảnh (+) -->
+        <FrameLayout
+            android:id="@+id/add_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/photo_icon_picker_add_bt"
+                android:scaleType="centerInside" />
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

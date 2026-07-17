@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rolling Icons</string>
+    <string name="wallpaper_label">Rolling Icons Live Wallpaper</string>
+    <string name="wallpaper_description">Hình nền động mô phỏng các biểu tượng ứng dụng chuyển động vật lý chân thực.</string>
+    <string name="settings_label">Cài đặt Rolling Icons</string>
+</resources>
