@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="THIẾT LẬP TÙY CHỌN"
+            android:text="CUSTOMIZE SETTINGS"
             android:textColor="#2E1C0C"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CHỌN CHẾ ĐỘ HIỂN THỊ"
+                android:text="SELECT DISPLAY MODE"
                 android:textColor="#C85C32"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -84,7 +84,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hình nền động (Live Wallpaper)"
+                        android:text="Live Wallpaper Mode"
                         android:textColor="#2E1C0C"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Các ứng dụng và ảnh sẽ chuyển động rơi tự do làm hình nền động phía sau màn hình chính hiện tại của bạn."
+                        android:text="Your selected apps and photos will roll and tumble as a live wallpaper behind your system home screen."
                         android:textColor="#4E3629"
                         android:textSize="12sp"
                         android:layout_marginTop="6dp"
@@ -124,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Trình chạy chính (Home Launcher)"
+                        android:text="Home Launcher Mode"
                         android:textColor="#2E1C0C"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Thay thế hoàn toàn màn hình Home hệ thống của bạn bằng không gian tương tác icon vật lý và ngăn ứng dụng tiện lợi."
+                        android:text="Fully replace your system home screen with an interactive physics icon desktop and app drawer."
                         android:textColor="#4E3629"
                         android:textSize="12sp"
                         android:layout_marginTop="6dp"
@@ -145,7 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CẤU HÌNH THÔNG SỐ"
+                android:text="CONFIGURATION OPTIONS"
                 android:textColor="#C85C32"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -176,7 +176,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kích thước biểu tượng"
+                            android:text="Icon Size"
                             android:textColor="#2E1C0C"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -259,7 +259,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Tương tác chạm"
+                                android:text="Touch Interaction"
                                 android:textColor="#2E1C0C"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
@@ -268,7 +268,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Bật tương tác click vào các icon trên màn hình nền"
+                                android:text="Allow clicking on rolling icons on the wallpaper"
                                 android:textColor="#4E3629"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/app_font" />
@@ -307,7 +307,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hiển thị nút trôi"
+                                android:text="Show Floating Button"
                                 android:textColor="#2E1C0C"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
@@ -316,7 +316,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Hiển thị nút tròn hỗ trợ quay về app nhanh từ màn hình Home"
+                                android:text="Display a floating shortcut button to quickly open this app from the home screen"
                                 android:textColor="#4E3629"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/app_font" />
@@ -349,7 +349,7 @@
             android:id="@+id/btnPreviewApply"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="XEM TRƯỚC &amp; ÁP DỤNG"
+            android:text="PREVIEW &amp; APPLY"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"
