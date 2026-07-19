@@ -32,28 +32,6 @@ class SettingsActivity : BaseActivity() {
     private lateinit var txtBgSubtitle: TextView
     private lateinit var switchFloatButton: SwitchCompat
     private lateinit var switchWallpaperTouch: SwitchCompat
-
-    // Khởi chạy bộ chọn ảnh cho Background Image
-    private val bgImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            try {
-                contentResolver.takePersistableUriPermission(
-                    it,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                )
-            } catch (e: Exception) {
-                // Bỏ qua nếu không hỗ trợ
-            }
-            val uriString = it.toString()
-            lifecycleScope.launch {
-                preferenceRepository.setBgImagePath(uriString)
-                preferenceRepository.setBgType(2) // 2: Loại ảnh nền là ảnh tuỳ chỉnh
-                txtBgSubtitle.text = getString(R.string.bg_custom_image)
-                Toast.makeText(this@SettingsActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -96,7 +74,11 @@ class SettingsActivity : BaseActivity() {
 
         // 3. Select background image
         btnSelectBgImage.setOnClickListener {
-            bgImageLauncher.launch("image/*")
+            val intent = Intent(this, WallpaperPickerActivity::class.java).apply {
+                putExtra("from_settings", true)
+                putExtra("mode", "rolling")
+            }
+            startActivity(intent)
         }
 
         // 4. Enable float button??

@@ -150,60 +150,88 @@ class LauncherActivity : AndroidApplication() {
         btnExit.setOnClickListener {
             dialog.dismiss()
             
-            // Tìm ứng dụng Home khác (trình chạy hệ thống) để launch trực tiếp
-            val homeIntent = Intent(Intent.ACTION_MAIN).apply {
-                addCategory(Intent.CATEGORY_HOME)
-            }
-            val homeActivities = packageManager.queryIntentActivities(homeIntent, 0)
-            var launchedSystemHome = false
-            for (info in homeActivities) {
-                val pkgName = info.activityInfo.packageName
-                if (pkgName != packageName) {
-                    val systemHomeIntent = Intent(Intent.ACTION_MAIN).apply {
-                        addCategory(Intent.CATEGORY_HOME)
-                        setPackage(pkgName) // Chỉ định đích danh package của Home hệ thống
+            if (isDefaultLauncher()) {
+                Toast.makeText(this@LauncherActivity, "Please change default Home app to exit", Toast.LENGTH_LONG).show()
+                try {
+                    val intent = Intent(android.provider.Settings.ACTION_HOME_SETTINGS).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     }
+                    startActivity(intent)
+                } catch (e: Exception) {
                     try {
-                        startActivity(systemHomeIntent)
-                        launchedSystemHome = true
-                        break
+                        val intent = Intent(android.provider.Settings.ACTION_SETTINGS).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        startActivity(intent)
+                    } catch (ex: Exception) {
+                        // ignore
+                    }
+                }
+            } else {
+                // Tìm ứng dụng Home khác (trình chạy hệ thống) để launch trực tiếp
+                val homeIntent = Intent(Intent.ACTION_MAIN).apply {
+                    addCategory(Intent.CATEGORY_HOME)
+                }
+                val homeActivities = packageManager.queryIntentActivities(homeIntent, 0)
+                var launchedSystemHome = false
+                for (info in homeActivities) {
+                    val pkgName = info.activityInfo.packageName
+                    if (pkgName != packageName) {
+                        val systemHomeIntent = Intent(Intent.ACTION_MAIN).apply {
+                            addCategory(Intent.CATEGORY_HOME)
+                            setPackage(pkgName) // Chỉ định đích danh package của Home hệ thống
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        try {
+                            startActivity(systemHomeIntent)
+                            launchedSystemHome = true
+                            break
+                        } catch (e: Exception) {
+                            // ignore
+                        }
+                    }
+                }
+                if (!launchedSystemHome) {
+                    // Fallback nếu không tìm thấy launcher nào khác
+                    try {
+                        val fallbackHome = Intent(Intent.ACTION_MAIN).apply {
+                            addCategory(Intent.CATEGORY_HOME)
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                        startActivity(fallbackHome)
                     } catch (e: Exception) {
                         // ignore
                     }
                 }
-            }
-            if (!launchedSystemHome) {
-                // Fallback nếu không tìm thấy launcher nào khác
-                try {
-                    val fallbackHome = Intent(Intent.ACTION_MAIN).apply {
-                        addCategory(Intent.CATEGORY_HOME)
-                        flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                
+                // Đóng tất cả các tasks của ứng dụng và xóa sạch khỏi danh sách Recents
+                val activityManager = getSystemService(android.content.Context.ACTIVITY_SERVICE) as android.app.ActivityManager
+                activityManager.appTasks.forEach { task ->
+                    try {
+                        task.finishAndRemoveTask()
+                    } catch (e: Exception) {
+                        // ignore
                     }
-                    startActivity(fallbackHome)
-                } catch (e: Exception) {
-                    // ignore
                 }
+                
+                // Trì hoãn 150ms để hệ thống chuyển tiếp mượt mà sang Home rồi kill tiến trình triệt để
+                view.postDelayed({
+                    android.os.Process.killProcess(android.os.Process.myPid())
+                    System.exit(0)
+                }, 150)
             }
-            
-            // Đóng tất cả các tasks của ứng dụng và xóa sạch khỏi danh sách Recents
-            val activityManager = getSystemService(android.content.Context.ACTIVITY_SERVICE) as android.app.ActivityManager
-            activityManager.appTasks.forEach { task ->
-                try {
-                    task.finishAndRemoveTask()
-                } catch (e: Exception) {
-                    // ignore
-                }
-            }
-            
-            // Trì hoãn 150ms để hệ thống chuyển tiếp mượt mà sang Home rồi kill tiến trình triệt để
-            view.postDelayed({
-                android.os.Process.killProcess(android.os.Process.myPid())
-                System.exit(0)
-            }, 150)
         }
 
         dialog.show()
+    }
+
+    private fun isDefaultLauncher(): Boolean {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_HOME)
+        }
+        val resolveInfo = packageManager.resolveActivity(intent, android.content.pm.PackageManager.MATCH_DEFAULT_ONLY)
+        val currentHomePkg = resolveInfo?.activityInfo?.packageName
+        return currentHomePkg == packageName
     }
 
     override fun onDestroy() {

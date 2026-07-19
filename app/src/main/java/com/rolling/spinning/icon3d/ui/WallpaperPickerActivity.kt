@@ -87,12 +87,18 @@ class WallpaperPickerActivity : BaseActivity() {
                         preferenceRepository.setWallpaperMode("rolling")
                     }
 
-                    // Khởi chạy màn hình thiết lập tùy chọn (CustomizeActivity) thay vì mở trình cài đặt hệ thống ngay
-                    val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
-                        putExtra("mode", wallpaperMode)
+                    val fromSettings = intent.getBooleanExtra("from_settings", false)
+                    if (fromSettings) {
+                        Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        // Khởi chạy màn hình thiết lập tùy chọn (CustomizeActivity) thay vì mở trình cài đặt hệ thống ngay
+                        val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
+                            putExtra("mode", wallpaperMode)
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
                 }
             }
         }
