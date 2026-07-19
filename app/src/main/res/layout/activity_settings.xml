@@ -1,213 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5"
+    android:background="@drawable/bg_dashboard_gradient"
     android:fitsSystemWindows="true">
 
-    <!-- Title Bar -->
+    <!-- Top Bar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:paddingHorizontal="16dp"
+        android:background="@android:color/transparent">
 
         <ImageView
             android:id="@+id/btnBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_arrow_back"
             android:padding="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
-            android:focusable="true" />
+            android:focusable="true"
+            android:tint="#2E1C0C" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btnBack"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"
-            android:text="Settings"
-            android:textColor="#333333"
+            android:layout_centerInParent="true"
+            android:text="@string/settings_title"
+            android:textColor="#2E1C0C"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/app_font" />
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="16dp">
 
-            <!-- 1. Make it as launcher?? -->
-            <androidx.cardview.widget.CardView
+            <!-- 1. Launch Settings Group -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LAUNCHER SETTINGS"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/app_font" />
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:radius="8dp">
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="#FFFFFF">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Make it as launcher??"
-                        android:textColor="#333333"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchLauncher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 2. Icon size -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:radius="8dp">
-
-                <LinearLayout
+                    android:id="@+id/btnSetDefaultLauncher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:background="#FFFFFF">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Icon size"
-                        android:textColor="#333333"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="12dp" />
-
-                    <!-- Segmented Control -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="36dp"
-                        android:orientation="horizontal"
-                        android:background="#F0F0F0"
-                        android:padding="2dp">
-
-                        <TextView
-                            android:id="@+id/btnSizeSmall"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="small"
-                            android:textSize="14sp"
-                            android:textColor="#666666"
-                            android:background="@android:color/transparent"
-                            android:clickable="true"
-                            android:focusable="true" />
-
-                        <TextView
-                            android:id="@+id/btnSizeMiddle"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="middle"
-                            android:textSize="14sp"
-                            android:textColor="#FFFFFF"
-                            android:background="#2196F3"
-                            android:clickable="true"
-                            android:focusable="true" />
-
-                        <TextView
-                            android:id="@+id/btnSizeLarge"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="large"
-                            android:textSize="14sp"
-                            android:textColor="#666666"
-                            android:background="@android:color/transparent"
-                            android:clickable="true"
-                            android:focusable="true" />
-                    </LinearLayout>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 3. Select background image -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:radius="8dp">
-
-                <LinearLayout
-                    android:id="@+id/btnSelectBgImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="#FFFFFF"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Select background image"
-                        android:textColor="#333333"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtBgSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="default"
-                        android:textColor="#999999"
-                        android:textSize="13sp"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 4. Enable float button?? -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:radius="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="#FFFFFF">
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="16dp"
+                    android:background="?android:attr/selectableItemBackground">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -218,249 +89,460 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Enable float button??"
-                            android:textColor="#333333"
-                            android:textSize="16sp" />
+                            android:text="@string/make_it_launcher"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Launcher's float button"
-                            android:textColor="#999999"
-                            android:textSize="13sp"
-                            android:layout_marginTop="2dp" />
+                            android:text="Set as default home screen"
+                            android:textColor="#4E3629"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchFloatButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="#2E1C0C" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <!-- 5. Enable wallpaper touch? -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <!-- 2. Physics Customization Settings Group -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="PHYSICS WALLPAPER SETTINGS"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
                 android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:radius="8dp">
+                android:fontFamily="@font/app_font" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="#FFFFFF">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Enable wallpaper touch?"
-                        android:textColor="#333333"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchWallpaperTouch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Other Policy & Action items -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="#FFFFFF"
-                android:elevation="1dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp">
 
-                <!-- 6. Feedback -->
                 <LinearLayout
-                    android:id="@+id/btnFeedback"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_feedback" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="Feedback" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF"
-                    android:layout_marginLeft="56dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <!-- 7. Rate us -->
+                    <!-- Background Image Picker -->
+                    <LinearLayout
+                        android:id="@+id/btnSelectBgImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:layout_marginBottom="20dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/select_bg_image"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:id="@+id/txtBgSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bg_default"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/ic_media_play"
+                            android:tint="#2E1C0C" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#202E1C0C"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Icon Size Selector -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Icon Size"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <!-- Segment Size Controls -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:orientation="horizontal"
+                            android:background="@drawable/bg_button_get_started"
+                            android:backgroundTint="#EED4B6"
+                            android:layout_marginTop="10dp"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:id="@+id/btnSizeSmall"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_small"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+
+                            <TextView
+                                android:id="@+id/btnSizeMiddle"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_middle"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+
+                            <TextView
+                                android:id="@+id/btnSizeLarge"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_large"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#202E1C0C"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Enable Wallpaper Touch -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@id/switchWallpaperTouch"
+                            android:layout_marginRight="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Touch Interaction"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Interact with icons on wallpaper touch"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchWallpaperTouch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:thumbTint="#C85C32"
+                            app:trackTint="#EED4B6" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 3. Floating Button Group -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FLOATING BUTTON"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/app_font" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp">
+
                 <LinearLayout
-                    android:id="@+id/btnRateUs"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_rate_us" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="Rate us" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF"
-                    android:layout_marginLeft="56dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <!-- 8. About us -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@id/switchFloatButton"
+                            android:layout_marginRight="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/enable_float_button"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/float_button_desc"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchFloatButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:thumbTint="#C85C32"
+                            app:trackTint="#EED4B6" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 4. Support Group -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SUPPORT INFORMATION"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/app_font" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp">
+
                 <LinearLayout
-                    android:id="@+id/btnAboutUs"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_about_us" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="About us" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF"
-                    android:layout_marginLeft="56dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <!-- 9. Privacy policy -->
-                <LinearLayout
-                    android:id="@+id/btnPrivacyPolicy"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_privacy_policy" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="Privacy policy" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF"
-                    android:layout_marginLeft="56dp" />
+                    <!-- Rate Us -->
+                    <LinearLayout
+                        android:id="@+id/btnRateUs"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_rate_us"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
 
-                <!-- 10. Service policy -->
-                <LinearLayout
-                    android:id="@+id/btnServicePolicy"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_service_policy" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="Service policy" />
-                </LinearLayout>
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF"
-                    android:layout_marginLeft="56dp" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
 
-                <!-- 11. About Ads -->
-                <LinearLayout
-                    android:id="@+id/btnAboutAds"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="16dp"
-                        android:src="@drawable/ic_about_ads" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#333333"
-                        android:textSize="15sp"
-                        android:text="About Ads" />
-                </LinearLayout>
+                    <!-- Feedback -->
+                    <LinearLayout
+                        android:id="@+id/btnFeedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_feedback"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+
+                    <!-- About Ads -->
+                    <LinearLayout
+                        android:id="@+id/btnAboutAds"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_about_ads"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+
+                    <!-- Privacy Policy -->
+                    <LinearLayout
+                        android:id="@+id/btnPrivacyPolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_privacy_policy"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+
+                    <!-- Service Policy -->
+                    <LinearLayout
+                        android:id="@+id/btnServicePolicy"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_service_policy"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+
+                    <!-- About Us -->
+                    <LinearLayout
+                        android:id="@+id/btnAboutUs"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?android:attr/selectableItemBackground">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/menu_about_us"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>

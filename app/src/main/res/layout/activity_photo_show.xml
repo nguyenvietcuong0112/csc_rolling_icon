@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <com.mandg.funny.widget.ZoomableImageView
+    <com.rolling.spinning.icon3d.widget.ZoomableImageView
         android:id="@+id/zoomImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

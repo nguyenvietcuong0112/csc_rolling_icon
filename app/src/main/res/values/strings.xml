@@ -2,6 +2,97 @@
 <resources>
     <string name="app_name">Rolling Icons</string>
     <string name="wallpaper_label">Rolling Icons Live Wallpaper</string>
-    <string name="wallpaper_description">Hình nền động mô phỏng các biểu tượng ứng dụng chuyển động vật lý chân thực.</string>
-    <string name="settings_label">Cài đặt Rolling Icons</string>
+    <string name="wallpaper_description">Live wallpaper simulating realistic 3D physical app icons moving with gravity.</string>
+    <string name="settings_label">Rolling Icons Settings</string>
+
+    <!-- MainActivity -->
+    <string name="title_3d_custom_icons">3D Custom Icons</string>
+    <string name="rolling_icon_title">Rolling Icon</string>
+    <string name="rolling_icon_desc">Icons move freely and roll around based on 3D physical gravity.</string>
+    <string name="btn_start">Start</string>
+    <string name="spinning_icon_title">Spinning Icon</string>
+    <string name="spinning_icon_desc">Create continuous artistic rotating icon effects around the center.</string>
+    <string name="shape_path_title">Shape Path</string>
+    <string name="shape_path_desc">Periodic movement along drawn shapes: Heart, Clover, Butterfly...</string>
+
+    <!-- Launcher & Game -->
+    <string name="score_format">Score: %d</string>
+    <string name="score_0">Score: 0</string>
+    <string name="exit_game">Exit Game</string>
+    <string name="exit_launcher">Exit Launcher</string>
+    <string name="all_applications">ALL APPLICATIONS</string>
+    <string name="exit_title">Exit Application</string>
+    <string name="exit_message">Are you sure you want to exit the Launcher?</string>
+    <string name="btn_exit">Exit</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- Selection Activities -->
+    <string name="configure_icons">Icon Settings</string>
+    <string name="configure_path_icons">Configure Path Icons</string>
+    <string name="selected_label">Selected:</string>
+    <string name="photos_count_format">%d photos</string>
+    <string name="zero_photos">0 photos</string>
+    <string name="btn_continue">Continue</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_emoji">Emoji</string>
+    <string name="tab_photos">Photos</string>
+
+    <!-- Shape Path Selector -->
+    <string name="select_shape_path">Select Shape Path</string>
+    <string name="select_shape_desc">Select a path for the icons to move along:</string>
+    <string name="shape_heart">Heart</string>
+    <string name="shape_infinity">Infinity</string>
+    <string name="shape_star">Star</string>
+    <string name="shape_flower">Flower</string>
+    <string name="shape_clover">Four-leaf Clover</string>
+    <string name="shape_butterfly">Butterfly</string>
+
+    <!-- Spinning Styles -->
+    <string name="spinning_style_title">Spinning Style</string>
+    <string name="select_spinning_style">Select Spinning Style</string>
+    <string name="single_circle_title">Single Circle</string>
+    <string name="single_circle_desc">All icons spin in a single large circle</string>
+    <string name="dual_circle_title">Dual Circle</string>
+    <string name="dual_circle_desc">Concentric circles rotating opposite directions</string>
+    <string name="vortex_spiral_title">Vortex Spiral</string>
+    <string name="vortex_spiral_desc">Icons spin in a swirling vortex spiral pattern</string>
+    <string name="selected_count_format">Selected %1$d of %2$d</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_title">Settings</string>
+    <string name="make_it_launcher">Make it as launcher??</string>
+    <string name="size_small">small</string>
+    <string name="size_middle">middle</string>
+    <string name="size_large">large</string>
+    <string name="select_bg_image">Select background image</string>
+    <string name="select_bg_image_desc">Choose a custom image for background</string>
+    <string name="bg_default">default</string>
+    <string name="bg_custom_image">Custom Image</string>
+    <string name="enable_float_button">Enable float button??</string>
+    <string name="float_button_desc">Launcher\'s float button</string>
+    <string name="enable_wallpaper_touch">Enable wallpaper touch?</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_rate_us">Rate us</string>
+    <string name="menu_about_us">About us</string>
+    <string name="menu_privacy_policy">Privacy policy</string>
+    <string name="menu_service_policy">Service policy</string>
+    <string name="menu_about_ads">About Ads</string>
+
+    <!-- Wallpapers -->
+    <string name="select_wallpaper">Select Wallpaper</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_opening_search">Opening search...</string>
+    <string name="toast_cannot_open_app">Cannot open this application!</string>
+    <string name="toast_bg_updated">Background image updated!</string>
+    <string name="toast_select_launcher">Please select our launcher from the list to activate!</string>
+    <string name="toast_feedback_coming">Feedback feature is coming soon!</string>
+    <string name="toast_thanks_rating">Thank you for rating us 5 stars!</string>
+    <string name="toast_about_app">Rolling Icons simulation app. Version 1.0</string>
+    <string name="toast_about_ads">The app is completely free and contains no annoying ads!</string>
+    <string name="toast_no_browser">No web browser installed!</string>
+    <string name="toast_select_one_app">Please select at least 1 app!</string>
+    <string name="toast_apply_wallpaper_tip">Please click \'Set Wallpaper\' to apply the live wallpaper mode!</string>
+    <string name="toast_unsupported_wallpaper">This device does not support live wallpapers!</string>
 </resources>

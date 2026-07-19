@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dashboard_gradient"
+    android:fitsSystemWindows="true">
+
+    <!-- Top Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="#2E1C0C" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/spinning_style_title"
+            android:textColor="#2E1C0C"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/app_font" />
+    </RelativeLayout>
+
+    <!-- Style Selector List -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHOOSE SPINNING MODE"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/app_font" />
+
+            <!-- Pattern 1: Single Circle -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSingleCircle"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <!-- Mode Preview Image wrapped in card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/imgCard1"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="1.5dp">
+                        
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_spinning_single_circle"
+                            android:scaleType="centerCrop" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Arrow Chevron -->
+                    <ImageView
+                        android:id="@+id/arrow1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:tint="#C85C32" />
+
+                    <!-- Texts -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/imgCard1"
+                        android:layout_toLeftOf="@id/arrow1"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/single_circle_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/single_circle_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="11sp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/app_font"
+                            android:maxLines="3"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Pattern 2: Dual Circle -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDualCircle"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <!-- Mode Preview Image wrapped in card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/imgCard2"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="1.5dp">
+                        
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_spinning_dual_circle"
+                            android:scaleType="centerCrop" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Arrow Chevron -->
+                    <ImageView
+                        android:id="@+id/arrow2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:tint="#C85C32" />
+
+                    <!-- Texts -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/imgCard2"
+                        android:layout_toLeftOf="@id/arrow2"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dual_circle_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dual_circle_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="11sp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/app_font"
+                            android:maxLines="3"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Pattern 3: Vortex -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardVortex"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp">
+
+                    <!-- Mode Preview Image wrapped in card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/imgCard3"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="1.5dp">
+                        
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_spinning_vortex"
+                            android:scaleType="centerCrop" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Arrow Chevron -->
+                    <ImageView
+                        android:id="@+id/arrow3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_arrow_forward"
+                        android:tint="#C85C32" />
+
+                    <!-- Texts -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/imgCard3"
+                        android:layout_toLeftOf="@id/arrow3"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vortex_spiral_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vortex_spiral_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="11sp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/app_font"
+                            android:maxLines="3"
+                            android:ellipsize="end" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mandg.funny"
+    namespace = "com.rolling.spinning.icon3d"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.mandg.funny"
+        applicationId = "com.rolling.spinning.icon3d"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -54,6 +54,9 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Lottie animations
+    implementation("com.airbnb.android:lottie:6.4.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

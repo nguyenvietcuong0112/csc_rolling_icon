@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    android:layout_margin="6dp">
 
-    <!-- Square aspect ratio container (handled dynamically or using dimension/ratio) -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:radius="4dp">
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#F5D8B3"
+        app:strokeColor="#2E1C0C"
+        app:strokeWidth="2dp">
 
         <!-- Trạng thái 1: Hiển thị Ảnh đã chọn -->
         <RelativeLayout
@@ -30,11 +31,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_alignParentBottom="true"
-                android:background="#80000000"
+                android:background="#B32E1C0C"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp">
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
                 <!-- Nút Sửa/Cắt ảnh -->
                 <ImageView
@@ -45,7 +46,8 @@
                     android:padding="2dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:tint="#FFFFFF" />
 
                 <View
                     android:layout_width="0dp"
@@ -61,7 +63,8 @@
                     android:padding="2dp"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:tint="#C85C32" />
 
             </LinearLayout>
 
@@ -72,7 +75,7 @@
             android:id="@+id/add_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
+            android:background="#F5D8B3"
             android:visibility="visible">
 
             <ImageView
@@ -84,5 +87,5 @@
 
         </FrameLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </FrameLayout>

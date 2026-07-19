@@ -19,14 +19,12 @@
         android:id="@+id/app_title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="6dp"
+        android:textSize="11sp"
+        android:textColor="#2E1C0C"
+        android:textStyle="bold"
         android:singleLine="true"
         android:ellipsize="end"
-        android:shadowColor="#80000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2" />
+        android:fontFamily="@font/app_font" />
 
 </LinearLayout>

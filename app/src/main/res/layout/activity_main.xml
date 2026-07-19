@@ -1,344 +1,422 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:orientation="vertical"
+    android:background="@drawable/bg_dashboard_gradient"
+    android:fitsSystemWindows="true">
 
-    <!-- Ảnh nền chính của ứng dụng -->
-    <ImageView
+    <!-- Header Bar -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/main_window_bg"
-        android:scaleType="centerCrop" />
+        android:layout_height="64dp"
+        android:paddingHorizontal="20dp"
+        android:background="@android:color/transparent">
 
-    <!-- Overlay UI dạng Dashboard -->
-    <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/title_3d_custom_icons"
+            android:textColor="#2E1C0C"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/app_font"
+            android:letterSpacing="0.01" />
+
+        <ImageView
+            android:id="@+id/btnHeaderSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_settings_white"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="#2E1C0C" />
+    </RelativeLayout>
+
+    <!-- Subtitle Banner -->
+    <TextView
+        android:id="@+id/txtInsertCoin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:layout_marginBottom="40dp"
-        android:padding="20dp">
+        android:text="3D INTERACTIVE PHYSICS SIMULATION"
+        android:textColor="#C85C32"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:letterSpacing="0.05"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/app_font" />
 
-        <!-- Hàng 1: Ứng dụng, Ảnh, Emoji -->
+    <!-- Scrollable Cards -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <!-- 1. Ứng dụng (App Picker) -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_margin="6dp">
+            <!-- Card 1: Rolling Icon -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRollingIcon"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:rippleColor="#102E1C0C">
 
-                <FrameLayout
-                    android:id="@+id/btnAppPicker"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_block_bt_bg"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/main_window_app_icon"
-                        android:scaleType="centerInside" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Ứng dụng"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
-
-            <!-- 2. Ảnh cá nhân (Photo Picker) -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_margin="6dp">
-
-                <FrameLayout
-                    android:id="@+id/btnPhotoPicker"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_block_bt_bg"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/main_window_photo_icon"
-                        android:scaleType="centerInside" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Ảnh cá nhân"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
-
-            <!-- 3. Emoji -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_margin="6dp">
-
-                <FrameLayout
-                    android:id="@+id/btnEmojiPicker"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_block_bt_bg"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/main_window_emoji_icon"
-                        android:scaleType="centerInside" />
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Emoji"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Hàng 2: Hình nền, Trò chơi, Cài đặt -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="6dp">
-
-            <!-- 4. Hình nền + Nút Dừng hình nền động -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_margin="6dp">
-
-                <FrameLayout
-                    android:layout_width="96dp"
-                    android:layout_height="96dp">
-
-                    <FrameLayout
-                        android:id="@+id/btnMainWallpaper"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgRollingPreview"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/main_block_bt_bg"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true">
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_rolling_icon_preview"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.4" />
 
-                        <ImageView
-                            android:layout_width="84dp"
-                            android:layout_height="84dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/main_window_wallpaper"
-                            android:scaleType="centerInside" />
-                    </FrameLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/imgRollingPreview"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginLeft="16dp">
 
-                    <!-- Nút dừng hình nền động góc trên bên phải -->
-                    <ImageView
-                        android:id="@+id/main_window_wallpaper_stop"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="top|right"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginRight="2dp"
-                        android:background="@drawable/circle_bg_black"
-                        android:src="@drawable/main_window_stop"
-                        android:padding="6dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:visibility="gone" />
-                </FrameLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rolling_icon_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Hình nền"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
+                        <!-- Stats Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp">
 
-            <!-- 5. Trò chơi (Game) -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:visibility="gone"
-                android:layout_margin="6dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GRAVITY: 3D"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:layout_marginRight="6dp"
+                                android:fontFamily="@font/app_font" />
 
-                <FrameLayout
-                    android:id="@+id/btnMainGame"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_block_bt_bg"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CHAOTIC"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/main_window_icon_clear"
-                        android:scaleType="centerInside" />
-                </FrameLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rolling_icon_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/app_font"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:lineSpacingMultiplier="1.1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Trò chơi"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
+                        <!-- Action Button -->
+                        <TextView
+                            android:id="@+id/btnGetStartedRolling"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_vintage_button_terracotta"
+                            android:paddingHorizontal="20dp"
+                            android:gravity="center"
+                            android:text="@string/btn_start"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
 
-            <!-- 6. Cài đặt -->
-            <LinearLayout
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_margin="6dp">
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <FrameLayout
-                    android:id="@+id/btnMainSettings"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:background="@drawable/main_block_bt_bg"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true">
+            <!-- Card 2: Spinning Icon -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSpinningIcon"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:rippleColor="#102E1C0C">
 
-                    <ImageView
-                        android:layout_width="84dp"
-                        android:layout_height="84dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/main_window_settings"
-                        android:scaleType="centerInside" />
-                </FrameLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Cài đặt"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/spinningTextContainer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/imgSpinningPreview"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginRight="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spinning_icon_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <!-- Stats Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ROTATION: 2D"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:layout_marginRight="6dp"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CHILL"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/spinning_icon_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/app_font"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:lineSpacingMultiplier="1.1" />
+
+                        <!-- Action Button -->
+                        <TextView
+                            android:id="@+id/btnGetStartedSpinning"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_vintage_button_terracotta"
+                            android:paddingHorizontal="20dp"
+                            android:gravity="center"
+                            android:text="@string/btn_start"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                    </LinearLayout>
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgSpinningPreview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/img_spinning_icon_preview"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView"
+                        app:layout_constraintWidth_percent="0.4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Shape Path Icon -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardShapePathIcon"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:rippleColor="#102E1C0C">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgShapePathPreview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_shape_path_preview"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.4" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left"
+                        app:layout_constraintStart_toEndOf="@id/imgShapePathPreview"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginLeft="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shape_path_title"
+                            android:textColor="#2E1C0C"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <!-- Stats Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginBottom="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PATH MAPS"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:layout_marginRight="6dp"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CREATIVE"
+                                android:textColor="#2E1C0C"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shape_path_desc"
+                            android:textColor="#4E3629"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/app_font"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:lineSpacingMultiplier="1.1" />
+
+                        <!-- Action Button -->
+                        <TextView
+                            android:id="@+id/btnGetStartedShapePath"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_vintage_button_terracotta"
+                            android:paddingHorizontal="20dp"
+                            android:gravity="center"
+                            android:text="@string/btn_start"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
-
-        <!-- Nút Bắt đầu Launcher chính + Nút Dừng chế độ Launcher góc cạnh -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <!-- Nút Bắt đầu khởi chạy -->
-                <TextView
-                    android:id="@+id/btnMainStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bắt đầu"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:shadowColor="#80000000"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2"
-                    android:gravity="center"
-                    android:drawableTop="@drawable/main_window_start"
-                    android:drawablePadding="2dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackground" />
-
-                <!-- Nút dừng chế độ Launcher mặc định cạnh nút Start -->
-                <ImageView
-                    android:id="@+id/main_window_launcher_stop"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_toRightOf="@id/btnMainStart"
-                    android:layout_alignTop="@id/btnMainStart"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/circle_bg_black"
-                    android:src="@drawable/main_window_stop"
-                    android:padding="6dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:visibility="gone" />
-            </RelativeLayout>
-        </FrameLayout>
-
-    </LinearLayout>
-</FrameLayout>
+    </ScrollView>
+</LinearLayout>

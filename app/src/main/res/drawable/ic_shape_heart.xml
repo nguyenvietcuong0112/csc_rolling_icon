@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Dashed Heart Path representing Shape Map -->
+    <path
+        android:strokeColor="#C85C32"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M 24 12 C 24 12, 19 6, 11 6 C 6 6, 3 10, 3 15 C 3 24, 13 32, 24 42 C 35 32, 45 24, 45 15 C 45 10, 42 6, 37 6 C 29 6, 24 12, 24 12 Z" />
+
+</vector>

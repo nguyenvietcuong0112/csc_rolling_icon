@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dashboard_gradient"
+    android:fitsSystemWindows="true">
+
+    <!-- Top Header Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="#2E1C0C" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="THIẾT LẬP TÙY CHỌN"
+            android:textColor="#2E1C0C"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/app_font" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. Section Chọn Mode -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHỌN CHẾ ĐỘ HIỂN THỊ"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/app_font" />
+
+            <!-- Card 1: Live Wallpaper -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardLiveWallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#C85C32"
+                app:strokeWidth="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hình nền động (Live Wallpaper)"
+                        android:textColor="#2E1C0C"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/app_font" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Các ứng dụng và ảnh sẽ chuyển động rơi tự do làm hình nền động phía sau màn hình chính hiện tại của bạn."
+                        android:textColor="#4E3629"
+                        android:textSize="12sp"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/app_font" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 2: Home Launcher -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardHomeLauncher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="1.5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trình chạy chính (Home Launcher)"
+                        android:textColor="#2E1C0C"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/app_font" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thay thế hoàn toàn màn hình Home hệ thống của bạn bằng không gian tương tác icon vật lý và ngăn ứng dụng tiện lợi."
+                        android:textColor="#4E3629"
+                        android:textSize="12sp"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/app_font" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 2. Section Cấu hình thông số -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CẤU HÌNH THÔNG SỐ"
+                android:textColor="#C85C32"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/app_font" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#F5D8B3"
+                app:strokeColor="#2E1C0C"
+                app:strokeWidth="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Icon Size -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kích thước biểu tượng"
+                            android:textColor="#2E1C0C"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/app_font" />
+
+                        <!-- Segment Size Controls -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal"
+                            android:background="@drawable/bg_button_get_started"
+                            android:backgroundTint="#EED4B6"
+                            android:layout_marginTop="8dp"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:id="@+id/btnSizeSmall"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_small"
+                                android:textColor="#2E1C0C"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+
+                            <TextView
+                                android:id="@+id/btnSizeMiddle"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_middle"
+                                android:textColor="#2E1C0C"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+
+                            <TextView
+                                android:id="@+id/btnSizeLarge"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/size_large"
+                                android:textColor="#2E1C0C"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font"
+                                android:clickable="true"
+                                android:focusable="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#202E1C0C"
+                        android:layout_marginVertical="16dp" />
+
+                    <!-- Touch Interaction Switch -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/switchWallpaperTouch"
+                            android:layout_marginRight="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tương tác chạm"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bật tương tác click vào các icon trên màn hình nền"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchWallpaperTouch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:thumbTint="#C85C32"
+                            app:trackTint="#EED4B6" />
+                    </RelativeLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#202E1C0C"
+                        android:layout_marginVertical="16dp" />
+
+                    <!-- Enable Float Button Switch -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/switchFloatButton"
+                            android:layout_marginRight="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hiển thị nút trôi"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hiển thị nút tròn hỗ trợ quay về app nhanh từ màn hình Home"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchFloatButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            app:thumbTint="#C85C32"
+                            app:trackTint="#EED4B6" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Button Container -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="@android:color/transparent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPreviewApply"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="XEM TRƯỚC &amp; ÁP DỤNG"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_vintage_button_terracotta"
+            android:fontFamily="@font/app_font" />
+    </FrameLayout>
+
+</LinearLayout>
