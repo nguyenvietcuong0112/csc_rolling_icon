@@ -32,13 +32,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/configure_path_icons"
+            android:text="@string/spinning_style_title"
             android:textColor="#2E1C0C"
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/app_font" />
     </RelativeLayout>
 
+    <!-- Main Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -134,52 +135,51 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/emoji_group_emoji"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_emoji_smileys"
+                    android:background="@drawable/bg_vintage_button_secondary"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:tint="#C85C32" />
+                    android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/emojiTabAnimals"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/emoji_group_animal"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_emoji_animals"
+                    android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:tint="#2E1C0C" />
+                    android:alpha="0.55" />
 
                 <ImageView
                     android:id="@+id/emojiTabLove"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/emoji_group_love"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_emoji_love"
+                    android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:tint="#2E1C0C" />
+                    android:alpha="0.55" />
 
                 <ImageView
                     android:id="@+id/emojiTabJokes"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/emoji_group_joke"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_emoji_jokes"
+                    android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:tint="#2E1C0C" />
+                    android:alpha="0.55" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

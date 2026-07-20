@@ -36,6 +36,8 @@ class PreferenceRepository(private val context: Context) {
         val KEY_WALLPAPER_MODE = stringPreferencesKey("wallpaper_mode")
         val KEY_SPINNING_PATTERN = stringPreferencesKey("spinning_pattern")
         val KEY_SELECTED_APPS_SPINNING = stringSetPreferencesKey("selected_apps_spinning")
+        val KEY_SELECTED_PHOTOS_SPINNING = stringSetPreferencesKey("selected_photos_spinning")
+        val KEY_SELECTED_EMOJIS_SPINNING = stringSetPreferencesKey("selected_emojis_spinning")
         val KEY_SPINNING_BG_IMAGE_PATH = stringPreferencesKey("spinning_bg_image_path")
 
         // Cấu hình Shape Path Icon
@@ -102,6 +104,12 @@ class PreferenceRepository(private val context: Context) {
 
     suspend fun getSelectedAppsSpinning(): Set<String> = getValue(KEY_SELECTED_APPS_SPINNING, emptySet())
     suspend fun setSelectedAppsSpinning(values: Set<String>) = setValue(KEY_SELECTED_APPS_SPINNING, values)
+
+    suspend fun getSelectedPhotosSpinning(): Set<String> = getValue(KEY_SELECTED_PHOTOS_SPINNING, emptySet())
+    suspend fun setSelectedPhotosSpinning(values: Set<String>) = setValue(KEY_SELECTED_PHOTOS_SPINNING, values)
+
+    suspend fun getSelectedEmojisSpinning(): Set<String> = getValue(KEY_SELECTED_EMOJIS_SPINNING, emptySet())
+    suspend fun setSelectedEmojisSpinning(values: Set<String>) = setValue(KEY_SELECTED_EMOJIS_SPINNING, values)
 
     suspend fun getSpinningBgImagePath(): String = getValue(KEY_SPINNING_BG_IMAGE_PATH, "")
     suspend fun setSpinningBgImagePath(value: String) = setValue(KEY_SPINNING_BG_IMAGE_PATH, value)

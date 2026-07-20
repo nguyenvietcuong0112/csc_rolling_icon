@@ -301,121 +301,283 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 3: Shape Path Icon -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardShapePathIcon"
+            <!-- 2x2 Grid of Small Cards -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:rippleColor="#102E1C0C">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <!-- Row 1 -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/imgShapePathPreview"
+                    <!-- Grid Card 1: Shape Path -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardShapePathIcon"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img_shape_path_preview"
-                        app:shapeAppearanceOverlay="@style/RoundedImageView"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.4" />
+                        android:layout_height="145dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#F5D8B3"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="2dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#102E1C0C">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="left"
-                        app:layout_constraintStart_toEndOf="@id/imgShapePathPreview"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginLeft="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/shape_path_title"
-                            android:textColor="#2E1C0C"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/app_font" />
-
-                        <!-- Stats Row -->
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="6dp"
-                            android:layout_marginBottom="6dp">
+                            android:layout_height="match_parent"
+                            android:padding="12dp">
 
+                            <!-- Icon (Circle with border style) -->
+                            <FrameLayout
+                                android:id="@+id/iconShapeContainer"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_shape_star"
+                                    android:tint="#C85C32" />
+                            </FrameLayout>
+
+                            <!-- Text Content -->
                             <TextView
+                                android:id="@+id/txtShapePathTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="PATH MAPS"
+                                android:layout_below="@id/iconShapeContainer"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/shape_path_title"
                                 android:textColor="#2E1C0C"
-                                android:textSize="9sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold"
-                                android:background="@drawable/bg_vintage_badge"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp"
-                                android:layout_marginRight="6dp"
                                 android:fontFamily="@font/app_font" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="CREATIVE"
-                                android:textColor="#2E1C0C"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
+                                android:layout_below="@id/txtShapePathTitle"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/shape_path_desc"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font"
+                                android:maxLines="2"
+                                android:ellipsize="end" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Grid Card 2: Emoji Icon -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardEmojiIcon"
+                        android:layout_width="0dp"
+                        android:layout_height="145dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#F5D8B3"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="2dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#102E1C0C">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="12dp">
+
+                            <!-- Icon (Circle with border style) -->
+                            <FrameLayout
+                                android:id="@+id/iconEmojiContainer"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
                                 android:background="@drawable/bg_vintage_badge"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_emoji_smileys" />
+                            </FrameLayout>
+
+                            <!-- Text Content -->
+                            <TextView
+                                android:id="@+id/txtEmojiTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iconEmojiContainer"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/emoji_icon_title"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
                                 android:fontFamily="@font/app_font" />
-                        </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/shape_path_desc"
-                            android:textColor="#4E3629"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/app_font"
-                            android:ellipsize="end"
-                            android:maxLines="3"
-                            android:lineSpacingMultiplier="1.1" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtEmojiTitle"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/emoji_icon_desc"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font"
+                                android:maxLines="2"
+                                android:ellipsize="end" />
 
-                        <!-- Action Button -->
-                        <TextView
-                            android:id="@+id/btnGetStartedShapePath"
-                            android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_vintage_button_terracotta"
-                            android:paddingHorizontal="20dp"
-                            android:gravity="center"
-                            android:text="@string/btn_start"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/app_font" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Grid Card 3: Photo Icon -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardPhotoIcon"
+                        android:layout_width="0dp"
+                        android:layout_height="145dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#F5D8B3"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="2dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#102E1C0C">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="12dp">
+
+                            <!-- Icon (Circle with border style) -->
+                            <FrameLayout
+                                android:id="@+id/iconPhotoContainer"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_dashboard_photos" />
+                            </FrameLayout>
+
+                            <!-- Text Content -->
+                            <TextView
+                                android:id="@+id/txtPhotoTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iconPhotoContainer"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/photo_icon_title"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtPhotoTitle"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/photo_icon_desc"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font"
+                                android:maxLines="2"
+                                android:ellipsize="end" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Grid Card 4: Wallpaper -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardWallpaper"
+                        android:layout_width="0dp"
+                        android:layout_height="145dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="6dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#F5D8B3"
+                        app:strokeColor="#2E1C0C"
+                        app:strokeWidth="2dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:rippleColor="#102E1C0C">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="12dp">
+
+                            <!-- Icon (Circle with border style) -->
+                            <FrameLayout
+                                android:id="@+id/iconWallpaperContainer"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_vintage_badge"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_dashboard_wallpaper" />
+                            </FrameLayout>
+
+                            <!-- Text Content -->
+                            <TextView
+                                android:id="@+id/txtWallpaperTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/iconWallpaperContainer"
+                                android:layout_marginTop="10dp"
+                                android:text="@string/wallpaper_title"
+                                android:textColor="#2E1C0C"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/app_font" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txtWallpaperTitle"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/wallpaper_desc"
+                                android:textColor="#4E3629"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/app_font"
+                                android:maxLines="2"
+                                android:ellipsize="end" />
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

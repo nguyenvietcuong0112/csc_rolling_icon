@@ -103,6 +103,9 @@ class RollingSelectionActivity : BaseActivity() {
         appRepository = AppRepository(this)
         preferenceRepository = PreferenceRepository(this)
 
+        val defaultTab = intent.getIntExtra("default_tab", 0)
+        val singleMode = intent.getBooleanExtra("single_mode", false)
+
         // Bind layouts
         tabLayout = findViewById(R.id.tabLayout)
         layoutTabApps = findViewById(R.id.layoutTabApps)
@@ -201,12 +204,34 @@ class RollingSelectionActivity : BaseActivity() {
                     preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
                 }
 
-                // Go to wallpaper picker
-                val intent = Intent(this@RollingSelectionActivity, WallpaperPickerActivity::class.java).apply {
-                    putExtra("mode", "rolling")
+                if (singleMode) {
+                    val intent = Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
+                        putExtra("mode", "rolling")
+                    }
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // Go to wallpaper picker
+                    val intent = Intent(this@RollingSelectionActivity, WallpaperPickerActivity::class.java).apply {
+                        putExtra("mode", "rolling")
+                    }
+                    startActivity(intent)
+                    finish()
                 }
-                startActivity(intent)
-                finish()
+            }
+        }
+
+        if (defaultTab in 0..2) {
+            tabLayout.getTabAt(defaultTab)?.select()
+        }
+
+        if (singleMode) {
+            tabLayout.visibility = View.GONE
+            val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
+            if (defaultTab == 1) {
+                txtHeaderTitle.text = getString(R.string.emoji_icon_title)
+            } else if (defaultTab == 2) {
+                txtHeaderTitle.text = getString(R.string.photo_icon_title)
             }
         }
     }

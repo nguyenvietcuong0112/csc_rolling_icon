@@ -39,12 +39,36 @@ class MainActivity : BaseActivity() {
         findViewById<View>(R.id.cardSpinningIcon).setOnClickListener { spinningClickAction() }
         findViewById<TextView>(R.id.btnGetStartedSpinning).setOnClickListener { spinningClickAction() }
 
-        // 4. Click vào thẻ Shape Path Icon hoặc nút Get Started của Shape Path Icon
-        val shapePathClickAction = {
+        // 4. Click vào thẻ Shape Path Icon
+        findViewById<View>(R.id.cardShapePathIcon).setOnClickListener {
             val intent = Intent(this, ShapeSelectorActivity::class.java)
             startActivity(intent)
         }
-        findViewById<View>(R.id.cardShapePathIcon).setOnClickListener { shapePathClickAction() }
-        findViewById<TextView>(R.id.btnGetStartedShapePath).setOnClickListener { shapePathClickAction() }
+
+        // 5. Click vào thẻ Emoji Icon
+        findViewById<View>(R.id.cardEmojiIcon).setOnClickListener {
+            val intent = Intent(this, RollingSelectionActivity::class.java).apply {
+                putExtra("default_tab", 1)
+                putExtra("single_mode", true)
+            }
+            startActivity(intent)
+        }
+
+        // 6. Click vào thẻ Photo Icon
+        findViewById<View>(R.id.cardPhotoIcon).setOnClickListener {
+            val intent = Intent(this, RollingSelectionActivity::class.java).apply {
+                putExtra("default_tab", 2)
+                putExtra("single_mode", true)
+            }
+            startActivity(intent)
+        }
+
+        // 7. Click vào thẻ Wallpaper
+        findViewById<View>(R.id.cardWallpaper).setOnClickListener {
+            val intent = Intent(this, WallpaperPickerActivity::class.java).apply {
+                putExtra("mode", "rolling")
+            }
+            startActivity(intent)
+        }
     }
 }

@@ -209,6 +209,11 @@ class ShapeSelectionActivity : BaseActivity() {
                 finish()
             }
         }
+
+        val defaultTab = intent.getIntExtra("default_tab", 0)
+        if (defaultTab in 0..2) {
+            tabLayout.getTabAt(defaultTab)?.select()
+        }
     }
 
     private fun setupEmojiTabs() {

@@ -1,0 +1,35 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Phone Screen outline -->
+    <path
+        android:pathData="M6,3h12a2,2 0,0 1,2 2v14a2,2 0,0 1,-2 2h-12a2,2 0,0 1,-2 -2v-14a2,2 0,0 1,2 -2z"
+        android:fillColor="#F5D8B3"
+        android:strokeColor="#2E1C0C"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"/>
+    <!-- Bottom line representing Home indicator / button -->
+    <path
+        android:pathData="M10,20h4"
+        android:strokeColor="#2E1C0C"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+    <!-- Wallpaper artwork inside (diagonal stripes) -->
+    <path
+        android:pathData="M7,7 l5,-5"
+        android:strokeColor="#C85C32"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M7,12 l10,-10"
+        android:strokeColor="#C85C32"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M9,17 l9,-9"
+        android:strokeColor="#C85C32"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+</vector>

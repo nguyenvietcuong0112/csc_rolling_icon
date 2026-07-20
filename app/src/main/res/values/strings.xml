@@ -14,6 +14,12 @@
     <string name="spinning_icon_desc">Create continuous artistic rotating icon effects around the center.</string>
     <string name="shape_path_title">Shape Path</string>
     <string name="shape_path_desc">Periodic movement along drawn shapes: Heart, Clover, Butterfly...</string>
+    <string name="emoji_icon_title">Emoji Icon</string>
+    <string name="emoji_icon_desc">Manage active emojis</string>
+    <string name="photo_icon_title">Photo Icon</string>
+    <string name="photo_icon_desc">Manage active photos</string>
+    <string name="wallpaper_title">Wallpaper</string>
+    <string name="wallpaper_desc">Set static / live wallpaper</string>
 
     <!-- Launcher & Game -->
     <string name="score_format">Score: %d</string>

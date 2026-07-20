@@ -486,6 +486,9 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
             wallpaperMode = prefs.getWallpaperMode()
             if (wallpaperMode == "spinning") {
                 spinningPattern = prefs.getSpinningPattern()
+                synchronized(spinningIcons) {
+                    spinningIcons.clear()
+                }
                 val selectedAppsSpinning = prefs.getSelectedAppsSpinning()
                 for (pkg in selectedAppsSpinning) {
                     val bitmap = loader.loadAppIcon(pkg) ?: continue
@@ -493,7 +496,35 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                         val texture = bitmapToTexture(bitmap)
                         bitmap.recycle()
                         if (texture != null) {
-                            val app = AppInfo(packageName = pkg, appName = "", iconCacheKey = pkg)
+                            val app = AppInfo(packageName = pkg, appName = "", iconCacheKey = pkg, type = AppInfo.TYPE_APP)
+                            synchronized(spinningIcons) {
+                                spinningIcons.add(IconData(texture, currentIconSize, app))
+                            }
+                        }
+                    }
+                }
+                val selectedEmojisSpinning = prefs.getSelectedEmojisSpinning()
+                for (emoji in selectedEmojisSpinning) {
+                    val bitmap = loader.loadEmojiIcon(emoji) ?: continue
+                    Gdx.app.postRunnable {
+                        val texture = bitmapToTexture(bitmap)
+                        bitmap.recycle()
+                        if (texture != null) {
+                            val app = AppInfo(packageName = "emoji_$emoji", appName = emoji, iconCacheKey = "emoji_${emoji.hashCode()}", type = AppInfo.TYPE_EMOJI)
+                            synchronized(spinningIcons) {
+                                spinningIcons.add(IconData(texture, currentIconSize, app))
+                            }
+                        }
+                    }
+                }
+                val selectedPhotosSpinning = prefs.getSelectedPhotosSpinning()
+                for (photoUri in selectedPhotosSpinning) {
+                    val bitmap = loader.loadCustomPhotoIcon(photoUri) ?: continue
+                    Gdx.app.postRunnable {
+                        val texture = bitmapToTexture(bitmap)
+                        bitmap.recycle()
+                        if (texture != null) {
+                            val app = AppInfo(packageName = photoUri, appName = "Custom Photo", iconCacheKey = "custom_photo_${photoUri.hashCode()}", type = AppInfo.TYPE_PHOTO)
                             synchronized(spinningIcons) {
                                 spinningIcons.add(IconData(texture, currentIconSize, app))
                             }
@@ -1329,6 +1360,18 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 if (bitmap != null) Pair(pkg, bitmap) else null
             }
 
+            val selectedEmojis = prefs.getSelectedEmojisSpinning()
+            val emojiBitmaps = selectedEmojis.mapNotNull { emoji ->
+                val bitmap = loader.loadEmojiIcon(emoji)
+                if (bitmap != null) Pair(emoji, bitmap) else null
+            }
+
+            val selectedPhotos = prefs.getSelectedPhotosSpinning()
+            val photoBitmaps = selectedPhotos.mapNotNull { uri ->
+                val bitmap = loader.loadCustomPhotoIcon(uri)
+                if (bitmap != null) Pair(uri, bitmap) else null
+            }
+
             Gdx.app.postRunnable {
                 synchronized(spinningIcons) {
                     for (icon in spinningIcons) {
@@ -1343,7 +1386,31 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                         bitmap.recycle()
 
                         if (texture != null) {
-                            val app = AppInfo(packageName = pkg, appName = "", iconCacheKey = pkg)
+                            val app = AppInfo(packageName = pkg, appName = "", iconCacheKey = pkg, type = AppInfo.TYPE_APP)
+                            spinningIcons.add(IconData(texture, newSize, app))
+                        }
+                    }
+
+                    for (pair in emojiBitmaps) {
+                        val emoji = pair.first
+                        val bitmap = pair.second
+                        val texture = bitmapToTexture(bitmap)
+                        bitmap.recycle()
+
+                        if (texture != null) {
+                            val app = AppInfo(packageName = "emoji_$emoji", appName = emoji, iconCacheKey = "emoji_${emoji.hashCode()}", type = AppInfo.TYPE_EMOJI)
+                            spinningIcons.add(IconData(texture, newSize, app))
+                        }
+                    }
+
+                    for (pair in photoBitmaps) {
+                        val uri = pair.first
+                        val bitmap = pair.second
+                        val texture = bitmapToTexture(bitmap)
+                        bitmap.recycle()
+
+                        if (texture != null) {
+                            val app = AppInfo(packageName = uri, appName = "Custom Photo", iconCacheKey = "custom_photo_${uri.hashCode()}", type = AppInfo.TYPE_PHOTO)
                             spinningIcons.add(IconData(texture, newSize, app))
                         }
                     }
