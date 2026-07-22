@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="#F5D8B3"
-    app:strokeColor="#2E1C0C"
-    app:strokeWidth="2dp"
+    android:background="@drawable/bg_item_card"
     android:clickable="true"
     android:focusable="true"
-    app:rippleColor="#102E1C0C">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,7 +36,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="4dp"
                 android:textSize="12sp"
-                android:textColor="#2E1C0C"
+                android:textColor="@color/cosmic_text_primary"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:fontFamily="@font/app_font" />
@@ -54,4 +50,5 @@
             android:src="@drawable/checkbox_unselected"
             android:visibility="visible" />
     </FrameLayout>
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>
+

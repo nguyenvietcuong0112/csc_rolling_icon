@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/emoji_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="#F5D8B3"
-    app:strokeColor="#2E1C0C"
-    app:strokeWidth="2dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/bg_item_card"
     android:clickable="true"
     android:focusable="true"
-    app:rippleColor="#102E1C0C">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:layout_height="84dp"
+        android:padding="6dp">
 
         <ImageView
             android:id="@+id/emoji_item_icon_view"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
             android:layout_gravity="center"
-            android:padding="4dp"
             android:scaleType="centerInside" />
 
+        <!-- Top-Right Selection Checkbox -->
         <ImageView
             android:id="@+id/emoji_item_icon_checked_view"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="top|right"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="4dp"
             android:src="@drawable/checkbox_unselected"
             android:visibility="visible" />
+
+        <!-- Bottom-Left Link App Badge -->
+        <FrameLayout
+            android:id="@+id/btnLinkApp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_circle_unbound_link"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imgLinkBadge"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_link_badge"
+                app:tint="#A0A0B0" />
+        </FrameLayout>
     </FrameLayout>
-</com.google.android.material.card.MaterialCardView>
+</FrameLayout>

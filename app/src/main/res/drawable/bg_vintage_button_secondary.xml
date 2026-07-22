@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <!-- Clean white background for secondary button -->
-    <solid android:color="#FFFFFF" />
+    <solid android:color="@color/cosmic_white" />
     
     <!-- Bold hand-drawn style dark brown border -->
     <stroke
@@ -12,3 +12,4 @@
     <!-- Cartoonish rounded corners -->
     <corners android:radius="16dp" />
 </shape>
+

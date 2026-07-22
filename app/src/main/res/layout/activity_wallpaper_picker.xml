@@ -3,38 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_dashboard_gradient"
-    android:fitsSystemWindows="true">
+    android:background="@color/cosmic_background"
+    android:fitsSystemWindows="false">
 
-    <!-- Top Bar -->
+    <!-- Cosmic Header Container -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingHorizontal="16dp"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:paddingTop="24dp"
+        >
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back"
-            android:padding="8dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="#2E1C0C" />
+        <!-- Top Bar -->
+        <RelativeLayout
+            android:id="@+id/layoutTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/select_wallpaper"
-            android:textColor="#2E1C0C"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/app_font" />
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_back_pur"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/select_wallpaper"
+                android:textColor="@color/cosmic_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/app_font" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <!-- Wallpapers Grid List -->
@@ -47,3 +53,4 @@
         android:scrollbars="none" />
 
 </LinearLayout>
+

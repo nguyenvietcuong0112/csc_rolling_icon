@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "825306234128",
+    "project_id": "d72---rolling-icon-a8bfc",
+    "storage_bucket": "d72---rolling-icon-a8bfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825306234128:android:b5182f69a904388603b995",
+        "android_client_info": {
+          "package_name": "com.iconchanger.wallpaper.rolling.icons"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGuh0L0-ZkKQUiqZFRSR5wCzPMG1UuFIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

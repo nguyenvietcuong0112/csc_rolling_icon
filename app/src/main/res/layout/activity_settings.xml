@@ -4,38 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_dashboard_gradient"
-    android:fitsSystemWindows="true">
+    android:background="@color/cosmic_background"
+    android:fitsSystemWindows="false">
 
-    <!-- Top Bar -->
+    <!-- Cosmic Header Container -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingHorizontal="16dp"
-        android:background="@android:color/transparent">
+        android:layout_height="@dimen/dp_100"
+        android:paddingTop="@dimen/dp_24"
+        >
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back"
-            android:padding="8dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="#2E1C0C" />
+        <!-- Top Bar -->
+        <RelativeLayout
+            android:id="@+id/layoutTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/settings_title"
-            android:textColor="#2E1C0C"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/app_font" />
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/settings_title"
+                android:textColor="@color/cosmic_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/app_font" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView
@@ -54,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LAUNCHER SETTINGS"
-                android:textColor="#C85C32"
+                android:textColor="@color/cosmic_accent"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -65,9 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:id="@+id/btnSetDefaultLauncher"
@@ -90,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/make_it_launcher"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
@@ -99,7 +104,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Set as default home screen"
-                            android:textColor="#4E3629"
+                            android:textColor="@color/cosmic_text_subtitle"
                             android:textSize="11sp"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
@@ -108,7 +113,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@android:drawable/ic_media_play"
-                        android:tint="#2E1C0C" />
+                        android:tint="@color/cosmic_accent" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -117,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PHYSICS WALLPAPER SETTINGS"
-                android:textColor="#C85C32"
+                android:textColor="@color/cosmic_accent"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -128,9 +133,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -159,7 +164,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/select_bg_image"
-                                android:textColor="#2E1C0C"
+                                android:textColor="@color/cosmic_text_primary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/app_font" />
@@ -169,7 +174,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/bg_default"
-                                android:textColor="#4E3629"
+                                android:textColor="@color/cosmic_text_subtitle"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/app_font" />
                         </LinearLayout>
@@ -178,14 +183,14 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@android:drawable/ic_media_play"
-                            android:tint="#2E1C0C" />
+                            android:tint="@color/cosmic_accent" />
                     </LinearLayout>
 
                     <!-- Divider -->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#202E1C0C"
+                        android:background="@color/cosmic_border_light"
                         android:layout_marginBottom="20dp" />
 
                     <!-- Icon Size Selector -->
@@ -199,7 +204,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Icon Size"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
@@ -209,10 +214,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="44dp"
                             android:orientation="horizontal"
-                            android:background="@drawable/bg_button_get_started"
-                            android:backgroundTint="#EED4B6"
+                            android:background="@drawable/bg_emoji_tab_container"
                             android:layout_marginTop="10dp"
-                            android:padding="2dp">
+                            android:padding="3dp">
 
                             <TextView
                                 android:id="@+id/btnSizeSmall"
@@ -259,7 +263,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#202E1C0C"
+                        android:background="@color/cosmic_border_light"
                         android:layout_marginBottom="20dp" />
 
                     <!-- Enable Wallpaper Touch -->
@@ -279,7 +283,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Touch Interaction"
-                                android:textColor="#2E1C0C"
+                                android:textColor="@color/cosmic_text_primary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/app_font" />
@@ -288,7 +292,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Interact with icons on wallpaper touch"
-                                android:textColor="#4E3629"
+                                android:textColor="@color/cosmic_text_subtitle"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/app_font" />
                         </LinearLayout>
@@ -299,8 +303,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            app:thumbTint="#C85C32"
-                            app:trackTint="#EED4B6" />
+                            app:thumbTint="@color/cosmic_accent"
+                            app:trackTint="@color/cosmic_border_purple_light" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -311,7 +315,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FLOATING BUTTON"
-                android:textColor="#C85C32"
+                android:textColor="@color/cosmic_accent"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -322,9 +326,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -348,7 +352,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/enable_float_button"
-                                android:textColor="#2E1C0C"
+                                android:textColor="@color/cosmic_text_primary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/app_font" />
@@ -357,7 +361,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/float_button_desc"
-                                android:textColor="#4E3629"
+                                android:textColor="@color/cosmic_text_subtitle"
                                 android:textSize="11sp"
                                 android:fontFamily="@font/app_font" />
                         </LinearLayout>
@@ -368,8 +372,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            app:thumbTint="#C85C32"
-                            app:trackTint="#EED4B6" />
+                            app:thumbTint="@color/cosmic_accent"
+                            app:trackTint="@color/cosmic_border_purple_light" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -380,7 +384,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SUPPORT INFORMATION"
-                android:textColor="#C85C32"
+                android:textColor="@color/cosmic_accent"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp"
@@ -391,9 +395,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -416,13 +420,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_rate_us"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/cosmic_border_light" />
 
                     <!-- Feedback -->
                     <LinearLayout
@@ -440,13 +444,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_feedback"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/cosmic_border_light" />
 
                     <!-- About Ads -->
                     <LinearLayout
@@ -464,13 +468,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_about_ads"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/cosmic_border_light" />
 
                     <!-- Privacy Policy -->
                     <LinearLayout
@@ -488,13 +492,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_privacy_policy"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/cosmic_border_light" />
 
                     <!-- Service Policy -->
                     <LinearLayout
@@ -512,13 +516,13 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_service_policy"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#202E1C0C" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/cosmic_border_light" />
 
                     <!-- About Us -->
                     <LinearLayout
@@ -536,7 +540,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/menu_about_us"
-                            android:textColor="#2E1C0C"
+                            android:textColor="@color/cosmic_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
@@ -547,3 +551,4 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+

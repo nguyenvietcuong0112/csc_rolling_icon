@@ -4,38 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_dashboard_gradient"
-    android:fitsSystemWindows="true">
+    android:background="@color/cosmic_background"
+    android:fitsSystemWindows="false">
 
-    <!-- Top Title Bar -->
+    <!-- Cosmic Header Container -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingHorizontal="16dp"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header"
+        android:paddingBottom="16dp">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back"
-            android:padding="8dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="#2E1C0C" />
+        <!-- Top Title Bar -->
+        <RelativeLayout
+            android:id="@+id/layoutTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingTop="24dp"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/select_shape_path"
-            android:textColor="#2E1C0C"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/app_font" />
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back"
+                android:background="@drawable/bg_white_rounded_12"
+                android:padding="10dp"
+                android:tint="@color/cosmic_text_primary"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/select_shape_path"
+                android:textColor="@color/cosmic_white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/app_font" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <!-- Subtitle -->
@@ -43,11 +52,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="SELECT SHAPE PATH MAP"
-        android:textColor="#C85C32"
+        android:textColor="@color/cosmic_accent"
         android:textSize="12sp"
         android:textStyle="bold"
         android:gravity="center"
         android:letterSpacing="0.05"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/app_font" />
 
@@ -74,9 +84,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -94,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Heart"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -111,9 +121,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,7 +141,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Infinity"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -148,9 +158,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -162,13 +172,13 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_shape_star" />
+                        android:src="@drawable/ic_hearting" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Star"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -185,9 +195,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -205,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Flower"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -222,9 +232,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +252,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Clover"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -259,9 +269,9 @@
                 android:layout_margin="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#F5D8B3"
-                app:strokeColor="#2E1C0C"
-                app:strokeWidth="2dp">
+                app:cardBackgroundColor="@color/cosmic_white"
+                app:strokeColor="@color/cosmic_border_light"
+                app:strokeWidth="1.5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -279,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Butterfly"
-                        android:textColor="#2E1C0C"
+                        android:textColor="@color/cosmic_text_primary"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="6dp"
@@ -296,19 +306,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="#F9EED2"
-        android:elevation="8dp">
+        android:background="@color/cosmic_background">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:text="@string/btn_continue"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bg_vintage_button_terracotta"
-            android:textSize="14sp"
+            android:textColor="@color/cosmic_white"
+            android:background="@drawable/bg_purple_gradient_btn"
+            android:stateListAnimator="@null"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:fontFamily="@font/app_font" />
     </LinearLayout>
 
 </LinearLayout>
+
+

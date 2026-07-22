@@ -4,11 +4,11 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
 
-    <!-- Circle background with border -->
+    <!-- Outer Circle -->
     <path
-        android:fillColor="#EED4B6"
-        android:strokeColor="#2E1C0C"
-        android:strokeWidth="2"
+        android:strokeColor="#C4C2D0"
+        android:strokeWidth="1.5"
+        android:fillColor="@android:color/transparent"
         android:pathData="M 12 2 A 10 10 0 1 0 12 22 A 10 10 0 1 0 12 2 Z" />
 
 </vector>

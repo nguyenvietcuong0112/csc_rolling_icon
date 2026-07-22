@@ -13,7 +13,8 @@
 
     <!-- Plus symbol in the center -->
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/cosmic_white"
         android:pathData="M 22 16 L 26 16 L 26 22 L 32 22 L 32 26 L 26 26 L 26 32 L 22 32 L 22 26 L 16 26 L 16 22 L 22 22 Z" />
 
 </vector>
+

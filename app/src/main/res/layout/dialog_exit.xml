@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="8dp"
             android:text="@string/btn_exit"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/cosmic_white"
             android:background="@drawable/bg_vintage_button_terracotta"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -70,3 +70,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

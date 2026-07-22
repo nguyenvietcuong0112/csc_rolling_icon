@@ -4,39 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_dashboard_gradient"
-    android:fitsSystemWindows="true">
+    android:background="@color/cosmic_background"
+    android:fitsSystemWindows="false">
 
-    <!-- Top Title Bar -->
+    <!-- Cosmic Header Container -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:paddingHorizontal="16dp"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header"
+        android:paddingBottom="16dp">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_back"
-            android:padding="8dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            android:tint="#2E1C0C" />
+        <!-- Top Title Bar -->
+        <RelativeLayout
+            android:id="@+id/layoutTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingTop="24dp"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:id="@+id/txtHeaderTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/spinning_style_title"
-            android:textColor="#2E1C0C"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/app_font" />
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back"
+                android:background="@drawable/bg_white_rounded_12"
+                android:padding="10dp"
+                android:tint="@color/cosmic_text_primary"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/txtHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/spinning_style_title"
+                android:textColor="@color/cosmic_white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/app_font" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <!-- Selection Info and Clear Action Row -->
@@ -53,7 +62,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="Selected: 0"
-            android:textColor="#4E3629"
+            android:textColor="@color/cosmic_text_subtitle"
             android:textSize="13sp"
             android:textStyle="bold"
             android:fontFamily="@font/app_font" />
@@ -65,7 +74,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/photo_icon_edit_close_bt"
-            android:tint="#C85C32"
+            android:tint="#FF5959"
             android:padding="6dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:clickable="true"
@@ -102,8 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#F9EED2"
-        android:elevation="8dp">
+        android:background="@color/cosmic_background">
 
         <!-- Selected Horizontal Recycler -->
         <androidx.recyclerview.widget.RecyclerView
@@ -113,7 +121,7 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="4dp"
             android:clipToPadding="false"
-            android:background="#152E1C0C" /> <!-- Semi-transparent border line background -->
+            android:background="@color/cosmic_bg_light_lavender" />
 
         <!-- Continue Button -->
         <LinearLayout
@@ -125,14 +133,17 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNext"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="50dp"
                 android:text="@string/btn_continue"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/bg_vintage_button_terracotta"
-                android:textSize="14sp"
+                android:textColor="@color/cosmic_white"
+                android:background="@drawable/bg_purple_gradient_btn"
+            android:stateListAnimator="@null"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/app_font" />
         </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
+
+

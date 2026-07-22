@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <com.rolling.spinning.icon3d.widget.ZoomableImageView
+    <com.iconchanger.wallpaper.rolling.icons.widget.ZoomableImageView
         android:id="@+id/zoomImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -17,6 +17,8 @@
         android:layout_margin="16dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:tint="#FFFFFF"
+        android:tint="@color/cosmic_white"
         android:contentDescription="Close" />
 </FrameLayout>
+
+

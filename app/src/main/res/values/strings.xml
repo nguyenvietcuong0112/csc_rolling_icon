@@ -6,12 +6,12 @@
     <string name="settings_label">Rolling Icons Settings</string>
 
     <!-- MainActivity -->
-    <string name="title_3d_custom_icons">3D Custom Icons</string>
+    <string name="title_3d_custom_icons">3D Rolling Icon</string>
     <string name="rolling_icon_title">Rolling Icon</string>
-    <string name="rolling_icon_desc">Icons move freely and roll around based on 3D physical gravity.</string>
+    <string name="rolling_icon_desc">Rolling animation to your Icons</string>
     <string name="btn_start">Start</string>
     <string name="spinning_icon_title">Spinning Icon</string>
-    <string name="spinning_icon_desc">Create continuous artistic rotating icon effects around the center.</string>
+    <string name="spinning_icon_desc">Make your icons spin continuously</string>
     <string name="shape_path_title">Shape Path</string>
     <string name="shape_path_desc">Periodic movement along drawn shapes: Heart, Clover, Butterfly...</string>
     <string name="emoji_icon_title">Emoji Icon</string>
