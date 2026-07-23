@@ -1,6 +1,5 @@
 package com.iconchanger.wallpaper.rolling.icons.ui
 
-import android.app.WallpaperManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -11,9 +10,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
+import com.iconchanger.wallpaper.rolling.icons.BuildConfig
 import androidx.lifecycle.lifecycleScope
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
@@ -25,13 +24,14 @@ class SettingsActivity : BaseActivity() {
 
     private lateinit var btnBack: ImageView
     private lateinit var btnSetDefaultLauncher: View
+    private lateinit var switchMakeLauncher: SwitchCompat
     private lateinit var btnSizeSmall: TextView
     private lateinit var btnSizeMiddle: TextView
     private lateinit var btnSizeLarge: TextView
-    private lateinit var btnSelectBgImage: View
-    private lateinit var txtBgSubtitle: TextView
     private lateinit var switchFloatButton: SwitchCompat
     private lateinit var switchWallpaperTouch: SwitchCompat
+    private lateinit var tvSettingsVersionValue: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -40,18 +40,18 @@ class SettingsActivity : BaseActivity() {
 
         btnBack = findViewById(R.id.btnBack)
         btnSetDefaultLauncher = findViewById(R.id.btnSetDefaultLauncher)
+        switchMakeLauncher = findViewById(R.id.switchMakeLauncher)
         btnSizeSmall = findViewById(R.id.btnSizeSmall)
         btnSizeMiddle = findViewById(R.id.btnSizeMiddle)
         btnSizeLarge = findViewById(R.id.btnSizeLarge)
-        btnSelectBgImage = findViewById(R.id.btnSelectBgImage)
-        txtBgSubtitle = findViewById(R.id.txtBgSubtitle)
         switchFloatButton = findViewById(R.id.switchFloatButton)
         switchWallpaperTouch = findViewById(R.id.switchWallpaperTouch)
+        tvSettingsVersionValue = findViewById(R.id.tv_settings_version_value)
 
         btnBack.setOnClickListener { finish() }
 
-        // 1. Make it as launcher
-        btnSetDefaultLauncher.setOnClickListener {
+        // 1. Make it as launcher action
+        val openLauncherSettingsAction = {
             Toast.makeText(this, getString(R.string.toast_select_launcher), Toast.LENGTH_LONG).show()
             try {
                 val intent = Intent(Settings.ACTION_HOME_SETTINGS).apply {
@@ -67,64 +67,50 @@ class SettingsActivity : BaseActivity() {
             }
         }
 
+        tvSettingsVersionValue.text = "v${BuildConfig.VERSION_NAME}"
+
+        btnSetDefaultLauncher.setOnClickListener { openLauncherSettingsAction() }
+        switchMakeLauncher.setOnClickListener { openLauncherSettingsAction() }
+
         // 2. Icon size Segmented control
-        btnSizeSmall.setOnClickListener { updateIconSize(0.7f) }
+        btnSizeSmall.setOnClickListener { updateIconSize(0.6f) }
         btnSizeMiddle.setOnClickListener { updateIconSize(1.0f) }
-        btnSizeLarge.setOnClickListener { updateIconSize(1.3f) }
+        btnSizeLarge.setOnClickListener { updateIconSize(1.4f) }
 
-        // 3. Select background image
-        btnSelectBgImage.setOnClickListener {
-            val intent = Intent(this, WallpaperPickerActivity::class.java).apply {
-                putExtra("from_settings", true)
-                putExtra("mode", "rolling")
-            }
-            startActivity(intent)
-        }
-
-        // 4. Enable float button??
+        // 3. Enable float button
         switchFloatButton.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch {
                 preferenceRepository.setFloatButtonEnabled(isChecked)
             }
         }
 
-        // 5. Enable wallpaper touch?
+        // 4. Enable wallpaper touch
         switchWallpaperTouch.setOnCheckedChangeListener { _, isChecked ->
             lifecycleScope.launch {
                 preferenceRepository.setWallpaperTouchEnabled(isChecked)
             }
         }
 
-        // Action Buttons
-        findViewById<View>(R.id.btnFeedback).setOnClickListener {
-            Toast.makeText(this, getString(R.string.toast_feedback_coming), Toast.LENGTH_SHORT).show()
+        // Support Information Actions
+        findViewById<View>(R.id.btnLanguage)?.setOnClickListener {
+            Toast.makeText(this, "Language selection coming soon", Toast.LENGTH_SHORT).show()
         }
 
-        findViewById<View>(R.id.btnRateUs).setOnClickListener {
-            Toast.makeText(this, getString(R.string.toast_thanks_rating), Toast.LENGTH_SHORT).show()
+        findViewById<View>(R.id.btnPrivacyPolicy)?.setOnClickListener {
+            openWebPage("https://google.com")
         }
 
-        findViewById<View>(R.id.btnAboutUs).setOnClickListener {
+        findViewById<View>(R.id.btnAboutUs)?.setOnClickListener {
             Toast.makeText(this, getString(R.string.toast_about_app), Toast.LENGTH_LONG).show()
         }
 
-        findViewById<View>(R.id.btnPrivacyPolicy).setOnClickListener {
-            openWebPage("")
-        }
-
-        findViewById<View>(R.id.btnServicePolicy).setOnClickListener {
-            openWebPage("")
-        }
-
-        findViewById<View>(R.id.btnAboutAds).setOnClickListener {
-            Toast.makeText(this, getString(R.string.toast_about_ads), Toast.LENGTH_LONG).show()
-        }
-
-        // Tải cấu hình từ Preferences
         loadSettingsFromPrefs()
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        switchMakeLauncher.isChecked = isDefaultLauncher()
+    }
 
     private fun loadSettingsFromPrefs() {
         lifecycleScope.launch {
@@ -132,14 +118,8 @@ class SettingsActivity : BaseActivity() {
             val size = preferenceRepository.getIconSize()
             updateSizeButtonsUI(size)
 
-            // Load Background Subtitle
-            val bgType = preferenceRepository.getBgType()
-            val bgPath = preferenceRepository.getBgImagePath()
-            if (bgType == 2 && bgPath.isNotEmpty()) {
-                txtBgSubtitle.text = getString(R.string.bg_custom_image)
-            } else {
-                txtBgSubtitle.text = getString(R.string.bg_default)
-            }
+            // Load Launcher state
+            switchMakeLauncher.isChecked = isDefaultLauncher()
 
             // Load Float Button
             switchFloatButton.isChecked = preferenceRepository.isFloatButtonEnabled()
@@ -157,20 +137,18 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun updateSizeButtonsUI(size: Float) {
-        // Trạng thái nhỏ (small = 0.7f)
-        if (size <= 0.8f) {
+        val isSmall = size < 0.8f
+        val isMiddle = size in 0.8f..1.2f
+
+        if (isSmall) {
             setSelectedSegmentButton(btnSizeSmall)
             setUnselectedSegmentButton(btnSizeMiddle)
             setUnselectedSegmentButton(btnSizeLarge)
-        }
-        // Trạng thái trung bình (middle = 1.0f)
-        else if (size <= 1.1f) {
+        } else if (isMiddle) {
             setUnselectedSegmentButton(btnSizeSmall)
             setSelectedSegmentButton(btnSizeMiddle)
             setUnselectedSegmentButton(btnSizeLarge)
-        }
-        // Trạng thái lớn (large = 1.3f)
-        else {
+        } else {
             setUnselectedSegmentButton(btnSizeSmall)
             setUnselectedSegmentButton(btnSizeMiddle)
             setSelectedSegmentButton(btnSizeLarge)
@@ -178,14 +156,13 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setSelectedSegmentButton(textView: TextView) {
-        textView.setBackgroundResource(R.drawable.bg_vintage_tab_selected)
-        textView.backgroundTintList = null
-        textView.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent))
+        textView.background = ContextCompat.getDrawable(this, R.drawable.bg_purple_gradient_btn)
+        textView.setTextColor(Color.WHITE)
     }
 
     private fun setUnselectedSegmentButton(textView: TextView) {
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.setTextColor(androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_text_secondary))
+        textView.background = null
+        textView.setTextColor(Color.parseColor("#1A1A1A"))
     }
 
     private fun isDefaultLauncher(): Boolean {
@@ -205,5 +182,3 @@ class SettingsActivity : BaseActivity() {
         }
     }
 }
-
-

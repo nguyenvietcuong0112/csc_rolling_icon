@@ -3,17 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/cosmic_background"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
     <!-- Cosmic Header Container -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:paddingTop="@dimen/dp_24"
-        >
+        android:paddingTop="@dimen/dp_24">
 
         <!-- Top Header Bar -->
         <RelativeLayout
@@ -28,27 +27,27 @@
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_arrow_back"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:src="@drawable/ic_back_pur" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="CUSTOMIZE SETTINGS"
+                android:fontFamily="@font/app_font"
+                android:text="Customize Setting"
                 android:textColor="@color/cosmic_text_primary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/app_font" />
+                android:textStyle="bold" />
         </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginTop="@dimen/dp_16"
+        android:layout_weight="1"
         android:scrollbars="none">
 
         <LinearLayout
@@ -57,188 +56,257 @@
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
 
-            <!-- 1. Section Chọn Mode -->
+            <!-- 1. Section Chọn Display Mode -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SELECT DISPLAY MODE"
-                android:textColor="@color/cosmic_accent"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="12dp"
-                android:fontFamily="@font/app_font" />
+                android:fontFamily="@font/app_font"
+                android:text="Select Display Mode"
+                android:textColor="#8A52FF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <!-- Card 1: Live Wallpaper -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- Card 1: Live Wallpaper Mode -->
+            <FrameLayout
                 android:id="@+id/cardLiveWallpaper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/cosmic_white"
-                app:strokeColor="@color/cosmic_accent"
-                app:strokeWidth="2.5dp"
+                android:background="@drawable/bg_card_selected"
                 android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:focusable="true">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Live Wallpaper Mode"
-                        android:textColor="@color/cosmic_text_primary"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/app_font" />
+                    <FrameLayout
+                        android:id="@+id/iconContainerLive"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_72"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_white_rounded_12">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Your selected apps and photos will roll and tumble as a live wallpaper behind your system home screen."
-                        android:textColor="@color/cosmic_text_subtitle"
-                        android:textSize="12sp"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/app_font" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:id="@+id/imgIconLiveWallpaper"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_customize_live_wallpaper" />
+                    </FrameLayout>
 
-            <!-- Card 2: Home Launcher -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardHomeLauncher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/cosmic_white"
-                app:strokeColor="@color/cosmic_border_light"
-                app:strokeWidth="1.0dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Home Launcher Mode"
-                        android:textColor="@color/cosmic_text_primary"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/app_font" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fully replace your system home screen with an interactive physics icon desktop and app drawer."
-                        android:textColor="@color/cosmic_text_subtitle"
-                        android:textSize="12sp"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/app_font" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 2. Section Cấu hình thông số -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CONFIGURATION OPTIONS"
-                android:textColor="@color/cosmic_accent"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/app_font" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/cosmic_white"
-                app:strokeColor="@color/cosmic_border_light"
-                app:strokeWidth="1.5dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <!-- Icon Size -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:layout_toRightOf="@id/iconContainerLive"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Icon Size"
-                            android:textColor="@color/cosmic_text_primary"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/app_font" />
+                            android:fontFamily="@font/app_font"
+                            android:text="Live Wallpaper Mode"
+                            android:textColor="#1A1A1A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                        <!-- Segment Size Controls -->
-                        <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/app_font"
+                            android:text="Your selected apps and photo will roll and tumble as a live wallpaper behind your system home screen"
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <!-- Card 2: Home Launcher Mode -->
+            <FrameLayout
+                android:id="@+id/cardHomeLauncher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_card_unselected"
+                android:clickable="true"
+                android:focusable="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <FrameLayout
+                        android:id="@+id/iconContainerHome"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_72"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_white_rounded_12">
+
+                        <ImageView
+                            android:id="@+id/imgIconHomeLauncher"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal"
-                            android:background="@drawable/bg_emoji_tab_container"
-                            android:layout_marginTop="8dp"
-                            android:padding="3dp">
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_customize_home_launcher" />
+                    </FrameLayout>
 
-                            <TextView
-                                android:id="@+id/btnSizeSmall"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/size_small"
-                                android:textColor="@color/cosmic_text_secondary"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/app_font"
-                                android:clickable="true"
-                                android:focusable="true" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="14dp"
+                        android:layout_toRightOf="@id/iconContainerHome"
+                        android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/btnSizeMiddle"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/size_middle"
-                                android:textColor="@color/cosmic_text_secondary"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/app_font"
-                                android:clickable="true"
-                                android:focusable="true" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/app_font"
+                            android:text="Home Launcher Mode"
+                            android:textColor="#1A1A1A"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/btnSizeLarge"
-                                android:layout_width="0dp"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/app_font"
+                            android:text="Fully replace your system home screen with an interactive physics icon desktop and app drawer."
+                            android:textColor="#757575"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <!-- 2. Section Physics Wallpaper Settings -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/app_font"
+                android:text="Physics Wallpaper Settings"
+                android:textColor="#8A52FF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/bg_card_unselected">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Item 1: Icon Size (2 Columns: Left Icon, Right Column with 3 Rows) -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Left Column: Icon Container -->
+                        <FrameLayout
+                            android:id="@+id/iconContainerSize"
+                            android:layout_width="@dimen/dp_72"
+                            android:layout_height="@dimen/dp_72"
+                            android:background="@drawable/bg_white_rounded_12">
+
+                            <ImageView
+                                android:id="@+id/imgIconSize"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="@string/size_large"
-                                android:textColor="@color/cosmic_text_secondary"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
+                                android:src="@drawable/ic_customize_icon_size" />
+                        </FrameLayout>
+
+                        <!-- Right Column: 3 Rows -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <!-- Row 1: Title -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:fontFamily="@font/app_font"
-                                android:clickable="true"
-                                android:focusable="true" />
+                                android:text="Icon Size"
+                                android:textColor="#1A1A1A"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <!-- Row 2: Subtitle -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="@font/app_font"
+                                android:text="Set as default home screen"
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
+
+                            <!-- Row 3: Segmented Controls Container -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/bg_emoji_tab_container"
+                                android:orientation="horizontal"
+                                android:padding="3dp">
+
+                                <TextView
+                                    android:id="@+id/btnSizeSmall"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:fontFamily="@font/app_font"
+                                    android:gravity="center"
+                                    android:text="@string/size_small"
+                                    android:textColor="#1A1A1A"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnSizeMiddle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:fontFamily="@font/app_font"
+                                    android:gravity="center"
+                                    android:text="@string/size_middle"
+                                    android:textColor="#1A1A1A"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/btnSizeLarge"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:fontFamily="@font/app_font"
+                                    android:gravity="center"
+                                    android:text="@string/size_large"
+                                    android:textColor="#1A1A1A"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -246,38 +314,55 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/cosmic_border_light"
-                        android:layout_marginVertical="16dp" />
+                        android:layout_marginVertical="8dp"
+                        android:background="#EAEAEA" />
 
-                    <!-- Touch Interaction Switch -->
+                    <!-- Item 2: Touch Interaction Switch -->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <FrameLayout
+                            android:id="@+id/iconContainerTouch"
+                            android:layout_width="@dimen/dp_72"
+                            android:layout_height="@dimen/dp_72"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_white_rounded_12">
+
+                            <ImageView
+                                android:id="@+id/imgIconTouch"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_customize_touch" />
+                        </FrameLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginHorizontal="12dp"
                             android:layout_toLeftOf="@+id/switchWallpaperTouch"
-                            android:layout_marginRight="16dp">
+                            android:layout_toRightOf="@id/iconContainerTouch"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/app_font"
                                 android:text="Touch Interaction"
-                                android:textColor="@color/cosmic_text_primary"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/app_font" />
+                                android:textColor="#1A1A1A"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="@font/app_font"
                                 android:text="Allow clicking on rolling icons on the wallpaper"
-                                android:textColor="@color/cosmic_text_subtitle"
-                                android:textSize="11sp"
-                                android:fontFamily="@font/app_font" />
+                                android:textColor="#757575"
+                                android:textSize="11sp" />
                         </LinearLayout>
 
                         <androidx.appcompat.widget.SwitchCompat
@@ -294,38 +379,55 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/cosmic_border_light"
-                        android:layout_marginVertical="16dp" />
+                        android:layout_marginVertical="8dp"
+                        android:background="#EAEAEA" />
 
-                    <!-- Enable Float Button Switch -->
+                    <!-- Item 3: Enable float button? Switch -->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
+                        <FrameLayout
+                            android:id="@+id/iconContainerFloat"
+                            android:layout_width="@dimen/dp_72"
+                            android:layout_height="@dimen/dp_72"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_white_rounded_12">
+
+                            <ImageView
+                                android:id="@+id/imgIconFloat"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_customize_float_btn" />
+                        </FrameLayout>
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginHorizontal="12dp"
                             android:layout_toLeftOf="@+id/switchFloatButton"
-                            android:layout_marginRight="16dp">
+                            android:layout_toRightOf="@id/iconContainerFloat"
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Show Floating Button"
-                                android:textColor="@color/cosmic_text_primary"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/app_font" />
+                                android:fontFamily="@font/app_font"
+                                android:text="Enable float button?"
+                                android:textColor="#1A1A1A"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Display a floating shortcut button to quickly open this app from the home screen"
-                                android:textColor="@color/cosmic_text_subtitle"
-                                android:textSize="11sp"
-                                android:fontFamily="@font/app_font" />
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="@font/app_font"
+                                android:text="Launcher's float button"
+                                android:textColor="#757575"
+                                android:textSize="11sp" />
                         </LinearLayout>
 
                         <androidx.appcompat.widget.SwitchCompat
@@ -339,7 +441,7 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -348,22 +450,21 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:padding="16dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnPreviewApply"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="PREVIEW &amp; APPLY"
+            android:background="@drawable/bg_purple_gradient_btn"
+            android:fontFamily="@font/app_font"
+            android:gravity="center"
+            android:stateListAnimator="@null"
+            android:text="Apply"
             android:textColor="@color/cosmic_white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:background="@drawable/bg_purple_gradient_btn"
-            android:stateListAnimator="@null"
-            android:fontFamily="@font/app_font" />
+            android:textStyle="bold" />
     </FrameLayout>
 
 </LinearLayout>
-
-

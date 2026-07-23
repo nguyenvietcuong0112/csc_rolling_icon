@@ -1,20 +1,20 @@
 package com.iconchanger.wallpaper.rolling.icons.ui
 
-import android.app.WallpaperManager
-import android.content.ComponentName
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
-import com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,9 +25,11 @@ class WallpaperPickerActivity : BaseActivity() {
     private val scope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var recyclerView: RecyclerView
-    private var wallpaperMode = "rolling" // "rolling" or "spinning"
+    private lateinit var btnApply: Button
+    private var wallpaperMode = "rolling" // "rolling", "spinning", or "shape_path"
+    private var selectedPosition = 0
 
-    // Danh sách 9 hình nền trong dự án
+    // List of local wallpaper drawables
     private val wallpapers = listOf(
         R.drawable.bg_wallpaper_00,
         R.drawable.bg_wallpaper_01,
@@ -48,30 +50,20 @@ class WallpaperPickerActivity : BaseActivity() {
         wallpaperMode = intent.getStringExtra("mode") ?: "rolling"
 
         recyclerView = findViewById(R.id.wallpaperRecyclerView)
+        btnApply = findViewById(R.id.btnApply)
+
         recyclerView.layoutManager = GridLayoutManager(this, 3)
-        recyclerView.adapter = WallpaperAdapter()
+        val adapter = WallpaperAdapter()
+        recyclerView.adapter = adapter
 
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
-    }
 
-    private inner class WallpaperAdapter : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val imgView: ImageView = view.findViewById(R.id.imgWallpaper)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_wallpaper_picker, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val resId = wallpapers[position]
-            holder.imgView.setImageResource(resId)
-
-            holder.itemView.setOnClickListener {
+        // Apply selected wallpaper when Apply button is clicked
+        btnApply.setOnClickListener {
+            if (selectedPosition in wallpapers.indices) {
+                val resId = wallpapers[selectedPosition]
                 val uriString = "android.resource://$packageName/$resId"
 
                 scope.launch {
@@ -83,7 +75,7 @@ class WallpaperPickerActivity : BaseActivity() {
                         preferenceRepository.setWallpaperMode("shape_path")
                     } else {
                         preferenceRepository.setBgImagePath(uriString)
-                        preferenceRepository.setBgType(2) // Bắt buộc dùng hình ảnh
+                        preferenceRepository.setBgType(2) // Image background
                         preferenceRepository.setWallpaperMode("rolling")
                     }
 
@@ -92,7 +84,6 @@ class WallpaperPickerActivity : BaseActivity() {
                         Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
-                        // Khởi chạy màn hình thiết lập tùy chọn (CustomizeActivity) thay vì mở trình cài đặt hệ thống ngay
                         val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
                             putExtra("mode", wallpaperMode)
                         }
@@ -102,8 +93,42 @@ class WallpaperPickerActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private inner class WallpaperAdapter : RecyclerView.Adapter<WallpaperAdapter.ViewHolder>() {
+
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val cardWallpaper: MaterialCardView = view.findViewById(R.id.cardWallpaper)
+            val imgView: ImageView = view.findViewById(R.id.imgWallpaper)
+            val imgCheck: ImageView = view.findViewById(R.id.imgCheck)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_wallpaper_picker, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val resId = wallpapers[position]
+            holder.imgView.setImageResource(resId)
+
+            val isSelected = position == selectedPosition
+            if (isSelected) {
+                holder.cardWallpaper.strokeColor = ContextCompat.getColor(this@WallpaperPickerActivity, R.color.cosmic_accent)
+                holder.imgCheck.setImageResource(R.drawable.ic_check_circle)
+            } else {
+                holder.cardWallpaper.strokeColor = Color.TRANSPARENT
+                holder.imgCheck.setImageResource(R.drawable.ic_circle_unselected)
+            }
+
+            holder.itemView.setOnClickListener {
+                val previous = selectedPosition
+                selectedPosition = holder.bindingAdapterPosition
+                if (previous >= 0) notifyItemChanged(previous)
+                notifyItemChanged(selectedPosition)
+            }
+        }
 
         override fun getItemCount(): Int = wallpapers.size
     }
 }
-

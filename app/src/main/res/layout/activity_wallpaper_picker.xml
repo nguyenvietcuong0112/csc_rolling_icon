@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:paddingTop="24dp"
-        >
+        android:paddingTop="24dp">
 
         <!-- Top Bar -->
         <RelativeLayout
@@ -47,10 +47,31 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/wallpaperRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
         android:clipToPadding="false"
         android:scrollbars="none" />
 
-</LinearLayout>
+    <!-- Bottom Apply Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/cosmic_background">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Apply"
+            android:textColor="@color/cosmic_white"
+            android:background="@drawable/bg_purple_gradient_btn"
+            android:stateListAnimator="@null"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/app_font" />
+    </LinearLayout>
+
+</LinearLayout>

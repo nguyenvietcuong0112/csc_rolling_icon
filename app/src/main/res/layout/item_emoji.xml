@@ -43,13 +43,7 @@
             android:clickable="true"
             android:focusable="true">
 
-            <ImageView
-                android:id="@+id/imgLinkBadge"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_link_badge"
-                app:tint="#A0A0B0" />
+
         </FrameLayout>
     </FrameLayout>
 </FrameLayout>

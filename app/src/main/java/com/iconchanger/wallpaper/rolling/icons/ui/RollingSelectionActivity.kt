@@ -216,6 +216,20 @@ class RollingSelectionActivity : BaseActivity() {
         }
         photoRecyclerView.adapter = photoAdapter
 
+        if (defaultTab in 0..2) {
+            tabLayout.getTabAt(defaultTab)?.select()
+        }
+
+        if (singleMode) {
+            tabLayout.visibility = View.GONE
+            val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
+            if (defaultTab == 1) {
+                txtHeaderTitle.text = getString(R.string.emoji_icon_title)
+            } else if (defaultTab == 2) {
+                txtHeaderTitle.text = getString(R.string.photo_icon_title)
+            }
+        }
+
         // Load all data
         loadData()
 
@@ -246,20 +260,6 @@ class RollingSelectionActivity : BaseActivity() {
                     startActivity(intent)
                     finish()
                 }
-            }
-        }
-
-        if (defaultTab in 0..2) {
-            tabLayout.getTabAt(defaultTab)?.select()
-        }
-
-        if (singleMode) {
-            tabLayout.visibility = View.GONE
-            val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
-            if (defaultTab == 1) {
-                txtHeaderTitle.text = getString(R.string.emoji_icon_title)
-            } else if (defaultTab == 2) {
-                txtHeaderTitle.text = getString(R.string.photo_icon_title)
             }
         }
     }
@@ -298,7 +298,14 @@ class RollingSelectionActivity : BaseActivity() {
     }
 
     private fun loadData() {
-        progressBar.visibility = View.VISIBLE
+        val isAppsTab = tabLayout.selectedTabPosition == 0
+        if (isAppsTab) {
+            progressBar.visibility = View.VISIBLE
+            (progressBar as? com.airbnb.lottie.LottieAnimationView)?.playAnimation()
+        } else {
+            progressBar.visibility = View.GONE
+        }
+
         scope.launch {
             // Load Apps
             val (installed, selectedApps) = withContext(Dispatchers.IO) {
@@ -306,6 +313,7 @@ class RollingSelectionActivity : BaseActivity() {
                 val sel = appRepository.getSelectedApps().map { it.packageName }.toSet()
                 Pair(inst, sel)
             }
+            (progressBar as? com.airbnb.lottie.LottieAnimationView)?.cancelAnimation()
             progressBar.visibility = View.GONE
             allAppsList = installed
             selectedAppsSet.clear()

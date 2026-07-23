@@ -3,15 +3,16 @@ package com.iconchanger.wallpaper.rolling.icons.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
-import android.widget.ProgressBar
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iconchanger.wallpaper.rolling.icons.R
-import com.iconchanger.wallpaper.rolling.icons.adapter.ApiWallpaperAdapter
 import com.iconchanger.wallpaper.rolling.icons.adapter.CategoryAdapter
-import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
+import com.iconchanger.wallpaper.rolling.icons.adapter.CategoryItem
+import com.iconchanger.wallpaper.rolling.icons.model.ApiWallpaperItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,83 +21,64 @@ import org.json.JSONObject
 import java.net.URL
 import java.util.Locale
 
-data class ApiWallpaperItem(
-    val id: String,
-    val category: String,
-    val name: String,
-    val originalImageUrl: String,
-    val thumbnailImageUrl: String,
-    val views: Long
-)
-
 class ApiWallpaperActivity : BaseActivity() {
 
-    private lateinit var preferenceRepository: PreferenceRepository
     private val scope = CoroutineScope(Dispatchers.Main)
 
     private lateinit var categoryRecyclerView: RecyclerView
-    private lateinit var apiWallpaperRecyclerView: RecyclerView
-    private lateinit var progressBar: ProgressBar
+    private lateinit var progressBar: com.airbnb.lottie.LottieAnimationView
+    private lateinit var layoutErrorOrEmpty: LinearLayout
+    private lateinit var txtErrorMessage: TextView
+    private lateinit var btnRetry: Button
 
-    private val allWallpapers = ArrayList<ApiWallpaperItem>()
-    private val displayedWallpapers = ArrayList<ApiWallpaperItem>()
-    private val categoryList = ArrayList<String>()
-
-    private var wallpaperAdapter: ApiWallpaperAdapter? = null
+    private val categoryList = ArrayList<CategoryItem>()
     private var categoryAdapter: CategoryAdapter? = null
-
-    private var selectedCategory = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_api_wallpaper)
 
-        preferenceRepository = PreferenceRepository(this)
-
         categoryRecyclerView = findViewById(R.id.categoryRecyclerView)
-        apiWallpaperRecyclerView = findViewById(R.id.apiWallpaperRecyclerView)
         progressBar = findViewById(R.id.progressBar)
+        layoutErrorOrEmpty = findViewById(R.id.layoutErrorOrEmpty)
+        txtErrorMessage = findViewById(R.id.txtErrorMessage)
+        btnRetry = findViewById(R.id.btnRetry)
 
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        // 1. Setup Category horizontal layout
-        categoryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        categoryAdapter = CategoryAdapter(categoryList) { category ->
-            selectedCategory = category
-            filterWallpapersByCategory()
+        btnRetry.setOnClickListener {
+            fetchCategoriesFromApi()
+        }
+
+        // Setup 2-Column Category Grid Layout
+        categoryRecyclerView.layoutManager = GridLayoutManager(this, 2)
+        categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
+            // Launch separate Detail Activity
+            val intent = Intent(this@ApiWallpaperActivity, ApiWallpaperDetailActivity::class.java).apply {
+                putExtra("category_name", categoryItem.name)
+            }
+            startActivity(intent)
         }
         categoryRecyclerView.adapter = categoryAdapter
 
-        // 2. Setup Wallpaper grid layout
-        apiWallpaperRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        wallpaperAdapter = ApiWallpaperAdapter(displayedWallpapers) { item ->
-            // Immediate navigation upon clicking any item
-            scope.launch {
-                withContext(Dispatchers.IO) {
-                    preferenceRepository.setBgImagePath(item.originalImageUrl)
-                    preferenceRepository.setBgType(2)
-                }
-                val intent = Intent(this@ApiWallpaperActivity, CustomizeActivity::class.java).apply {
-                    putExtra("mode", "wallpaper")
-                }
-                startActivity(intent)
-                finish()
-            }
-        }
-        apiWallpaperRecyclerView.adapter = wallpaperAdapter
-
-        // Fetch wallpapers from API
-        fetchWallpapersFromApi()
+        // Fetch Categories from API
+        fetchCategoriesFromApi()
     }
 
-    private fun fetchWallpapersFromApi() {
+    private fun fetchCategoriesFromApi() {
         progressBar.visibility = View.VISIBLE
+        progressBar.playAnimation()
+        layoutErrorOrEmpty.visibility = View.GONE
+        categoryRecyclerView.visibility = View.VISIBLE
+
         scope.launch(Dispatchers.IO) {
             val fetchedItems = ArrayList<ApiWallpaperItem>()
+            var fetchError = false
+
             try {
-                val apiUrl = "https://api.1teps.com/wallapi/images?image_type=BG&category=all&pageNumber=200"
+                val apiUrl = "https://api.1teps.com/wallapi/images?image_type=BG&category=all&pageNumber=1675"
                 val jsonText = URL(apiUrl).readText()
                 val jsonObject = JSONObject(jsonText)
                 val imagesArray = jsonObject.optJSONArray("images")
@@ -118,30 +100,45 @@ class ApiWallpaperActivity : BaseActivity() {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                fetchError = true
             }
 
-            // Extract unique normalized categories
-            val extractedCategories = LinkedHashSet<String>()
+            // Group items by normalized category and pick the 4th item (index 3) as cover image
+            val categoryGroupMap = LinkedHashMap<String, ArrayList<ApiWallpaperItem>>()
             fetchedItems.forEach { item ->
                 if (item.category.isNotEmpty()) {
-                    extractedCategories.add(normalizeCategory(item.category))
+                    val normalized = normalizeCategory(item.category)
+                    val list = categoryGroupMap.getOrPut(normalized) { ArrayList() }
+                    list.add(item)
                 }
+            }
+
+            val extractedCategoryItems = categoryGroupMap.map { (name, items) ->
+                val coverIndex = if (items.size >= 4) 3 else items.size - 1
+                val coverUrl = items[coverIndex].thumbnailImageUrl
+                CategoryItem(name, coverUrl)
             }
 
             withContext(Dispatchers.Main) {
+                progressBar.cancelAnimation()
                 progressBar.visibility = View.GONE
 
-                allWallpapers.clear()
-                allWallpapers.addAll(fetchedItems)
+                if (fetchError || extractedCategoryItems.isEmpty()) {
+                    categoryRecyclerView.visibility = View.GONE
+                    layoutErrorOrEmpty.visibility = View.VISIBLE
+                    txtErrorMessage.text = if (fetchError) {
+                        "No internet connection. Please check your network and try again."
+                    } else {
+                        "No categories available at the moment."
+                    }
+                } else {
+                    layoutErrorOrEmpty.visibility = View.GONE
+                    categoryRecyclerView.visibility = View.VISIBLE
 
-                categoryList.clear()
-                categoryList.addAll(extractedCategories)
-                if (categoryList.isNotEmpty()) {
-                    selectedCategory = categoryList[0]
+                    categoryList.clear()
+                    categoryList.addAll(extractedCategoryItems)
+                    categoryAdapter?.notifyDataSetChanged()
                 }
-                categoryAdapter?.notifyDataSetChanged()
-
-                filterWallpapersByCategory()
             }
         }
     }
@@ -152,13 +149,5 @@ class ApiWallpaperActivity : BaseActivity() {
             "sport", "sports" -> "Sports"
             else -> clean
         }
-    }
-
-    private fun filterWallpapersByCategory() {
-        displayedWallpapers.clear()
-        displayedWallpapers.addAll(
-            allWallpapers.filter { normalizeCategory(it.category).equals(selectedCategory, ignoreCase = true) }
-        )
-        wallpaperAdapter?.notifyDataSetChanged()
     }
 }

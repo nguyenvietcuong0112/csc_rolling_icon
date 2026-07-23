@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.card.MaterialCardView
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService
@@ -24,8 +23,8 @@ class CustomizeActivity : BaseActivity() {
     private lateinit var preferenceRepository: PreferenceRepository
 
     private lateinit var btnBack: ImageView
-    private lateinit var cardLiveWallpaper: MaterialCardView
-    private lateinit var cardHomeLauncher: MaterialCardView
+    private lateinit var cardLiveWallpaper: View
+    private lateinit var cardHomeLauncher: View
 
     private lateinit var btnSizeSmall: TextView
     private lateinit var btnSizeMiddle: TextView
@@ -68,10 +67,10 @@ class CustomizeActivity : BaseActivity() {
             updateModeSelectionUI()
         }
 
-        // Setup Icon Size Clicks
-        btnSizeSmall.setOnClickListener { updateIconSize(0.7f) }
+        // Setup Icon Size buttons
+        btnSizeSmall.setOnClickListener { updateIconSize(0.6f) }
         btnSizeMiddle.setOnClickListener { updateIconSize(1.0f) }
-        btnSizeLarge.setOnClickListener { updateIconSize(1.3f) }
+        btnSizeLarge.setOnClickListener { updateIconSize(1.4f) }
 
         // Load config from preferences
         loadConfigFromPrefs()
@@ -99,22 +98,11 @@ class CustomizeActivity : BaseActivity() {
     }
 
     private fun updateModeSelectionUI() {
-        val purpleColor = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent)
-        val lightGrayColor = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_border_light)
+        val selectedBg = ContextCompat.getDrawable(this, R.drawable.bg_card_selected)
+        val unselectedBg = ContextCompat.getDrawable(this, R.drawable.bg_card_unselected)
 
-        if (selectedMode == "wallpaper") {
-            cardLiveWallpaper.strokeColor = purpleColor
-            cardLiveWallpaper.strokeWidth = dpToPx(2.5f)
-
-            cardHomeLauncher.strokeColor = lightGrayColor
-            cardHomeLauncher.strokeWidth = dpToPx(1.0f)
-        } else {
-            cardLiveWallpaper.strokeColor = lightGrayColor
-            cardLiveWallpaper.strokeWidth = dpToPx(1.0f)
-
-            cardHomeLauncher.strokeColor = purpleColor
-            cardHomeLauncher.strokeWidth = dpToPx(2.5f)
-        }
+        cardLiveWallpaper.background = if (selectedMode == "wallpaper") selectedBg else unselectedBg
+        cardHomeLauncher.background = if (selectedMode != "wallpaper") selectedBg else unselectedBg
     }
 
     private fun updateIconSize(size: Float) {
@@ -123,15 +111,23 @@ class CustomizeActivity : BaseActivity() {
     }
 
     private fun updateSizeButtonsUI(size: Float) {
-        val activeBg = ContextCompat.getDrawable(this, R.drawable.bg_vintage_tab_selected)
+        val activeBg = ContextCompat.getDrawable(this, R.drawable.bg_purple_gradient_btn)
         val inactiveBg = null
-        btnSizeSmall.background = if (size < 0.8f) activeBg else inactiveBg
-        btnSizeMiddle.background = if (size in 0.8f..1.2f) activeBg else inactiveBg
-        btnSizeLarge.background = if (size > 1.2f) activeBg else inactiveBg
 
-        btnSizeSmall.setTextColor(if (size < 0.8f) androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent) else androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_text_secondary))
-        btnSizeMiddle.setTextColor(if (size in 0.8f..1.2f) androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent) else androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_text_secondary))
-        btnSizeLarge.setTextColor(if (size > 1.2f) androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent) else androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_text_secondary))
+        val isSmall = size < 0.8f
+        val isMiddle = size in 0.8f..1.2f
+        val isLarge = size > 1.2f
+
+        btnSizeSmall.background = if (isSmall) activeBg else inactiveBg
+        btnSizeMiddle.background = if (isMiddle) activeBg else inactiveBg
+        btnSizeLarge.background = if (isLarge) activeBg else inactiveBg
+
+        val whiteColor = android.graphics.Color.WHITE
+        val darkColor = android.graphics.Color.parseColor("#1A1A1A")
+
+        btnSizeSmall.setTextColor(if (isSmall) whiteColor else darkColor)
+        btnSizeMiddle.setTextColor(if (isMiddle) whiteColor else darkColor)
+        btnSizeLarge.setTextColor(if (isLarge) whiteColor else darkColor)
     }
 
     private fun saveConfigAndNavigate() {

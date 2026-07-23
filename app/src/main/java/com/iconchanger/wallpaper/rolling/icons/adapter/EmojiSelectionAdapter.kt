@@ -21,7 +21,6 @@ class EmojiSelectionAdapter(
         val iconView: ImageView = view.findViewById(R.id.emoji_item_icon_view)
         val checkedView: ImageView = view.findViewById(R.id.emoji_item_icon_checked_view)
         val btnLinkApp: View = view.findViewById(R.id.btnLinkApp)
-        val imgLinkBadge: ImageView = view.findViewById(R.id.imgLinkBadge)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,10 +47,8 @@ class EmojiSelectionAdapter(
         val isBound = !boundPackage.isNullOrEmpty()
         if (isBound) {
             holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_bound_link)
-            holder.imgLinkBadge.setColorFilter(ContextCompat.getColor(context, R.color.cosmic_accent))
         } else {
             holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_unbound_link)
-            holder.imgLinkBadge.setColorFilter(Color.parseColor("#A0A0B0"))
         }
 
         holder.btnLinkApp.setOnClickListener {
