@@ -59,11 +59,9 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        // 7. Click vào thẻ Wallpaper
+        // 7. Click vào thẻ Wallpaper -> Mở ApiWallpaperActivity (Online API Mode)
         findViewById<View>(R.id.cardWallpaper).setOnClickListener {
-            val intent = Intent(this, WallpaperPickerActivity::class.java).apply {
-                putExtra("mode", "rolling")
-            }
+            val intent = Intent(this, ApiWallpaperActivity::class.java)
             startActivity(intent)
         }
     }

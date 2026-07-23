@@ -5,21 +5,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.google.android.material.tabs.TabLayout
 import com.iconchanger.wallpaper.rolling.icons.R
+import com.iconchanger.wallpaper.rolling.icons.adapter.AppSelectionAdapter
+import com.iconchanger.wallpaper.rolling.icons.adapter.EmojiSelectionAdapter
+import com.iconchanger.wallpaper.rolling.icons.adapter.PhotoSelectionAdapter
 import com.iconchanger.wallpaper.rolling.icons.data.AppRepository
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import com.iconchanger.wallpaper.rolling.icons.model.AppInfo
@@ -39,8 +38,7 @@ class SpinningAppPickerActivity : BaseActivity() {
     private lateinit var layoutTabApps: LinearLayout
     private lateinit var layoutTabEmojis: LinearLayout
     private lateinit var layoutTabPhotos: LinearLayout
-    private lateinit var btnNext: View
-    private lateinit var txtHeaderTitle: TextView
+    private lateinit var btnNext: Button
 
     // Apps tab data & views
     private lateinit var appRecyclerView: RecyclerView
@@ -50,7 +48,7 @@ class SpinningAppPickerActivity : BaseActivity() {
     private var allAppsList = listOf<AppInfo>()
     private var filteredAppsList = mutableListOf<AppInfo>()
     private val selectedAppsSet = HashSet<String>()
-    private lateinit var appAdapter: AppAdapter
+    private lateinit var appAdapter: AppSelectionAdapter
 
     // Emojis tab data & views
     private lateinit var emojiRecyclerView: RecyclerView
@@ -61,7 +59,7 @@ class SpinningAppPickerActivity : BaseActivity() {
     private val selectedEmojisSet = HashSet<String>()
     private val emojiAppBindingsMap = HashMap<String, String>()
     private val emojiList = ArrayList<String>()
-    private lateinit var emojiAdapter: EmojiAdapter
+    private lateinit var emojiAdapter: EmojiSelectionAdapter
 
     private val emojiGroup = (1..83).map { String.format("emoji_emoji_%02d", it) }
     private val animalGroup = (1..28).map { String.format("emoji_animal_%02d", it) }
@@ -72,24 +70,7 @@ class SpinningAppPickerActivity : BaseActivity() {
     private lateinit var photoRecyclerView: RecyclerView
     private lateinit var txtPhotoCount: TextView
     private val selectedPhotosList = ArrayList<String>()
-    private lateinit var photoAdapter: PhotoAdapter
-
-    private var spinningPattern = "dual_circle"
-
-    private fun saveUriToInternalStorage(uri: Uri): String? {
-        return try {
-            val inputStream = contentResolver.openInputStream(uri) ?: return null
-            val fileName = "photo_${System.currentTimeMillis()}_${(1000..9999).random()}.jpg"
-            val file = java.io.File(filesDir, fileName)
-            file.outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-            file.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
+    private lateinit var photoAdapter: PhotoSelectionAdapter
 
     private val selectPictureLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -119,7 +100,11 @@ class SpinningAppPickerActivity : BaseActivity() {
         appRepository = AppRepository(this)
         preferenceRepository = PreferenceRepository(this)
 
-        spinningPattern = intent.getStringExtra("spinning_pattern") ?: "dual_circle"
+        val defaultTab = intent.getIntExtra("default_tab", 0)
+        val singleMode = intent.getBooleanExtra("single_mode", false)
+
+        val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
+        txtHeaderTitle.text = getString(R.string.spinning_icon_title)
 
         // Bind layouts
         tabLayout = findViewById(R.id.tabLayout)
@@ -127,15 +112,6 @@ class SpinningAppPickerActivity : BaseActivity() {
         layoutTabEmojis = findViewById(R.id.layoutTabEmojis)
         layoutTabPhotos = findViewById(R.id.layoutTabPhotos)
         btnNext = findViewById(R.id.btnNext)
-        txtHeaderTitle = findViewById(R.id.txtHeaderTitle)
-
-        // Set dynamic title based on spinning pattern
-        txtHeaderTitle.text = when (spinningPattern) {
-            "single_circle" -> getString(R.string.single_circle_title)
-            "dual_circle" -> getString(R.string.dual_circle_title)
-            "vortex" -> getString(R.string.vortex_spiral_title)
-            else -> getString(R.string.spinning_icon_title)
-        }
 
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
@@ -154,11 +130,13 @@ class SpinningAppPickerActivity : BaseActivity() {
                         layoutTabEmojis.visibility = View.GONE
                         layoutTabPhotos.visibility = View.GONE
                     }
+
                     1 -> {
                         layoutTabApps.visibility = View.GONE
                         layoutTabEmojis.visibility = View.VISIBLE
                         layoutTabPhotos.visibility = View.GONE
                     }
+
                     2 -> {
                         layoutTabApps.visibility = View.GONE
                         layoutTabEmojis.visibility = View.GONE
@@ -166,6 +144,7 @@ class SpinningAppPickerActivity : BaseActivity() {
                     }
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
@@ -177,7 +156,7 @@ class SpinningAppPickerActivity : BaseActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         appRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        appAdapter = AppAdapter()
+        appAdapter = AppSelectionAdapter(filteredAppsList, selectedAppsSet)
         appRecyclerView.adapter = appAdapter
 
         appSearchEdit.addTextChangedListener(object : TextWatcher {
@@ -187,6 +166,7 @@ class SpinningAppPickerActivity : BaseActivity() {
                 filterApps(query)
                 appSearchClear.visibility = if (query.isNotEmpty()) View.VISIBLE else View.GONE
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -202,7 +182,26 @@ class SpinningAppPickerActivity : BaseActivity() {
         emojiTabJokes = findViewById(R.id.emojiTabJokes)
 
         emojiRecyclerView.layoutManager = GridLayoutManager(this, 4)
-        emojiAdapter = EmojiAdapter()
+        emojiAdapter = EmojiSelectionAdapter(
+            emojiList = emojiList,
+            selectedEmojisSet = selectedEmojisSet,
+            emojiAppBindingsMap = emojiAppBindingsMap,
+            onLinkAppClick = { emojiName, resId, boundPackage ->
+                val dialog = BindAppDialog(this, resId, boundPackage) { newPackage ->
+                    scope.launch {
+                        preferenceRepository.setEmojiAppBinding(emojiName, newPackage)
+                    }
+                    if (newPackage.isNullOrEmpty()) {
+                        emojiAppBindingsMap.remove(emojiName)
+                    } else {
+                        emojiAppBindingsMap[emojiName] = newPackage
+                    }
+                    val pos = emojiList.indexOf(emojiName)
+                    if (pos >= 0) emojiAdapter.notifyItemChanged(pos)
+                }
+                dialog.show()
+            }
+        )
         emojiRecyclerView.adapter = emojiAdapter
 
         setupEmojiTabs()
@@ -210,9 +209,14 @@ class SpinningAppPickerActivity : BaseActivity() {
         // 3. Setup Photos Tab
         photoRecyclerView = findViewById(R.id.photoRecyclerView)
         txtPhotoCount = findViewById(R.id.txtPhotoCount)
+        findViewById<View>(R.id.btnEmptyAddPhoto)?.setOnClickListener {
+            openCustomPicturePicker()
+        }
 
         photoRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoSelectionAdapter(selectedPhotosList) {
+            openCustomPicturePicker()
+        }
         photoRecyclerView.adapter = photoAdapter
 
         // Load all data
@@ -220,28 +224,40 @@ class SpinningAppPickerActivity : BaseActivity() {
 
         // Click Tiếp tục
         btnNext.setOnClickListener {
-            if (selectedAppsSet.isEmpty() && selectedEmojisSet.isEmpty() && selectedPhotosList.isEmpty()) {
-                Toast.makeText(this, getString(R.string.toast_select_one_app), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             scope.launch {
-                progressBar.visibility = View.VISIBLE
-                // Save everything for spinning mode
+                // Save everything
                 withContext(Dispatchers.IO) {
-                    preferenceRepository.setSelectedAppsSpinning(selectedAppsSet)
-                    preferenceRepository.setSelectedEmojisSpinning(selectedEmojisSet)
-                    preferenceRepository.setSelectedPhotosSpinning(selectedPhotosList.toSet())
-                    preferenceRepository.setSpinningPattern(spinningPattern)
+                    appRepository.saveSelectedApps(selectedAppsSet)
+                    preferenceRepository.setSelectedEmojis(selectedEmojisSet)
+                    preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
                 }
-                progressBar.visibility = View.GONE
 
-                // Go to wallpaper picker
-                val intent = Intent(this@SpinningAppPickerActivity, WallpaperPickerActivity::class.java).apply {
-                    putExtra("mode", "spinning")
+                if (singleMode) {
+                    val intent = Intent(this@SpinningAppPickerActivity, CustomizeActivity::class.java).apply {
+                        putExtra("mode", "spinning")
+                    }
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this@SpinningAppPickerActivity, WallpaperPickerActivity::class.java).apply {
+                        putExtra("mode", "spinning")
+                    }
+                    startActivity(intent)
+                    finish()
                 }
-                startActivity(intent)
-                finish()
+            }
+        }
+
+        if (defaultTab in 0..2) {
+            tabLayout.getTabAt(defaultTab)?.select()
+        }
+
+        if (singleMode) {
+            tabLayout.visibility = View.GONE
+            if (defaultTab == 1) {
+                txtHeaderTitle.text = getString(R.string.emoji_icon_title)
+            } else if (defaultTab == 2) {
+                txtHeaderTitle.text = getString(R.string.photo_icon_title)
             }
         }
     }
@@ -254,24 +270,19 @@ class SpinningAppPickerActivity : BaseActivity() {
     }
 
     private fun selectEmojiTab(group: Int) {
-        emojiTabSmileys.isSelected = (group == 1)
-        emojiTabAnimals.isSelected = (group == 2)
-        emojiTabLove.isSelected = (group == 3)
-        emojiTabJokes.isSelected = (group == 4)
+        val activeBg = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_emoji_tab_selected)
+        val inactiveBg = null
 
-        emojiTabSmileys.setBackgroundResource(if (group == 1) R.drawable.bg_emoji_tab_selected else 0)
-        emojiTabAnimals.setBackgroundResource(if (group == 2) R.drawable.bg_emoji_tab_selected else 0)
-        emojiTabLove.setBackgroundResource(if (group == 3) R.drawable.bg_emoji_tab_selected else 0)
-        emojiTabJokes.setBackgroundResource(if (group == 4) R.drawable.bg_emoji_tab_selected else 0)
-
-        emojiTabSmileys.imageTintList = null
-        emojiTabAnimals.imageTintList = null
-        emojiTabLove.imageTintList = null
-        emojiTabJokes.imageTintList = null
-
+        emojiTabSmileys.background = if (group == 1) activeBg else inactiveBg
         emojiTabSmileys.alpha = if (group == 1) 1.0f else 0.55f
+
+        emojiTabAnimals.background = if (group == 2) activeBg else inactiveBg
         emojiTabAnimals.alpha = if (group == 2) 1.0f else 0.55f
+
+        emojiTabLove.background = if (group == 3) activeBg else inactiveBg
         emojiTabLove.alpha = if (group == 3) 1.0f else 0.55f
+
+        emojiTabJokes.background = if (group == 4) activeBg else inactiveBg
         emojiTabJokes.alpha = if (group == 4) 1.0f else 0.55f
 
         emojiList.clear()
@@ -290,23 +301,17 @@ class SpinningAppPickerActivity : BaseActivity() {
             // Load Apps
             val (installed, selectedApps) = withContext(Dispatchers.IO) {
                 val inst = appRepository.getInstalledApps()
-                val sel = preferenceRepository.getSelectedAppsSpinning()
+                val sel = appRepository.getSelectedApps().map { it.packageName }.toSet()
                 Pair(inst, sel)
             }
+            progressBar.visibility = View.GONE
             allAppsList = installed
             selectedAppsSet.clear()
-
-            if (selectedApps.isEmpty()) {
-                // Mặc định chọn 12 ứng dụng đầu tiên
-                val defaultSelected = installed.take(12).map { it.packageName }
-                selectedAppsSet.addAll(defaultSelected)
-            } else {
-                selectedAppsSet.addAll(selectedApps)
-            }
+            selectedAppsSet.addAll(selectedApps)
             filterApps("")
 
             // Load Emojis
-            val selectedEmojis = preferenceRepository.getSelectedEmojisSpinning()
+            val selectedEmojis = preferenceRepository.getSelectedEmojis()
             val emojiBindings = preferenceRepository.getEmojiAppBindings()
             selectedEmojisSet.clear()
             selectedEmojisSet.addAll(selectedEmojis)
@@ -315,13 +320,11 @@ class SpinningAppPickerActivity : BaseActivity() {
             selectEmojiTab(1)
 
             // Load Photos
-            val savedPhotos = preferenceRepository.getSelectedPhotosSpinning()
+            val savedPhotos = preferenceRepository.getSelectedPhotos()
             selectedPhotosList.clear()
             selectedPhotosList.addAll(savedPhotos)
             updatePhotoCount()
             photoAdapter.notifyDataSetChanged()
-
-            progressBar.visibility = View.GONE
         }
     }
 
@@ -342,177 +345,9 @@ class SpinningAppPickerActivity : BaseActivity() {
     private fun updatePhotoCount() {
         txtPhotoCount.text = getString(R.string.photos_count_format, selectedPhotosList.size)
         val isEmpty = selectedPhotosList.isEmpty()
-        findViewById<View>(R.id.layoutEmptyPhotoState)?.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        findViewById<View>(R.id.photoRecyclerView)?.visibility = if (isEmpty) View.GONE else View.VISIBLE
-    }
-
-    // App Adapter
-    private inner class AppAdapter : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val iconView: ImageView = view.findViewById(R.id.app_picker_icon_view)
-            val titleView: TextView = view.findViewById(R.id.app_picker_title_view)
-            val checkedView: ImageView = view.findViewById(R.id.app_picker_checked_view)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_app_picker, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val app = filteredAppsList[position]
-            holder.titleView.text = app.appName
-
-            val pm = packageManager
-            try {
-                val icon = pm.getApplicationIcon(app.packageName)
-                holder.iconView.setImageDrawable(icon)
-            } catch (e: Exception) {
-                holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
-            }
-
-            val isSelected = selectedAppsSet.contains(app.packageName)
-            holder.itemView.isSelected = isSelected
-            holder.checkedView.setImageResource(if (isSelected) R.drawable.checkbox_selected else R.drawable.checkbox_unselected)
-
-            holder.itemView.setOnClickListener {
-                if (selectedAppsSet.contains(app.packageName)) {
-                    selectedAppsSet.remove(app.packageName)
-                    holder.itemView.isSelected = false
-                    holder.checkedView.setImageResource(R.drawable.checkbox_unselected)
-                } else {
-                    selectedAppsSet.add(app.packageName)
-                    holder.itemView.isSelected = true
-                    holder.checkedView.setImageResource(R.drawable.checkbox_selected)
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = filteredAppsList.size
-    }
-
-    // Emoji Adapter
-    private inner class EmojiAdapter : RecyclerView.Adapter<EmojiAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val iconView: ImageView = view.findViewById(R.id.emoji_item_icon_view)
-            val checkedView: ImageView = view.findViewById(R.id.emoji_item_icon_checked_view)
-            val btnLinkApp: View = view.findViewById(R.id.btnLinkApp)
-            val imgLinkBadge: ImageView = view.findViewById(R.id.imgLinkBadge)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_emoji, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val emojiName = emojiList[position]
-            val resId = resources.getIdentifier(emojiName, "drawable", packageName)
-
-            if (resId != 0) {
-                holder.iconView.setImageResource(resId)
-            } else {
-                holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
-            }
-
-            val isSelected = selectedEmojisSet.contains(emojiName)
-            holder.itemView.isSelected = isSelected
-            holder.checkedView.setImageResource(if (isSelected) R.drawable.checkbox_selected else R.drawable.checkbox_unselected)
-
-            val boundPackage = emojiAppBindingsMap[emojiName]
-            val isBound = !boundPackage.isNullOrEmpty()
-            if (isBound) {
-                holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_bound_link)
-                holder.imgLinkBadge.setColorFilter(ContextCompat.getColor(this@SpinningAppPickerActivity, R.color.cosmic_accent))
-            } else {
-                holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_unbound_link)
-                holder.imgLinkBadge.setColorFilter(android.graphics.Color.parseColor("#A0A0B0"))
-            }
-
-            val openBindDialog = {
-                val dialog = BindAppDialog(this@SpinningAppPickerActivity, resId, boundPackage) { newPackage ->
-                    scope.launch {
-                        preferenceRepository.setEmojiAppBinding(emojiName, newPackage)
-                    }
-                    if (newPackage.isNullOrEmpty()) {
-                        emojiAppBindingsMap.remove(emojiName)
-                    } else {
-                        emojiAppBindingsMap[emojiName] = newPackage
-                    }
-                    notifyItemChanged(position)
-                }
-                dialog.show()
-            }
-
-            holder.btnLinkApp.setOnClickListener {
-                openBindDialog()
-            }
-
-            holder.itemView.setOnClickListener {
-                if (selectedEmojisSet.contains(emojiName)) {
-                    selectedEmojisSet.remove(emojiName)
-                    holder.itemView.isSelected = false
-                    holder.checkedView.setImageResource(R.drawable.checkbox_unselected)
-                } else {
-                    selectedEmojisSet.add(emojiName)
-                    holder.itemView.isSelected = true
-                    holder.checkedView.setImageResource(R.drawable.checkbox_selected)
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = emojiList.size
-    }
-
-    // Photo Adapter
-    private inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val photoContainer: View = view.findViewById(R.id.photo_container)
-            val addContainer: View = view.findViewById(R.id.add_container)
-            val imgPhoto: ImageView = view.findViewById(R.id.imgPhoto)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_photo_picker, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            if (position == 0) {
-                holder.addContainer.visibility = View.VISIBLE
-                holder.photoContainer.visibility = View.GONE
-                holder.itemView.setOnClickListener {
-                    openCustomPicturePicker()
-                }
-            } else {
-                holder.addContainer.visibility = View.GONE
-                holder.photoContainer.visibility = View.VISIBLE
-
-                val uriString = selectedPhotosList[position - 1]
-                val imgFile = java.io.File(uriString)
-                if (imgFile.exists()) {
-                    holder.imgPhoto.load(imgFile) {
-                        placeholder(android.R.drawable.ic_menu_gallery)
-                        error(android.R.drawable.ic_menu_report_image)
-                    }
-                } else {
-                    holder.imgPhoto.load(Uri.parse(uriString)) {
-                        placeholder(android.R.drawable.ic_menu_gallery)
-                        error(android.R.drawable.ic_menu_report_image)
-                    }
-                }
-
-                holder.itemView.setOnClickListener {
-                    openCustomPicturePicker()
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = selectedPhotosList.size + 1
+        findViewById<View>(R.id.layoutEmptyPhotoState)?.visibility =
+            if (isEmpty) View.VISIBLE else View.GONE
+        findViewById<View>(R.id.photoRecyclerView)?.visibility =
+            if (isEmpty) View.GONE else View.VISIBLE
     }
 }
-
-

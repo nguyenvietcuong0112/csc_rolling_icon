@@ -141,6 +141,16 @@ class IconLoader(private val context: Context) {
         }
     }
 
+    fun bitmapToTexture(bitmap: Bitmap): com.badlogic.gdx.graphics.Texture {
+        val stream = java.io.ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val bytes = stream.toByteArray()
+        val pixmap = com.badlogic.gdx.graphics.Pixmap(bytes, 0, bytes.size)
+        val texture = com.badlogic.gdx.graphics.Texture(pixmap)
+        pixmap.dispose()
+        return texture
+    }
+
     fun clearCache() {
         cacheDir.listFiles()?.forEach { it.delete() }
     }

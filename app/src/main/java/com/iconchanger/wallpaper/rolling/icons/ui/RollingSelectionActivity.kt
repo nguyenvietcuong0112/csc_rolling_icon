@@ -1,30 +1,24 @@
 package com.iconchanger.wallpaper.rolling.icons.ui
 
-import android.app.WallpaperManager
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.google.android.material.tabs.TabLayout
 import com.iconchanger.wallpaper.rolling.icons.R
+import com.iconchanger.wallpaper.rolling.icons.adapter.AppSelectionAdapter
+import com.iconchanger.wallpaper.rolling.icons.adapter.EmojiSelectionAdapter
+import com.iconchanger.wallpaper.rolling.icons.adapter.PhotoSelectionAdapter
 import com.iconchanger.wallpaper.rolling.icons.data.AppRepository
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import com.iconchanger.wallpaper.rolling.icons.model.AppInfo
@@ -54,7 +48,7 @@ class RollingSelectionActivity : BaseActivity() {
     private var allAppsList = listOf<AppInfo>()
     private var filteredAppsList = mutableListOf<AppInfo>()
     private val selectedAppsSet = HashSet<String>()
-    private lateinit var appAdapter: AppAdapter
+    private lateinit var appAdapter: AppSelectionAdapter
 
     // Emojis tab data & views
     private lateinit var emojiRecyclerView: RecyclerView
@@ -65,7 +59,7 @@ class RollingSelectionActivity : BaseActivity() {
     private val selectedEmojisSet = HashSet<String>()
     private val emojiAppBindingsMap = HashMap<String, String>()
     private val emojiList = ArrayList<String>()
-    private lateinit var emojiAdapter: EmojiAdapter
+    private lateinit var emojiAdapter: EmojiSelectionAdapter
 
     private val emojiGroup = (1..83).map { String.format("emoji_emoji_%02d", it) }
     private val animalGroup = (1..28).map { String.format("emoji_animal_%02d", it) }
@@ -76,22 +70,7 @@ class RollingSelectionActivity : BaseActivity() {
     private lateinit var photoRecyclerView: RecyclerView
     private lateinit var txtPhotoCount: TextView
     private val selectedPhotosList = ArrayList<String>()
-    private lateinit var photoAdapter: PhotoAdapter
-
-    private fun saveUriToInternalStorage(uri: Uri): String? {
-        return try {
-            val inputStream = contentResolver.openInputStream(uri) ?: return null
-            val fileName = "photo_${System.currentTimeMillis()}_${(1000..9999).random()}.jpg"
-            val file = java.io.File(filesDir, fileName)
-            file.outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
-            }
-            file.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
+    private lateinit var photoAdapter: PhotoSelectionAdapter
 
     private val selectPictureLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -174,7 +153,7 @@ class RollingSelectionActivity : BaseActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         appRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        appAdapter = AppAdapter()
+        appAdapter = AppSelectionAdapter(filteredAppsList, selectedAppsSet)
         appRecyclerView.adapter = appAdapter
 
         appSearchEdit.addTextChangedListener(object : TextWatcher {
@@ -200,7 +179,26 @@ class RollingSelectionActivity : BaseActivity() {
         emojiTabJokes = findViewById(R.id.emojiTabJokes)
 
         emojiRecyclerView.layoutManager = GridLayoutManager(this, 4)
-        emojiAdapter = EmojiAdapter()
+        emojiAdapter = EmojiSelectionAdapter(
+            emojiList = emojiList,
+            selectedEmojisSet = selectedEmojisSet,
+            emojiAppBindingsMap = emojiAppBindingsMap,
+            onLinkAppClick = { emojiName, resId, boundPackage ->
+                val dialog = BindAppDialog(this, resId, boundPackage) { newPackage ->
+                    scope.launch {
+                        preferenceRepository.setEmojiAppBinding(emojiName, newPackage)
+                    }
+                    if (newPackage.isNullOrEmpty()) {
+                        emojiAppBindingsMap.remove(emojiName)
+                    } else {
+                        emojiAppBindingsMap[emojiName] = newPackage
+                    }
+                    val pos = emojiList.indexOf(emojiName)
+                    if (pos >= 0) emojiAdapter.notifyItemChanged(pos)
+                }
+                dialog.show()
+            }
+        )
         emojiRecyclerView.adapter = emojiAdapter
 
         setupEmojiTabs()
@@ -213,7 +211,9 @@ class RollingSelectionActivity : BaseActivity() {
         }
 
         photoRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        photoAdapter = PhotoAdapter()
+        photoAdapter = PhotoSelectionAdapter(selectedPhotosList) {
+            openCustomPicturePicker()
+        }
         photoRecyclerView.adapter = photoAdapter
 
         // Load all data
@@ -230,10 +230,9 @@ class RollingSelectionActivity : BaseActivity() {
                 }
 
                 if (singleMode) {
-                    val intent =
-                        Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
-                            putExtra("mode", "rolling")
-                        }
+                    val intent = Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
+                        putExtra("mode", "rolling")
+                    }
                     startActivity(intent)
                     finish()
                 } else {
@@ -273,23 +272,18 @@ class RollingSelectionActivity : BaseActivity() {
     }
 
     private fun selectEmojiTab(group: Int) {
-        val activeBg =
-            androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_emoji_tab_selected)
+        val activeBg = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.bg_emoji_tab_selected)
         val inactiveBg = null
 
-        // Smileys
         emojiTabSmileys.background = if (group == 1) activeBg else inactiveBg
         emojiTabSmileys.alpha = if (group == 1) 1.0f else 0.55f
 
-        // Animals
         emojiTabAnimals.background = if (group == 2) activeBg else inactiveBg
         emojiTabAnimals.alpha = if (group == 2) 1.0f else 0.55f
 
-        // Love
         emojiTabLove.background = if (group == 3) activeBg else inactiveBg
         emojiTabLove.alpha = if (group == 3) 1.0f else 0.55f
 
-        // Jokes
         emojiTabJokes.background = if (group == 4) activeBg else inactiveBg
         emojiTabJokes.alpha = if (group == 4) 1.0f else 0.55f
 
@@ -358,172 +352,4 @@ class RollingSelectionActivity : BaseActivity() {
         findViewById<View>(R.id.photoRecyclerView)?.visibility =
             if (isEmpty) View.GONE else View.VISIBLE
     }
-
-    // App Adapter
-    private inner class AppAdapter : RecyclerView.Adapter<AppAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val iconView: ImageView = view.findViewById(R.id.app_picker_icon_view)
-            val titleView: TextView = view.findViewById(R.id.app_picker_title_view)
-            val checkedView: ImageView = view.findViewById(R.id.app_picker_checked_view)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.item_app_picker, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val app = filteredAppsList[position]
-            holder.titleView.text = app.appName
-
-            val pm = packageManager
-            try {
-                val icon = pm.getApplicationIcon(app.packageName)
-                holder.iconView.setImageDrawable(icon)
-            } catch (e: Exception) {
-                holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
-            }
-
-            val isSelected = selectedAppsSet.contains(app.packageName)
-            holder.itemView.isSelected = isSelected
-            holder.checkedView.setImageResource(if (isSelected) R.drawable.checkbox_selected else R.drawable.checkbox_unselected)
-
-            holder.itemView.setOnClickListener {
-                if (selectedAppsSet.contains(app.packageName)) {
-                    selectedAppsSet.remove(app.packageName)
-                    holder.itemView.isSelected = false
-                    holder.checkedView.setImageResource(R.drawable.checkbox_unselected)
-                } else {
-                    selectedAppsSet.add(app.packageName)
-                    holder.itemView.isSelected = true
-                    holder.checkedView.setImageResource(R.drawable.checkbox_selected)
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = filteredAppsList.size
-    }
-
-    // Emoji Adapter
-    private inner class EmojiAdapter : RecyclerView.Adapter<EmojiAdapter.ViewHolder>() {
-
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val iconView: ImageView = view.findViewById(R.id.emoji_item_icon_view)
-            val checkedView: ImageView = view.findViewById(R.id.emoji_item_icon_checked_view)
-            val btnLinkApp: View = view.findViewById(R.id.btnLinkApp)
-            val imgLinkBadge: ImageView = view.findViewById(R.id.imgLinkBadge)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_emoji, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val emojiName = emojiList[position]
-            val resId = resources.getIdentifier(emojiName, "drawable", packageName)
-
-            if (resId != 0) {
-                holder.iconView.setImageResource(resId)
-            } else {
-                holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
-            }
-
-            val isSelected = selectedEmojisSet.contains(emojiName)
-            holder.itemView.isSelected = isSelected
-            holder.checkedView.setImageResource(if (isSelected) R.drawable.checkbox_selected else R.drawable.checkbox_unselected)
-
-            val boundPackage = emojiAppBindingsMap[emojiName]
-            val isBound = !boundPackage.isNullOrEmpty()
-            if (isBound) {
-                holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_bound_link)
-                holder.imgLinkBadge.setColorFilter(ContextCompat.getColor(this@RollingSelectionActivity, R.color.cosmic_accent))
-            } else {
-                holder.btnLinkApp.setBackgroundResource(R.drawable.bg_circle_unbound_link)
-                holder.imgLinkBadge.setColorFilter(android.graphics.Color.parseColor("#A0A0B0"))
-            }
-
-            val openBindDialog = {
-                val dialog = BindAppDialog(this@RollingSelectionActivity, resId, boundPackage) { newPackage ->
-                    scope.launch {
-                        preferenceRepository.setEmojiAppBinding(emojiName, newPackage)
-                    }
-                    if (newPackage.isNullOrEmpty()) {
-                        emojiAppBindingsMap.remove(emojiName)
-                    } else {
-                        emojiAppBindingsMap[emojiName] = newPackage
-                    }
-                    notifyItemChanged(position)
-                }
-                dialog.show()
-            }
-
-            holder.btnLinkApp.setOnClickListener {
-                openBindDialog()
-            }
-
-            holder.itemView.setOnClickListener {
-                if (selectedEmojisSet.contains(emojiName)) {
-                    selectedEmojisSet.remove(emojiName)
-                    holder.itemView.isSelected = false
-                    holder.checkedView.setImageResource(R.drawable.checkbox_unselected)
-                } else {
-                    selectedEmojisSet.add(emojiName)
-                    holder.itemView.isSelected = true
-                    holder.checkedView.setImageResource(R.drawable.checkbox_selected)
-                }
-            }
-        }
-
-        override fun getItemCount(): Int = emojiList.size
-    }
-
-    // Photo Adapter
-    private inner class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val photoContainer: View = view.findViewById(R.id.photo_container)
-            val addContainer: View = view.findViewById(R.id.add_container)
-            val imgPhoto: ImageView = view.findViewById(R.id.imgPhoto)
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_photo_picker, parent, false)
-            return ViewHolder(view)
-        }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            if (position == 0) {
-                holder.addContainer.visibility = View.VISIBLE
-                holder.photoContainer.visibility = View.GONE
-                holder.itemView.setOnClickListener {
-                    openCustomPicturePicker()
-                }
-            } else {
-                holder.addContainer.visibility = View.GONE
-                holder.photoContainer.visibility = View.VISIBLE
-
-                val uriString = selectedPhotosList[position - 1]
-                val imgFile = java.io.File(uriString)
-                if (imgFile.exists()) {
-                    holder.imgPhoto.load(imgFile) {
-                        placeholder(android.R.drawable.ic_menu_gallery)
-                        error(android.R.drawable.ic_menu_report_image)
-                    }
-                } else {
-                    holder.imgPhoto.load(Uri.parse(uriString)) {
-                        placeholder(android.R.drawable.ic_menu_gallery)
-                        error(android.R.drawable.ic_menu_report_image)
-                    }
-                }
-
-                holder.itemView.setOnClickListener(null)
-            }
-        }
-
-        override fun getItemCount(): Int = selectedPhotosList.size + 1
-    }
 }
-
