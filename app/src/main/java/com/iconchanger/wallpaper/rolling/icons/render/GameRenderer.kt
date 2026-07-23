@@ -333,6 +333,35 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                                         ix = r * sinT
                                         iy = r * cosT
                                     }
+                                    "crown" -> {
+                                         val normT = (t % (2f * MathUtils.PI))
+                                         if (normT > MathUtils.PI) {
+                                             val u = (normT - MathUtils.PI) / MathUtils.PI
+                                             ix = R * 0.9f * (1f - 2f * u)
+                                             iy = -R * 0.45f
+                                         } else {
+                                             val u = normT / MathUtils.PI
+                                             ix = R * 0.9f * (2f * u - 1f)
+                                             val spikeHeight = kotlin.math.abs(kotlin.math.cos(3.5f * MathUtils.PI * u))
+                                             val centerArch = 0.55f - 0.25f * (2f * u - 1f) * (2f * u - 1f)
+                                             iy = -R * 0.45f + R * (centerArch + 0.45f * spikeHeight)
+                                         }
+                                    }
+                                    "diamond" -> {
+                                        val sinT = kotlin.math.sin(t)
+                                        val cosT = kotlin.math.cos(t)
+                                        ix = R * 1.1f * cosT * cosT * cosT
+                                        iy = R * 1.1f * sinT * sinT * sinT
+                                    }
+                                    "spiral" -> {
+                                        val r = R * (0.4f + 0.6f * (t / (2f * MathUtils.PI)))
+                                        ix = r * kotlin.math.cos(3f * t)
+                                        iy = r * kotlin.math.sin(3f * t)
+                                    }
+                                    "circle" -> {
+                                        ix = R * 1.1f * kotlin.math.cos(t)
+                                        iy = R * 1.1f * kotlin.math.sin(t)
+                                    }
                                 }
                                 val actualX = cx + ix
                                 val actualY = cy + iy
@@ -1166,6 +1195,35 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                                 val r = R * (expCos - 2f * kotlin.math.cos(4f * t) - java.lang.Math.pow(sin12Double, 5.0).toFloat()) / 4f
                                 x = r * sinT
                                 y = r * cosT
+                            }
+                            "crown" -> {
+                                val normT = (t % (2f * MathUtils.PI))
+                                if (normT > MathUtils.PI) {
+                                    val u = (normT - MathUtils.PI) / MathUtils.PI
+                                    x = R * 0.9f * (1f - 2f * u)
+                                    y = -R * 0.45f
+                                } else {
+                                    val u = normT / MathUtils.PI
+                                    x = R * 0.9f * (2f * u - 1f)
+                                    val spikeHeight = kotlin.math.abs(kotlin.math.cos(3.5f * MathUtils.PI * u))
+                                    val centerArch = 0.55f - 0.25f * (2f * u - 1f) * (2f * u - 1f)
+                                    y = -R * 0.45f + R * (centerArch + 0.45f * spikeHeight)
+                                }
+                            }
+                            "diamond" -> {
+                                val sinT = kotlin.math.sin(t)
+                                val cosT = kotlin.math.cos(t)
+                                x = R * 1.1f * cosT * cosT * cosT
+                                y = R * 1.1f * sinT * sinT * sinT
+                            }
+                            "spiral" -> {
+                                val r = R * (0.4f + 0.6f * (t / (2f * MathUtils.PI)))
+                                x = r * kotlin.math.cos(3f * t)
+                                y = r * kotlin.math.sin(3f * t)
+                            }
+                            "circle" -> {
+                                x = R * 1.1f * kotlin.math.cos(t)
+                                y = R * 1.1f * kotlin.math.sin(t)
                             }
                         }
                         drawSpinningIcon(spriteBatch, shapePathIcons[i], cx + x, cy + y)

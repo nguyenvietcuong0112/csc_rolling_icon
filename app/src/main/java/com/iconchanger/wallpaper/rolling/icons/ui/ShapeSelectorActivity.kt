@@ -2,10 +2,8 @@ package com.iconchanger.wallpaper.rolling.icons.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.card.MaterialCardView
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import kotlinx.coroutines.CoroutineScope
@@ -17,15 +15,14 @@ class ShapeSelectorActivity : BaseActivity() {
     private lateinit var preferenceRepository: PreferenceRepository
     private val scope = CoroutineScope(Dispatchers.Main)
 
-    private lateinit var cardHeart: MaterialCardView
-    private lateinit var cardInfinity: MaterialCardView
-    private lateinit var cardStar: MaterialCardView
-    private lateinit var cardFlower: MaterialCardView
-    private lateinit var cardClover: MaterialCardView
-    private lateinit var cardButterfly: MaterialCardView
-    private lateinit var btnNext: Button
-
-    private var selectedShape = "heart" // default
+    private lateinit var cardHeart: View
+    private lateinit var cardInfinity: View
+    private lateinit var cardStar: View
+    private lateinit var cardFlower: View
+    private lateinit var cardClover: View
+    private lateinit var cardButterfly: View
+    private lateinit var cardCrown: View
+    private lateinit var cardDiamond: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,73 +36,30 @@ class ShapeSelectorActivity : BaseActivity() {
         cardFlower = findViewById(R.id.cardFlower)
         cardClover = findViewById(R.id.cardClover)
         cardButterfly = findViewById(R.id.cardButterfly)
-        btnNext = findViewById(R.id.btnNext)
+        cardCrown = findViewById(R.id.cardCrown)
+        cardDiamond = findViewById(R.id.cardDiamond)
 
         findViewById<ImageView>(R.id.btnBack).setOnClickListener {
             finish()
         }
 
-        // Add selection click listeners
-        cardHeart.setOnClickListener { selectShape("heart") }
-        cardInfinity.setOnClickListener { selectShape("infinity") }
-        cardStar.setOnClickListener { selectShape("star") }
-        cardFlower.setOnClickListener { selectShape("flower") }
-        cardClover.setOnClickListener { selectShape("clover") }
-        cardButterfly.setOnClickListener { selectShape("butterfly") }
-
-        // Load saved selection
-        scope.launch {
-            val savedShape = preferenceRepository.getShapePathType()
-            selectShape(savedShape)
-        }
-
-        btnNext.setOnClickListener {
-            scope.launch {
-                preferenceRepository.setShapePathType(selectedShape)
-                val intent = Intent(this@ShapeSelectorActivity, ShapeSelectionActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
+        // Add selection click listeners - direct navigation on click
+        cardHeart.setOnClickListener { selectShapeAndNavigate("heart") }
+        cardInfinity.setOnClickListener { selectShapeAndNavigate("infinity") }
+        cardStar.setOnClickListener { selectShapeAndNavigate("star") }
+        cardFlower.setOnClickListener { selectShapeAndNavigate("flower") }
+        cardClover.setOnClickListener { selectShapeAndNavigate("clover") }
+        cardButterfly.setOnClickListener { selectShapeAndNavigate("butterfly") }
+        cardCrown.setOnClickListener { selectShapeAndNavigate("crown") }
+        cardDiamond.setOnClickListener { selectShapeAndNavigate("diamond") }
     }
 
-    private fun selectShape(shape: String) {
-        selectedShape = shape
-
-        val bgSelected = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_bg_selected_card)
-        val bgUnselected = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_white)
-        val strokeSelected = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_accent)
-        val strokeUnselected = androidx.core.content.ContextCompat.getColor(this, R.color.cosmic_border_light)
-        val widthSelected = (4f * resources.displayMetrics.density).toInt()
-        val widthUnselected = (2f * resources.displayMetrics.density).toInt()
-
-        // Reset backgrounds
-        cardHeart.setCardBackgroundColor(if (shape == "heart") bgSelected else bgUnselected)
-        cardInfinity.setCardBackgroundColor(if (shape == "infinity") bgSelected else bgUnselected)
-        cardStar.setCardBackgroundColor(if (shape == "star") bgSelected else bgUnselected)
-        cardFlower.setCardBackgroundColor(if (shape == "flower") bgSelected else bgUnselected)
-        cardClover.setCardBackgroundColor(if (shape == "clover") bgSelected else bgUnselected)
-        cardButterfly.setCardBackgroundColor(if (shape == "butterfly") bgSelected else bgUnselected)
-
-        // Add borders/elevations for premium look
-        cardHeart.strokeColor = if (shape == "heart") strokeSelected else strokeUnselected
-        cardHeart.strokeWidth = if (shape == "heart") widthSelected else widthUnselected
-
-        cardInfinity.strokeColor = if (shape == "infinity") strokeSelected else strokeUnselected
-        cardInfinity.strokeWidth = if (shape == "infinity") widthSelected else widthUnselected
-
-        cardStar.strokeColor = if (shape == "star") strokeSelected else strokeUnselected
-        cardStar.strokeWidth = if (shape == "star") widthSelected else widthUnselected
-
-        cardFlower.strokeColor = if (shape == "flower") strokeSelected else strokeUnselected
-        cardFlower.strokeWidth = if (shape == "flower") widthSelected else widthUnselected
-
-        cardClover.strokeColor = if (shape == "clover") strokeSelected else strokeUnselected
-        cardClover.strokeWidth = if (shape == "clover") widthSelected else widthUnselected
-
-        cardButterfly.strokeColor = if (shape == "butterfly") strokeSelected else strokeUnselected
-        cardButterfly.strokeWidth = if (shape == "butterfly") widthSelected else widthUnselected
+    private fun selectShapeAndNavigate(shape: String) {
+        scope.launch {
+            preferenceRepository.setShapePathType(shape)
+            val intent = Intent(this@ShapeSelectorActivity, ShapeSelectionActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
-
-
