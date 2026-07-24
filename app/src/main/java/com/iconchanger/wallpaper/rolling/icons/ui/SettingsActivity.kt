@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import com.iconchanger.wallpaper.rolling.icons.BuildConfig
 import androidx.lifecycle.lifecycleScope
+import com.cscmobi.libraryads.ads.utils.StatusShowAd
 import com.cscmobi.libraryads.commons.utils.Constants
 import com.cscmobi.libraryads.views.language.CSCLanguageActivity
 import com.iconchanger.wallpaper.rolling.icons.R
@@ -67,6 +68,8 @@ class SettingsActivity : BaseActivity() {
         // 1. Make it as launcher action
         val openLauncherSettingsAction = {
             Toast.makeText(this, getString(R.string.toast_select_launcher), Toast.LENGTH_LONG).show()
+
+           StatusShowAd.ignoreAOA = true
             try {
                 val intent = Intent(Settings.ACTION_HOME_SETTINGS).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -189,7 +192,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setSelectedSegmentButton(textView: TextView) {
-        textView.background = ContextCompat.getDrawable(this, R.drawable.bg_purple_gradient_btn)
+        textView.background = ContextCompat.getDrawable(this, R.drawable.bg_icons_size_true)
         textView.setTextColor(Color.WHITE)
     }
 

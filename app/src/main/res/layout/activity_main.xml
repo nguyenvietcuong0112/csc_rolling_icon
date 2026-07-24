@@ -159,7 +159,6 @@
                 android:id="@+id/cardSpinningIcon"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_190"
-                android:layout_marginBottom="20dp"
                 android:background="@color/transparent"
                 android:clickable="true"
                 android:focusable="true">
@@ -248,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="8dp">
 
                     <!-- Grid Card 1: Shape Path -->
                     <androidx.constraintlayout.widget.ConstraintLayout

@@ -162,7 +162,8 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_card_border"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,7 +198,8 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_card_border"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -232,7 +234,8 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_card_border"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -302,7 +305,8 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/bg_card_border"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -195,10 +195,6 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
             }
 
             override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
-                if (!isWallpaperTouchEnabled) {
-                    return true
-                }
-
                 touchPoint.set(x, y, 0f)
                 camera.unproject(touchPoint)
 
@@ -206,7 +202,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 if (iconData != null) {
                     spawnExplosion(touchPoint.x, touchPoint.y)
                     scope.launch {
-                        delay(250)
+                        delay(150)
                         launchBoundApp(iconData)
                     }
                 }
@@ -220,7 +216,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
         reloadPhysicsSettings()
     }
 
-    private suspend fun launchBoundApp(iconData: IconData) {
+    private suspend fun launchBoundApp(iconData: IconData) = withContext(Dispatchers.Main) {
         destroyMouseJoint()
 
         if (iconData.appInfo.type == AppInfo.TYPE_PHOTO) {
@@ -237,7 +233,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
             try {
                 val intent = context.packageManager.getLaunchIntentForPackage(iconData.appInfo.packageName)
                 if (intent != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                     context.startActivity(intent)
                 }
             } catch (e: Exception) {
@@ -253,7 +249,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 if (!boundPackage.isNullOrEmpty()) {
                     val intent = context.packageManager.getLaunchIntentForPackage(boundPackage)
                     if (intent != null) {
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                         context.startActivity(intent)
                     }
                 }
