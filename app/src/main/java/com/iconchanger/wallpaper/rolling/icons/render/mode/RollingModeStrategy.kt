@@ -46,7 +46,7 @@ class RollingModeStrategy(
             val selectedPhotos = prefs.getSelectedPhotos()
             val selectedEmojis = prefs.getSelectedEmojis()
 
-            val newKeys = selectedApps.map { it.packageName }.toSet() + selectedPhotos + selectedEmojis.map { "emoji_${it}" }
+            val newKeys = selectedApps.map { it.packageName }.toSet() + selectedPhotos + selectedEmojis.map { if (it.startsWith("emoji_")) it else "emoji_$it" }
 
             Gdx.app.postRunnable {
                 val currentKeys = synchronized(activeBodies) {
@@ -97,11 +97,9 @@ class RollingModeStrategy(
             }
 
             val emojiBitmaps = selectedEmojis.mapNotNull { emoji ->
-                val resId = context.resources.getIdentifier("emoji_$emoji", "drawable", context.packageName)
-                if (resId != 0) {
-                    val bitmap = android.graphics.BitmapFactory.decodeResource(context.resources, resId)
-                    if (bitmap != null) Pair(emoji, bitmap) else null
-                } else null
+                val emojiName = if (emoji.startsWith("emoji_")) emoji else "emoji_$emoji"
+                val bitmap = loader.loadEmojiIcon(emojiName)
+                if (bitmap != null) Pair(emojiName, bitmap) else null
             }
 
             Gdx.app.postRunnable {

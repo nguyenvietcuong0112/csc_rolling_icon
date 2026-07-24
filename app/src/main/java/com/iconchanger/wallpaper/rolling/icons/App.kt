@@ -75,7 +75,7 @@ class App : Application() {
             splashConfig = SplashConfig(
                 uiSplashConfig = UiSplashConfig(
                     resLayout = R.layout.activity_splash,
-                    showFOForever = true,
+                    showFOForever = false,
                     homeActivity = PermissionActivity::class.java,
                     timeout = 30_000
                 ),
