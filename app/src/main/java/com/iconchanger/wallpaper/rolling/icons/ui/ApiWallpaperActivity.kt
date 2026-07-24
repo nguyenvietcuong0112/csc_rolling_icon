@@ -52,8 +52,8 @@ class ApiWallpaperActivity : BaseActivity() {
             fetchCategoriesFromApi()
         }
 
-        // Setup 2-Column Category Grid Layout
-        categoryRecyclerView.layoutManager = GridLayoutManager(this, 2)
+        // Setup 2-Column Category Grid Layout with span lookup for Native Ad
+        val gridLayoutManager = GridLayoutManager(this, 2)
         categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
             // Launch separate Detail Activity
             val intent = Intent(this@ApiWallpaperActivity, ApiWallpaperDetailActivity::class.java).apply {
@@ -61,6 +61,13 @@ class ApiWallpaperActivity : BaseActivity() {
             }
             startActivity(intent)
         }
+
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (categoryAdapter?.getItemViewType(position) == CategoryAdapter.VIEW_TYPE_AD) 2 else 1
+            }
+        }
+        categoryRecyclerView.layoutManager = gridLayoutManager
         categoryRecyclerView.adapter = categoryAdapter
 
         // Fetch Categories from API

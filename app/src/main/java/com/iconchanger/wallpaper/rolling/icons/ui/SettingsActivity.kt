@@ -14,6 +14,8 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import com.iconchanger.wallpaper.rolling.icons.BuildConfig
 import androidx.lifecycle.lifecycleScope
+import com.cscmobi.libraryads.commons.utils.Constants
+import com.cscmobi.libraryads.views.language.CSCLanguageActivity
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import kotlinx.coroutines.launch
@@ -48,7 +50,19 @@ class SettingsActivity : BaseActivity() {
         switchWallpaperTouch = findViewById(R.id.switchWallpaperTouch)
         tvSettingsVersionValue = findViewById(R.id.tv_settings_version_value)
 
-        btnBack.setOnClickListener { finish() }
+        btnBack.setOnClickListener {
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+                finish()
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this@SettingsActivity) {
+                    finish()
+                }
+            }
+        })
 
         // 1. Make it as launcher action
         val openLauncherSettingsAction = {
@@ -93,11 +107,15 @@ class SettingsActivity : BaseActivity() {
 
         // Support Information Actions
         findViewById<View>(R.id.btnLanguage)?.setOnClickListener {
-            Toast.makeText(this, "Language selection coming soon", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CSCLanguageActivity::class.java).apply {
+                putExtra(Constants.FROM_SETTING, true)
+                putExtra(Constants.NAME_AD_NATIVE_LANGUAGE, "native_all")
+            }
+            startActivity(intent)
         }
 
         findViewById<View>(R.id.btnPrivacyPolicy)?.setOnClickListener {
-            openWebPage("https://google.com")
+            openWebPage("https://docs.google.com/document/d/1JUD-uBWf7Nd-aGjyydJVwrg4nJOwW5XT")
         }
 
         findViewById<View>(R.id.btnAboutUs)?.setOnClickListener {
@@ -153,6 +171,21 @@ class SettingsActivity : BaseActivity() {
             setUnselectedSegmentButton(btnSizeMiddle)
             setSelectedSegmentButton(btnSizeLarge)
         }
+        // Load Native Ad
+        loadAdsNative()
+    }
+
+    private fun loadAdsNative() {
+        val isEnabled = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_all
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+
+        com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
+            adFrame = frAds,
+            adName = "native_all",
+            adId = getString(R.string.native_all),
+            adLayout = R.layout.layout_native_media_medium,
+            canShowAd = isEnabled
+        )
     }
 
     private fun setSelectedSegmentButton(textView: TextView) {

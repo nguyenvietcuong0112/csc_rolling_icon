@@ -12,13 +12,15 @@ import java.io.File
 
 class PhotoSelectionAdapter(
     private val selectedPhotosList: List<String>,
-    private val onAddPhotoClick: () -> Unit
+    private val onAddPhotoClick: () -> Unit,
+    private val onDeletePhotoClick: (photoIndex: Int) -> Unit
 ) : RecyclerView.Adapter<PhotoSelectionAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val photoContainer: View = view.findViewById(R.id.photo_container)
         val addContainer: View = view.findViewById(R.id.add_container)
         val imgPhoto: ImageView = view.findViewById(R.id.imgPhoto)
+        val btnDeletePhoto: View = view.findViewById(R.id.btnDeletePhoto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,7 +39,8 @@ class PhotoSelectionAdapter(
             holder.addContainer.visibility = View.GONE
             holder.photoContainer.visibility = View.VISIBLE
 
-            val uriString = selectedPhotosList[position - 1]
+            val photoIndex = position - 1
+            val uriString = selectedPhotosList[photoIndex]
             val imgFile = File(uriString)
             if (imgFile.exists()) {
                 holder.imgPhoto.load(imgFile) {
@@ -50,6 +53,11 @@ class PhotoSelectionAdapter(
                     error(android.R.drawable.ic_menu_report_image)
                 }
             }
+
+            holder.btnDeletePhoto.setOnClickListener {
+                onDeletePhotoClick(photoIndex)
+            }
+            holder.itemView.setOnClickListener(null)
         }
     }
 

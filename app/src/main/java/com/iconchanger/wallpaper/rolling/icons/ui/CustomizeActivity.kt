@@ -77,17 +77,17 @@ class CustomizeActivity : BaseActivity() {
 
         // Preview & Apply Action Button
         btnPreviewApply.setOnClickListener {
-            saveConfigAndNavigate()
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+                saveConfigAndNavigate()
+            }
         }
     }
 
     private fun loadConfigFromPrefs() {
         lifecycleScope.launch {
-            // 1. Icon Size selection
             selectedSize = preferenceRepository.getIconSize()
             updateSizeButtonsUI(selectedSize)
 
-            // 2. Switches state
             switchWallpaperTouch.isChecked = preferenceRepository.isWallpaperTouchEnabled()
             switchFloatButton.isChecked = preferenceRepository.isFloatButtonEnabled()
 

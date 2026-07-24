@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/app_font"
-            android:text="Wallpaper"
+            android:text="@string/wallpaper_title"
             android:textColor="@color/cosmic_text_primary"
             android:textSize="18sp"
             android:textStyle="bold" />

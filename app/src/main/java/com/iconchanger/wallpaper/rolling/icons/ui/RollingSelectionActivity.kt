@@ -211,9 +211,11 @@ class RollingSelectionActivity : BaseActivity() {
         }
 
         photoRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        photoAdapter = PhotoSelectionAdapter(selectedPhotosList) {
-            openCustomPicturePicker()
-        }
+        photoAdapter = PhotoSelectionAdapter(
+            selectedPhotosList,
+            onAddPhotoClick = { openCustomPicturePicker() },
+            onDeletePhotoClick = { photoIndex -> showDeletePhotoConfirmationDialog(photoIndex) }
+        )
         photoRecyclerView.adapter = photoAdapter
 
         if (defaultTab in 0..2) {
@@ -235,30 +237,32 @@ class RollingSelectionActivity : BaseActivity() {
 
         // Click Tiếp tục
         btnNext.setOnClickListener {
-            scope.launch {
-                // Save everything
-                withContext(Dispatchers.IO) {
-                    appRepository.saveSelectedApps(selectedAppsSet)
-                    preferenceRepository.setSelectedEmojis(selectedEmojisSet)
-                    preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
-                }
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+                scope.launch {
+                    // Save everything
+                    withContext(Dispatchers.IO) {
+                        appRepository.saveSelectedApps(selectedAppsSet)
+                        preferenceRepository.setSelectedEmojis(selectedEmojisSet)
+                        preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
+                    }
 
-                if (singleMode) {
-                    val intent = Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
-                        putExtra("mode", "rolling")
+                    if (singleMode) {
+                        val intent = Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
+                            putExtra("mode", "rolling")
+                        }
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // Go to wallpaper picker
+                        val intent = Intent(
+                            this@RollingSelectionActivity,
+                            WallpaperPickerActivity::class.java
+                        ).apply {
+                            putExtra("mode", "rolling")
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
-                } else {
-                    // Go to wallpaper picker
-                    val intent = Intent(
-                        this@RollingSelectionActivity,
-                        WallpaperPickerActivity::class.java
-                    ).apply {
-                        putExtra("mode", "rolling")
-                    }
-                    startActivity(intent)
-                    finish()
                 }
             }
         }
@@ -359,5 +363,52 @@ class RollingSelectionActivity : BaseActivity() {
             if (isEmpty) View.VISIBLE else View.GONE
         findViewById<View>(R.id.photoRecyclerView)?.visibility =
             if (isEmpty) View.GONE else View.VISIBLE
+    }
+
+    private fun showDeletePhotoConfirmationDialog(photoIndex: Int) {
+        if (photoIndex !in 0 until selectedPhotosList.size) return
+
+        val dialog = android.app.Dialog(this)
+        val view = layoutInflater.inflate(R.layout.dialog_delete_photo, null)
+        dialog.setContentView(view)
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        val txtTitle = view.findViewById<TextView>(R.id.txtDialogTitle)
+        val txtMessage = view.findViewById<TextView>(R.id.txtDialogMessage)
+        val btnCancel = view.findViewById<Button>(R.id.btnDialogCancel)
+        val btnDelete = view.findViewById<Button>(R.id.btnDialogDelete)
+
+        txtTitle.text = getString(R.string.delete_photo_title)
+        txtMessage.text = getString(R.string.delete_photo_message)
+        btnDelete.text = getString(R.string.btn_delete)
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnDelete.setOnClickListener {
+            dialog.dismiss()
+            if (photoIndex in 0 until selectedPhotosList.size) {
+                selectedPhotosList.removeAt(photoIndex)
+                updatePhotoCount()
+                photoAdapter.notifyDataSetChanged()
+                scope.launch(Dispatchers.IO) {
+                    preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
+                }
+            }
+        }
+
+        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.fr_ads)
+        if (frAds != null) {
+            com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
+                adFrame = frAds,
+                adName = "native_all",
+                adId = getString(R.string.native_all),
+                adLayout = R.layout.layout_native_media,
+                canShowAd = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_all
+            )
+        }
+
+        dialog.show()
     }
 }

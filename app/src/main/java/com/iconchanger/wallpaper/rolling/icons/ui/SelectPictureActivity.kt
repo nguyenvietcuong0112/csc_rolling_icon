@@ -269,7 +269,7 @@ class SelectPictureActivity : BaseActivity() {
     }
 
     private fun updateSelectedUI() {
-        txtSelectedCount.text = "Selected: ${selectedPhotosList.size} Files"
+        txtSelectedCount.text = getString(R.string.selected_files_format, selectedPhotosList.size)
         selectedAdapter.notifyDataSetChanged()
     }
 
@@ -347,7 +347,7 @@ class SelectPictureActivity : BaseActivity() {
             val folder = foldersList[position]
 
             holder.txtFolderName.text = folder.folderName
-            holder.txtFolderCount.text = "${folder.photos.size} Photos"
+            holder.txtFolderCount.text = getString(R.string.photos_count_format, folder.photos.size)
             holder.imgFolderCover.load(folder.coverUri) {
                 placeholder(android.R.drawable.ic_menu_gallery)
             }

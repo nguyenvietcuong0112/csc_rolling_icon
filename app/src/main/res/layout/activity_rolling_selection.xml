@@ -218,7 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="Photos from your gallery"
+                    android:text="@string/photos_from_gallery"
                     android:textColor="@color/cosmic_text_subtitle"
                     android:textSize="13sp"
                     android:fontFamily="@font/app_font" />

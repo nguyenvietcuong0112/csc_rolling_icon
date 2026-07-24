@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp_24">
+        android:paddingTop="@dimen/dp_30">
 
         <!-- Top Bar -->
         <RelativeLayout
@@ -82,12 +82,12 @@
 
                     <FrameLayout
                         android:id="@+id/iconContainerMakeLauncher"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_72"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/bg_white_rounded_12"
-                        android:padding="10dp">
+                        >
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -125,13 +125,28 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchMakeLauncher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        app:thumbTint="@color/cosmic_accent"
-                        app:trackTint="@color/cosmic_border_purple_light" />
+                        android:background="@drawable/ic_switch_selector"
+                        android:thumb="@null"
+                        android:track="@null"
+                        app:thumbTint="@null"
+                        app:trackTint="@null"
+                        android:splitTrack="false"
+                        app:showText="false" />
                 </RelativeLayout>
+            </FrameLayout>
+
+            <!-- Native Ad Container -->
+            <FrameLayout
+                android:id="@+id/fr_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <include layout="@layout/csc_shimer_top_layout_recycler_native" />
             </FrameLayout>
 
             <!-- 2. Physics Wallpaper Settings Section -->
@@ -166,10 +181,10 @@
                         <!-- Left Column: Icon Container -->
                         <FrameLayout
                             android:id="@+id/iconContainerSize"
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/dp_72"
+                            android:layout_height="@dimen/dp_72"
                             android:background="@drawable/bg_white_rounded_12"
-                            android:padding="10dp">
+                            >
 
                             <ImageView
                                 android:id="@+id/imgIconSize"
@@ -274,12 +289,12 @@
 
                         <FrameLayout
                             android:id="@+id/iconContainerTouch"
-                            android:layout_width="54dp"
-                            android:layout_height="54dp"
+                            android:layout_width="@dimen/dp_72"
+                            android:layout_height="@dimen/dp_72"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/bg_white_rounded_12"
-                            android:padding="10dp">
+                            >
 
                             <ImageView
                                 android:id="@+id/imgIconTouch"
@@ -318,12 +333,17 @@
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchWallpaperTouch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="28dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            app:thumbTint="@color/cosmic_accent"
-                            app:trackTint="@color/cosmic_border_purple_light" />
+                            android:background="@drawable/ic_switch_selector"
+                            android:thumb="@null"
+                            android:track="@null"
+                            app:thumbTint="@null"
+                            app:trackTint="@null"
+                            android:splitTrack="false"
+                            app:showText="false" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -353,12 +373,12 @@
 
                     <FrameLayout
                         android:id="@+id/iconContainerFloat"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="@dimen/dp_72"
+                        android:layout_height="@dimen/dp_72"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:background="@drawable/bg_white_rounded_12"
-                        android:padding="10dp">
+                        >
 
                         <ImageView
                             android:id="@+id/imgIconFloat"
@@ -397,12 +417,17 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchFloatButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="28dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        app:thumbTint="@color/cosmic_accent"
-                        app:trackTint="@color/cosmic_border_purple_light" />
+                        android:background="@drawable/ic_switch_selector"
+                        android:thumb="@null"
+                        android:track="@null"
+                        app:thumbTint="@null"
+                        app:trackTint="@null"
+                        android:splitTrack="false"
+                        app:showText="false" />
                 </RelativeLayout>
             </FrameLayout>
 
@@ -546,23 +571,26 @@
                         </FrameLayout>
 
                         <TextView
-                            android:id="@+id/tv_settings_version_value"
+                            android:id="@+id/tv_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/iconContainerAbout"
-                            android:layout_toLeftOf="@+id/arrowAbout"
+                            android:layout_toLeftOf="@+id/tv_settings_version_value"
                             android:layout_centerVertical="true"
                             android:layout_marginHorizontal="12dp"
-                            android:text="@string/menu_about_us"
+                            android:text="Version"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:fontFamily="@font/app_font" />
 
-                        <ImageView
-                            android:id="@+id/arrowAbout"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                        <TextView
+                            android:id="@+id/tv_settings_version_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="v0.0.1"
+                            android:textColor="#1A1A1A"
+                            android:fontFamily="@font/app_font"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:src="@drawable/ic_arrow_right" />

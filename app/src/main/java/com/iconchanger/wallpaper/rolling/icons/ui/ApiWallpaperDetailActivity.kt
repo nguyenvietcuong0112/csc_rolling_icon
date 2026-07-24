@@ -71,7 +71,7 @@ class ApiWallpaperDetailActivity : BaseActivity() {
             if (selectedItem != null) {
                 showSetWallpaperAsDialog(selectedItem)
             } else {
-                Toast.makeText(this, "Please select a wallpaper first", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_select_wallpaper_first), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -144,64 +144,66 @@ class ApiWallpaperDetailActivity : BaseActivity() {
 
         btnSetWallpaper.setOnClickListener {
             dialog.dismiss()
-            progressBar.visibility = View.VISIBLE
-            progressBar.playAnimation()
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+                progressBar.visibility = View.VISIBLE
+                progressBar.playAnimation()
 
-            scope.launch(Dispatchers.IO) {
-                // 1. Save preference for Live Wallpaper engine
-                preferenceRepository.setBgImagePath(selectedItem.originalImageUrl)
-                preferenceRepository.setBgType(2)
+                scope.launch(Dispatchers.IO) {
+                    // 1. Save preference for Live Wallpaper engine
+                    preferenceRepository.setBgImagePath(selectedItem.originalImageUrl)
+                    preferenceRepository.setBgType(2)
 
-                val wallpaperManager = android.app.WallpaperManager.getInstance(applicationContext)
-                val isLiveWallpaperActive = wallpaperManager.wallpaperInfo?.packageName == packageName
+                    val wallpaperManager = android.app.WallpaperManager.getInstance(applicationContext)
+                    val isLiveWallpaperActive = wallpaperManager.wallpaperInfo?.packageName == packageName
 
-                var setSuccess = false
-                if (!isLiveWallpaperActive) {
-                    // Only set static bitmap wallpaper if Live Wallpaper is not currently active
-                    try {
-                        val url = URL(selectedItem.originalImageUrl)
-                        val inputStream = url.openStream()
-                        val bitmap = android.graphics.BitmapFactory.decodeStream(inputStream)
-                        inputStream.close()
+                    var setSuccess = false
+                    if (!isLiveWallpaperActive) {
+                        // Only set static bitmap wallpaper if Live Wallpaper is not currently active
+                        try {
+                            val url = URL(selectedItem.originalImageUrl)
+                            val inputStream = url.openStream()
+                            val bitmap = android.graphics.BitmapFactory.decodeStream(inputStream)
+                            inputStream.close()
 
-                        if (bitmap != null) {
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                val flag = when (selectedTargetOption) {
-                                    1 -> android.app.WallpaperManager.FLAG_LOCK
-                                    2 -> android.app.WallpaperManager.FLAG_SYSTEM or android.app.WallpaperManager.FLAG_LOCK
-                                    else -> android.app.WallpaperManager.FLAG_SYSTEM
+                            if (bitmap != null) {
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                                    val flag = when (selectedTargetOption) {
+                                        1 -> android.app.WallpaperManager.FLAG_LOCK
+                                        2 -> android.app.WallpaperManager.FLAG_SYSTEM or android.app.WallpaperManager.FLAG_LOCK
+                                        else -> android.app.WallpaperManager.FLAG_SYSTEM
+                                    }
+                                    wallpaperManager.setBitmap(bitmap, null, true, flag)
+                                } else {
+                                    wallpaperManager.setBitmap(bitmap)
                                 }
-                                wallpaperManager.setBitmap(bitmap, null, true, flag)
-                            } else {
-                                wallpaperManager.setBitmap(bitmap)
+                                bitmap.recycle()
+                                setSuccess = true
                             }
-                            bitmap.recycle()
-                            setSuccess = true
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                } else {
-                    setSuccess = true
-                }
-
-                withContext(Dispatchers.Main) {
-                    progressBar.cancelAnimation()
-                    progressBar.visibility = View.GONE
-
-                    if (isLiveWallpaperActive) {
-                        Toast.makeText(this@ApiWallpaperDetailActivity, "Wallpaper updated for Rolling Icons!", Toast.LENGTH_SHORT).show()
-                    } else if (setSuccess) {
-                        Toast.makeText(this@ApiWallpaperDetailActivity, "Wallpaper set successfully!", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this@ApiWallpaperDetailActivity, "Wallpaper updated!", Toast.LENGTH_SHORT).show()
+                        setSuccess = true
                     }
 
-                    val intent = Intent(this@ApiWallpaperDetailActivity, MainActivity::class.java).apply {
-                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    withContext(Dispatchers.Main) {
+                        progressBar.cancelAnimation()
+                        progressBar.visibility = View.GONE
+
+                        if (isLiveWallpaperActive) {
+                            Toast.makeText(this@ApiWallpaperDetailActivity, getString(R.string.toast_wallpaper_updated_rolling), Toast.LENGTH_SHORT).show()
+                        } else if (setSuccess) {
+                            Toast.makeText(this@ApiWallpaperDetailActivity, getString(R.string.toast_wallpaper_set_success), Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@ApiWallpaperDetailActivity, getString(R.string.toast_wallpaper_updated), Toast.LENGTH_SHORT).show()
+                        }
+
+                        val intent = Intent(this@ApiWallpaperDetailActivity, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
                 }
             }
         }

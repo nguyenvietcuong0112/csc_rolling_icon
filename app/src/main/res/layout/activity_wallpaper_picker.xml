@@ -65,7 +65,7 @@
             android:id="@+id/btnApply"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Apply"
+            android:text="@string/btn_apply"
             android:textColor="@color/cosmic_white"
             android:background="@drawable/bg_purple_gradient_btn"
             android:stateListAnimator="@null"

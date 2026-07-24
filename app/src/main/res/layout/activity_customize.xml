@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/app_font"
-                android:text="Select Display Mode"
+                android:text="@string/select_display_mode"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -109,7 +109,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/app_font"
-                            android:text="Live Wallpaper Mode"
+                            android:text="@string/live_wallpaper_mode"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -367,12 +367,17 @@
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchWallpaperTouch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="28dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            app:thumbTint="@color/cosmic_accent"
-                            app:trackTint="@color/cosmic_border_purple_light" />
+                            android:background="@drawable/ic_switch_selector"
+                            android:thumb="@null"
+                            android:track="@null"
+                            app:thumbTint="@null"
+                            app:trackTint="@null"
+                            android:splitTrack="false"
+                            app:showText="false" />
                     </RelativeLayout>
 
                     <!-- Divider -->
@@ -432,12 +437,17 @@
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchFloatButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="28dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            app:thumbTint="@color/cosmic_accent"
-                            app:trackTint="@color/cosmic_border_purple_light" />
+                            android:background="@drawable/ic_switch_selector"
+                            android:thumb="@null"
+                            android:track="@null"
+                            app:thumbTint="@null"
+                            app:trackTint="@null"
+                            android:splitTrack="false"
+                            app:showText="false" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -461,7 +471,7 @@
             android:fontFamily="@font/app_font"
             android:gravity="center"
             android:stateListAnimator="@null"
-            android:text="Apply"
+            android:text="@string/btn_apply"
             android:textColor="@color/cosmic_white"
             android:textSize="16sp"
             android:textStyle="bold" />

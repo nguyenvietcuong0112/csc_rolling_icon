@@ -3,6 +3,15 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.google.com") }
+        maven {
+            url =
+                uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea")
+        }
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/pangle/")
+        }
     }
 }
 dependencyResolutionManagement {
@@ -10,6 +19,22 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://maven.google.com") }
+        maven {
+            url =
+                uri("https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea")
+        }
+        maven {
+            url = uri("https://artifact.bytedance.com/repository/pangle/")
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/cscappstudio/csc_ads_lib")
+            credentials {
+                username = "csccuong"
+                password = "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"
+            }
+        }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }

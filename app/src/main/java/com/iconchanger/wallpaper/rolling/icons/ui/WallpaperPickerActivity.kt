@@ -62,33 +62,35 @@ class WallpaperPickerActivity : BaseActivity() {
 
         // Apply selected wallpaper when Apply button is clicked
         btnApply.setOnClickListener {
-            if (selectedPosition in wallpapers.indices) {
-                val resId = wallpapers[selectedPosition]
-                val uriString = "android.resource://$packageName/$resId"
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+                if (selectedPosition in wallpapers.indices) {
+                    val resId = wallpapers[selectedPosition]
+                    val uriString = "android.resource://$packageName/$resId"
 
-                scope.launch {
-                    if (wallpaperMode == "spinning") {
-                        preferenceRepository.setSpinningBgImagePath(uriString)
-                        preferenceRepository.setWallpaperMode("spinning")
-                    } else if (wallpaperMode == "shape_path") {
-                        preferenceRepository.setShapeBgImagePath(uriString)
-                        preferenceRepository.setWallpaperMode("shape_path")
-                    } else {
-                        preferenceRepository.setBgImagePath(uriString)
-                        preferenceRepository.setBgType(2) // Image background
-                        preferenceRepository.setWallpaperMode("rolling")
-                    }
-
-                    val fromSettings = intent.getBooleanExtra("from_settings", false)
-                    if (fromSettings) {
-                        Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
-                            putExtra("mode", wallpaperMode)
+                    scope.launch {
+                        if (wallpaperMode == "spinning") {
+                            preferenceRepository.setSpinningBgImagePath(uriString)
+                            preferenceRepository.setWallpaperMode("spinning")
+                        } else if (wallpaperMode == "shape_path") {
+                            preferenceRepository.setShapeBgImagePath(uriString)
+                            preferenceRepository.setWallpaperMode("shape_path")
+                        } else {
+                            preferenceRepository.setBgImagePath(uriString)
+                            preferenceRepository.setBgType(2) // Image background
+                            preferenceRepository.setWallpaperMode("rolling")
                         }
-                        startActivity(intent)
-                        finish()
+
+                        val fromSettings = intent.getBooleanExtra("from_settings", false)
+                        if (fromSettings) {
+                            Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
+                                putExtra("mode", wallpaperMode)
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
             }

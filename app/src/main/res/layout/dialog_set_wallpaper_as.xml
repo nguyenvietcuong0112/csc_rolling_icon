@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/app_font"
-            android:text="Set Wallpaper AS"
+            android:text="@string/dialog_set_wallpaper_as_title"
             android:textColor="#1A1A1A"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -262,7 +262,7 @@
         android:background="@drawable/bg_purple_gradient_btn"
         android:fontFamily="@font/app_font"
         android:stateListAnimator="@null"
-        android:text="Set Wallpaper"
+        android:text="@string/btn_set_wallpaper"
         android:textColor="@color/cosmic_white"
         android:textSize="15sp"
         android:textStyle="bold" />

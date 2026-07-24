@@ -41,6 +41,8 @@ class LauncherActivity : AndroidApplication() {
     private val appList = ArrayList<AppInfo>()
     private lateinit var drawerAdapter: DrawerAppAdapter
     private var cachedApps: List<AppInfo>? = null
+    private var activeExitDialog: android.app.Dialog? = null
+    private var backInvokedCallback: Any? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,11 +103,49 @@ class LauncherActivity : AndroidApplication() {
             }
         }
 
+        // Đăng ký OnBackInvokedCallback cho Android 13+ (API 33+) do enableOnBackInvokedCallback="true"
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            val callback = android.window.OnBackInvokedCallback {
+                handleBackPress()
+            }
+            backInvokedCallback = callback
+            onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                callback
+            )
+        }
+
         // Bắt đầu tải trước danh sách app trong Dispatchers.IO để cache lại
         coroutineScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val apps = appRepository.getInstalledApps()
             cachedApps = apps
         }
+    }
+
+    private fun handleBackPress() {
+        if (appDrawerLayout.visibility == View.VISIBLE) {
+            appDrawerLayout.visibility = View.GONE
+            return
+        }
+
+        if (activeExitDialog?.isShowing == true) {
+            return
+        }
+
+        showExitDialog()
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onBackPressed() {
+        handleBackPress()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: android.view.KeyEvent?): Boolean {
+        if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
+            handleBackPress()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     private fun loadDrawerApps() {
@@ -128,14 +168,10 @@ class LauncherActivity : AndroidApplication() {
         }
     }
 
-    override fun onBackPressed() {
-        if (appDrawerLayout.visibility == View.VISIBLE) {
-            appDrawerLayout.visibility = View.GONE
-            return
-        }
-
+    private fun showExitDialog() {
         // Hiển thị Dialog xác nhận thoát app đồng bộ với theme
         val dialog = android.app.Dialog(this)
+        activeExitDialog = dialog
         val view = layoutInflater.inflate(R.layout.dialog_exit, null)
         dialog.setContentView(view)
         dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
@@ -151,7 +187,7 @@ class LauncherActivity : AndroidApplication() {
             dialog.dismiss()
             
             if (isDefaultLauncher()) {
-                Toast.makeText(this@LauncherActivity, "Please change default Home app to exit", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LauncherActivity, getString(R.string.toast_change_default_home), Toast.LENGTH_LONG).show()
                 try {
                     val intent = Intent(android.provider.Settings.ACTION_HOME_SETTINGS).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -222,6 +258,9 @@ class LauncherActivity : AndroidApplication() {
             }
         }
 
+        dialog.setOnDismissListener {
+            activeExitDialog = null
+        }
         dialog.show()
     }
 
@@ -235,6 +274,11 @@ class LauncherActivity : AndroidApplication() {
     }
 
     override fun onDestroy() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            (backInvokedCallback as? android.window.OnBackInvokedCallback)?.let {
+                onBackInvokedDispatcher.unregisterOnBackInvokedCallback(it)
+            }
+        }
         coroutineScope.cancel()
         super.onDestroy()
     }

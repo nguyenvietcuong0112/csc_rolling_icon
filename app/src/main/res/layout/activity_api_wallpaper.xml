@@ -96,7 +96,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_purple_gradient_btn"
                 android:fontFamily="@font/app_font"
-                android:text="Retry"
+                android:text="@string/btn_retry"
                 android:textColor="@color/cosmic_white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
