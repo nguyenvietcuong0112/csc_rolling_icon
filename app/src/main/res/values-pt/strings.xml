@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rolling Icon: Live Wallpaper</string>
+    <string name="wallpaper_label">Papel de Parede Animado Rolling Icons</string>
+    <string name="wallpaper_description">Papel de parede animado simulando ícones 3D realistas que se movem com a gravidade.</string>
+    <string name="settings_label">Configurações do Rolling Icons</string>
+
+    <!-- MainActivity -->
+    <string name="title_3d_custom_icons">Ícone Rolante 3D</string>
+    <string name="rolling_icon_title">Ícone Rolante</string>
+    <string name="rolling_icon_desc">Animação de rolagem para seus ícones</string>
+    <string name="btn_start">Iniciar</string>
+    <string name="spinning_icon_title">Ícone Giratório</string>
+    <string name="spinning_icon_desc">Faça seus ícones girarem continuamente</string>
+    <string name="shape_path_title">Trajetória</string>
+    <string name="shape_path_desc">Movimento periódico em formas: Coração, Trevo, Borboleta...</string>
+    <string name="emoji_icon_title">Ícone Emoji</string>
+    <string name="emoji_icon_desc">Gerenciar emojis ativos</string>
+    <string name="photo_icon_title">Ícone de Foto</string>
+    <string name="photo_icon_desc">Gerenciar fotos ativas</string>
+    <string name="wallpaper_title">Papel de Parede</string>
+    <string name="wallpaper_desc">Definir papel de parede estático / animado</string>
+
+    <!-- Launcher & Game -->
+    <string name="score_format">Pontuação: %d</string>
+    <string name="score_0">Pontuação: 0</string>
+    <string name="exit_game">Sair do Jogo</string>
+    <string name="exit_launcher">Sair do Launcher</string>
+    <string name="all_applications">TODOS OS APLICATIVOS</string>
+    <string name="exit_title">Sair do Aplicativo</string>
+    <string name="exit_message">Tem certeza de que deseja sair do aplicativo?</string>
+    <string name="btn_exit">Sair</string>
+    <string name="btn_next">Próximo</string>
+    <string name="btn_cancel">Cancelar</string>
+
+    <!-- Selection Activities -->
+    <string name="configure_icons">Configurações de Ícones</string>
+    <string name="configure_path_icons">Configurar Ícones da Trajetória</string>
+    <string name="selected_label">Selecionado:</string>
+    <string name="photos_count_format">%d fotos</string>
+    <string name="zero_photos">0 fotos</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="permission_title">Permissão</string>
+    <string name="permission_photo_title">Permitir Acesso às Fotos</string>
+    <string name="permission_photo_desc">Use suas próprias fotos e papéis de parede para criar temas de ícones 3D exclusivos.</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_emoji">Emojis</string>
+    <string name="tab_photos">Fotos</string>
+
+    <!-- Shape Path Selector -->
+    <string name="select_shape_path">Selecionar Trajetória</string>
+    <string name="select_shape_desc">Selecione uma trajetória para o movimento dos ícones:</string>
+    <string name="shape_heart">Coração</string>
+    <string name="shape_infinity">Infinito</string>
+    <string name="shape_star">Estrela</string>
+    <string name="shape_flower">Flor</string>
+    <string name="shape_clover">Trevo de quatro folhas</string>
+    <string name="shape_butterfly">Borboleta</string>
+
+    <!-- Spinning Styles -->
+    <string name="spinning_style_title">Estilo de Giro</string>
+    <string name="select_spinning_style">Selecionar Estilo de Giro</string>
+    <string name="single_circle_title">Círculo Único</string>
+    <string name="single_circle_desc">Todos os ícones giram em um grande círculo</string>
+    <string name="dual_circle_title">Círculo Duplo</string>
+    <string name="dual_circle_desc">Círculos concêntricos girando em direções opostas</string>
+    <string name="vortex_spiral_title">Espiral em Vórtice</string>
+    <string name="vortex_spiral_desc">Ícones giram em um padrão de espiral em vórtice</string>
+    <string name="selected_count_format">Selecionado %1$d de %2$d</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_title">Configurações</string>
+    <string name="make_it_launcher">Definir como tela inicial padrão?</string>
+    <string name="size_small">Pequeno</string>
+    <string name="size_middle">Médio</string>
+    <string name="size_large">Grande</string>
+    <string name="select_bg_image">Selecionar imagem de fundo</string>
+    <string name="select_bg_image_desc">Escolha uma imagem personalizada para o fundo</string>
+    <string name="bg_default">Padrão</string>
+    <string name="bg_custom_image">Imagem Personalizada</string>
+    <string name="enable_float_button">Ativar botão flutuante?</string>
+    <string name="float_button_desc">Botão flutuante do launcher</string>
+    <string name="enable_wallpaper_touch">Ativar toque no papel de parede?</string>
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_rate_us">Avalie-nos</string>
+    <string name="menu_about_us">Sobre nós</string>
+    <string name="menu_privacy_policy">Política de privacidade</string>
+    <string name="menu_service_policy">Termos de serviço</string>
+    <string name="menu_about_ads">Sobre anúncios</string>
+
+    <!-- Wallpapers -->
+    <string name="select_wallpaper">Selecionar Papel de Parede</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_opening_search">Abrindo pesquisa...</string>
+    <string name="toast_cannot_open_app">Não é possível abrir este aplicativo!</string>
+    <string name="toast_bg_updated">Imagem de fundo atualizada!</string>
+    <string name="toast_select_launcher">Selecione nosso launcher na lista para ativar!</string>
+    <string name="toast_feedback_coming">Recurso de feedback em breve!</string>
+    <string name="toast_thanks_rating">Obrigado por nos avaliar com 5 estrelas!</string>
+    <string name="toast_about_app">Aplicativo de simulação Rolling Icons. Versão 1.0</string>
+    <string name="toast_about_ads">O aplicativo é totalmente gratuito!</string>
+    <string name="toast_no_browser">Nenhum navegador da web instalado!</string>
+    <string name="toast_select_one_app">Selecione pelo menos 1 aplicativo!</string>
+    <string name="toast_apply_wallpaper_tip">Clique em \'Definir Papel de Parede\' para aplicar o modo animado!</string>
+    <string name="toast_unsupported_wallpaper">Este dispositivo não suporta papéis de parede animados!</string>
+
+    <string name="toast_select_language_continue">Selecione um idioma para continuar</string>
+    <string name="language">Idioma</string>
+    <string name="language_english">English</string>
+    <string name="language_french">French</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_indonesian">Indonesian</string>
+    <string name="language_portuguese">Portuguese</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_japanese">Japanese</string>
+
+    <string name="splash_ads_warning">Anúncios podem ser carregados em breve, aguarde…</string>
+    <string name="intro_slide_1_title">Faça sua Tela Inicial Brilhar</string>
+    <string name="intro_slide_1_des">Adicione ícones animados bonitos para criar um visual único.</string>
+    <string name="intro_slide_2_title">Movimentos no seu Estilo</string>
+    <string name="intro_slide_2_des">Escolha animações suaves para dar vida aos ícones.</string>
+    <string name="intro_slide_3_title">Traga os Ícones para o 3D</string>
+    <string name="intro_slide_3_des">Adicione profundidade 3D incrível à sua tela inicial.</string>
+    <string name="intro_slide_4_title">Complete o Visual</string>
+    <string name="intro_slide_4_des">Combine ícones animados com lindos papéis de parede.</string>
+    <string name="intro_next">Próximo</string>
+
+    <!-- Newly Extracted UI Strings -->
+    <string name="btn_retry">Tentar novamente</string>
+    <string name="select_display_mode">Selecionar Modo de Exibição</string>
+    <string name="live_wallpaper_mode">Modo Papel de Parede Animado</string>
+    <string name="btn_apply">Aplicar</string>
+    <string name="btn_get_started">Iniciar  ➔</string>
+    <string name="photos_from_gallery">Fotos da sua galeria</string>
+    <string name="select_picture_title">Selecionar Imagem</string>
+    <string name="tab_all_photo">Todas as Fotos</string>
+    <string name="tab_folder">Pasta</string>
+    <string name="selected_files_zero">Selecionado: 0 Arquivos</string>
+    <string name="selected_files_format">Selecionado: %d Arquivos</string>
+    <string name="btn_next_arrow">Próximo ➔</string>
+    <string name="btn_save">Salvar</string>
+    <string name="dialog_set_wallpaper_as_title">Definir Papel de Parede Como</string>
+    <string name="btn_set_wallpaper">Definir Papel de Parede</string>
+
+    <!-- Additional Toast & Dynamic Strings -->
+    <string name="toast_select_wallpaper_first">Selecione um papel de parede primeiro</string>
+    <string name="toast_wallpaper_updated_rolling">Papel de parede atualizado para Rolling Icons!</string>
+    <string name="toast_wallpaper_set_success">Papel de parede definido com sucesso!</string>
+    <string name="toast_wallpaper_updated">Papel de parede atualizado!</string>
+    <string name="toast_change_default_home">Altere o app de início padrão para sair</string>
+    <!-- Delete Photo Dialog -->
+    <string name="delete_photo_title">Excluir Foto</string>
+    <string name="delete_photo_message">Tem certeza de que deseja excluir esta foto?</string>
+    <string name="btn_delete">Excluir</string>
+    <!-- Loading Dialog -->
+    <string name="loading_ads">Carregando, aguarde…</string>
+</resources>
