@@ -158,4 +158,30 @@
     <string name="btn_delete">Xóa</string>
     <!-- Loading Dialog -->
     <string name="loading_ads">Đang tải, vui lòng chờ…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">Cài Đặt Tùy Chỉnh</string>
+    <string name="live_wallpaper_mode_desc">Các ứng dụng và ảnh đã chọn sẽ cuộn xoay làm hình nền động phía sau màn hình chính của bạn</string>
+    <string name="home_launcher_mode">Chế Độ Màn Hình Chính Launcher</string>
+    <string name="home_launcher_mode_desc">Thay thế hoàn toàn màn hình chính bằng giao diện icon vật lý tương tác và ngăn ứng dụng.</string>
+    <string name="physics_wallpaper_settings">Cài Đặt Hình Nền Vật Lý</string>
+    <string name="icon_size">Kích Thước Biểu Tượng</string>
+    <string name="set_as_default_home">Đặt làm màn hình chính mặc định</string>
+    <string name="touch_interaction">Tương Tác Chạm</string>
+    <string name="touch_interaction_desc">Cho phép chạm tương tác vào các biểu tượng đang cuộn trên hình nền</string>
+    <string name="enable_float_button_title">Bật nút nổi?</string>
+    <string name="float_button_subdesc">Nút nổi hỗ trợ nhanh của Launcher</string>
+    <string name="launcher_settings">Cài Đặt Launcher</string>
+    <string name="floating_button">Nút Nổi</string>
+    <string name="support_information">Thông Tin Hỗ Trợ</string>
+    <string name="version">Phiên bản</string>
+    <string name="shape_crown">Vương Miện</string>
+    <string name="shape_diamond">Kim Cương</string>
+    <string name="home_screen">Màn Hình Chính</string>
+    <string name="home_screen_desc">Đặt làm hình nền cho màn hình chính</string>
+    <string name="lock_screen">Màn Hình Khóa</string>
+    <string name="lock_screen_desc">Đặt làm hình nền cho màn hình khóa</string>
+    <string name="lock_home_screen">Màn Hình Khóa &amp; Chính</string>
+    <string name="lock_home_screen_desc">Đặt hình nền cho cả hai màn hình</string>
+    <string name="no_internet_or_wallpapers">Không có kết nối internet hoặc không tìm thấy hình nền</string>
 </resources>

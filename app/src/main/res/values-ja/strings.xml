@@ -156,5 +156,31 @@
     <string name="delete_photo_message">この写真を削除してもよろしいですか？</string>
     <string name="btn_delete">削除</string>
     <!-- Loading Dialog -->
-    <string name="loading_ads">読み込んでいます。お待ちください…</string>
+    <string name="loading_ads">読み込み中、お待ちください…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">設定のカスタマイズ</string>
+    <string name="live_wallpaper_mode_desc">選択したアプリや写真がライブ壁紙として回転・移動します</string>
+    <string name="home_launcher_mode">ホームランチャーモード</string>
+    <string name="home_launcher_mode_desc">ホーム画面をインタラクティブな物理アイコンデスクトップに完全に置き換えます。</string>
+    <string name="physics_wallpaper_settings">物理壁紙の設定</string>
+    <string name="icon_size">アイコンサイズ</string>
+    <string name="set_as_default_home">デフォルトのホーム画面に設定</string>
+    <string name="touch_interaction">タッチ操作</string>
+    <string name="touch_interaction_desc">壁紙上の転がるアイコンのタップを許可</string>
+    <string name="enable_float_button_title">フローティングボタンを有効化?</string>
+    <string name="float_button_subdesc">ランチャーのフローティングボタン</string>
+    <string name="launcher_settings">ランチャー設定</string>
+    <string name="floating_button">フローティングボタン</string>
+    <string name="support_information">サポート情報</string>
+    <string name="version">バージョン</string>
+    <string name="shape_crown">王冠</string>
+    <string name="shape_diamond">ダイヤモンド</string>
+    <string name="home_screen">ホーム画面</string>
+    <string name="home_screen_desc">ホーム画面の壁紙として設定</string>
+    <string name="lock_screen">ロック画面</string>
+    <string name="lock_screen_desc">ロック画面の壁紙として設定</string>
+    <string name="lock_home_screen">ロック＆ホーム画面</string>
+    <string name="lock_home_screen_desc">両方の画面の壁紙に設定</string>
+    <string name="no_internet_or_wallpapers">インターネット接続がないか、壁紙が見つかりません</string>
 </resources>

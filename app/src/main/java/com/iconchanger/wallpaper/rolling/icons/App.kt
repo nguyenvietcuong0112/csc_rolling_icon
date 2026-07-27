@@ -62,6 +62,7 @@ class App : Application() {
     private fun initFO() {
         val cscLibrary = CSCApplication(this, RemoteConfigs, BuildConfig.DEBUG)
         val isOrganic = SharePreferenceUtils.isOrganic(this)
+
         val nativeFullId = if (isOrganic) "" else getString(R.string.native_splash_full)
         val nativeFullHighId = if (isOrganic) "" else getString(R.string.native_splash_full_high)
         val nativeOB2Id = if (isOrganic) "" else getString(R.string.native_onboarding_2)
@@ -75,7 +76,7 @@ class App : Application() {
             splashConfig = SplashConfig(
                 uiSplashConfig = UiSplashConfig(
                     resLayout = R.layout.activity_splash,
-                    showFOForever = false,
+                    showFOForever = true,
                     homeActivity = PermissionActivity::class.java,
                     timeout = 30_000
                 ),

@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Launcher Settings"
+                android:text="@string/launcher_settings"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -107,7 +107,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Make it as Launcher??"
+                            android:text="@string/make_it_launcher"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -116,7 +116,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Set as default home screen"
+                            android:text="@string/set_as_default_home"
                             android:textColor="#757575"
                             android:textSize="12sp"
                             android:layout_marginTop="2dp"
@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Physics Wallpaper Settings"
+                android:text="@string/physics_wallpaper_settings"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -205,7 +205,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Icon Size"
+                                android:text="@string/icon_size"
                                 android:textColor="#1A1A1A"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
@@ -215,7 +215,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Set as default home screen"
+                                android:text="@string/set_as_default_home"
                                 android:textColor="#757575"
                                 android:textSize="12sp"
                                 android:layout_marginTop="2dp"
@@ -315,7 +315,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Touch Interaction"
+                                android:text="@string/touch_interaction"
                                 android:textColor="#1A1A1A"
                                 android:textSize="15sp"
                                 android:textStyle="bold"
@@ -324,7 +324,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Allow clicking on rolling icons on the wallpaper"
+                                android:text="@string/touch_interaction_desc"
                                 android:textColor="#757575"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"
@@ -353,7 +353,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Floating Button"
+                android:text="@string/floating_button"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -399,7 +399,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Enable float button?"
+                            android:text="@string/enable_float_button_title"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -408,7 +408,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Launcher's float button"
+                            android:text="@string/float_button_subdesc"
                             android:textColor="#757575"
                             android:textSize="11sp"
                             android:layout_marginTop="2dp"
@@ -435,7 +435,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Support Information"
+                android:text="@string/support_information"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -483,7 +483,7 @@
                             android:layout_toLeftOf="@+id/arrowLanguage"
                             android:layout_centerVertical="true"
                             android:layout_marginHorizontal="12dp"
-                            android:text="Language"
+                            android:text="@string/language"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -578,7 +578,7 @@
                             android:layout_toLeftOf="@+id/tv_settings_version_value"
                             android:layout_centerVertical="true"
                             android:layout_marginHorizontal="12dp"
-                            android:text="Version"
+                            android:text="@string/version"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold"

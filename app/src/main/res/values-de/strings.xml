@@ -157,4 +157,30 @@
     <string name="btn_delete">Löschen</string>
     <!-- Loading Dialog -->
     <string name="loading_ads">Wird geladen, bitte warten…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">Einstellung anpassen</string>
+    <string name="live_wallpaper_mode_desc">Ihre ausgewählten Apps und Fotos rollen als Live-Hintergrundbild</string>
+    <string name="home_launcher_mode">Startbildschirm-Launcher-Modus</string>
+    <string name="home_launcher_mode_desc">Ersetzen Sie Ihren Startbildschirm vollständig durch interaktive Symbole.</string>
+    <string name="physics_wallpaper_settings">Physik-Hintergrund-Einstellungen</string>
+    <string name="icon_size">Symbolgröße</string>
+    <string name="set_as_default_home">Als Standard-Startbildschirm festlegen</string>
+    <string name="touch_interaction">Berührungsinteraktion</string>
+    <string name="touch_interaction_desc">Klicken auf rollende Symbole auf dem Hintergrundbild zulassen</string>
+    <string name="enable_float_button_title">Schwebende Schaltfläche aktivieren?</string>
+    <string name="float_button_subdesc">Schwebende Schaltfläche des Launchers</string>
+    <string name="launcher_settings">Launcher-Einstellungen</string>
+    <string name="floating_button">Schwebende Schaltfläche</string>
+    <string name="support_information">Support-Informationen</string>
+    <string name="version">Version</string>
+    <string name="shape_crown">Krone</string>
+    <string name="shape_diamond">Diamant</string>
+    <string name="home_screen">Startbildschirm</string>
+    <string name="home_screen_desc">Als Hintergrundbild für den Startbildschirm festlegen</string>
+    <string name="lock_screen">Sperrbildschirm</string>
+    <string name="lock_screen_desc">Als Hintergrundbild für den Sperrbildschirm festlegen</string>
+    <string name="lock_home_screen">Sperr- &amp; Startbildschirm</string>
+    <string name="lock_home_screen_desc">Hintergrundbild für beide Bildschirme festlegen</string>
+    <string name="no_internet_or_wallpapers">Keine Internetverbindung oder Hintergrundbilder gefunden</string>
 </resources>

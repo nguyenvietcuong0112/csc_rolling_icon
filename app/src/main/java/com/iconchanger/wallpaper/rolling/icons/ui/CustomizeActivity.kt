@@ -13,8 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.cscmobi.libraryads.ads.native_ads.CSCNativeManager
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
+import com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig
+import com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs
 import com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService
 import kotlinx.coroutines.launch
 
@@ -77,11 +80,27 @@ class CustomizeActivity : BaseActivity() {
 
         // Preview & Apply Action Button
         btnPreviewApply.setOnClickListener {
-            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+            AdsConfig.showInterClickAd(this, it) {
                 saveConfigAndNavigate()
             }
         }
+        loadAdsNative()
+
     }
+
+    private fun loadAdsNative() {
+        val isEnabled = RemoteConfigs.native_all
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+
+        CSCNativeManager.showNative(
+            adFrame = frAds,
+            adName = "native_all",
+            adId = getString(R.string.native_all),
+            adLayout = R.layout.layout_native_media_medium,
+            canShowAd = isEnabled
+        )
+    }
+
 
     private fun loadConfigFromPrefs() {
         lifecycleScope.launch {

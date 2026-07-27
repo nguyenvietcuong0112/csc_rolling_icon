@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EFEFEF"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- Top Header: Icon + Headline + Ad Tag -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingVertical="4dp">
+
+        <!-- App Icon Placeholder -->
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_white_rounded_12"
+            android:backgroundTint="@color/lightTransparent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <!-- Headline Line -->
+            <View
+                android:layout_width="140dp"
+                android:layout_height="14dp"
+                android:background="@color/lightTransparent" />
+
+            <!-- Ad Tag Placeholder -->
+            <View
+                android:layout_width="20dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/lightTransparent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Center MediaView Placeholder -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@color/lightTransparent" />
+
+    <!-- Bottom CTA Button Placeholder -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@color/lightTransparent" />
+
+</LinearLayout>

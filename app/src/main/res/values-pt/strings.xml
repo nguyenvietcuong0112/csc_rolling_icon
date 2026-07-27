@@ -156,5 +156,31 @@
     <string name="delete_photo_message">Tem certeza de que deseja excluir esta foto?</string>
     <string name="btn_delete">Excluir</string>
     <!-- Loading Dialog -->
-    <string name="loading_ads">Carregando, aguarde…</string>
+    <string name="loading_ads">Carregando, por favor aguarde…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">Personalizar Configuração</string>
+    <string name="live_wallpaper_mode_desc">Seus aplicativos e fotos selecionados vão rolar como papel de parede animado</string>
+    <string name="home_launcher_mode">Modo Launcher</string>
+    <string name="home_launcher_mode_desc">Substitua completamente sua tela inicial por ícones de física interativos.</string>
+    <string name="physics_wallpaper_settings">Configurações de Papel de Parede de Física</string>
+    <string name="icon_size">Tamanho do Ícone</string>
+    <string name="set_as_default_home">Definir como tela inicial padrão</string>
+    <string name="touch_interaction">Interação ao Toque</string>
+    <string name="touch_interaction_desc">Permitir clicar nos ícones rolantes no papel de parede</string>
+    <string name="enable_float_button_title">Ativar botão flutuante?</string>
+    <string name="float_button_subdesc">Botão flutuante do Launcher</string>
+    <string name="launcher_settings">Configurações do Launcher</string>
+    <string name="floating_button">Botão Flutuante</string>
+    <string name="support_information">Informações de Suporte</string>
+    <string name="version">Versão</string>
+    <string name="shape_crown">Coroa</string>
+    <string name="shape_diamond">Diamante</string>
+    <string name="home_screen">Tela Inicial</string>
+    <string name="home_screen_desc">Definir como papel de parede da tela inicial</string>
+    <string name="lock_screen">Tela de Bloqueio</string>
+    <string name="lock_screen_desc">Definir como papel de parede da tela de bloqueio</string>
+    <string name="lock_home_screen">Tela Inicial e de Bloqueio</string>
+    <string name="lock_home_screen_desc">Definir papel de parede para ambas as telas</string>
+    <string name="no_internet_or_wallpapers">Nenhuma conexão com a internet ou papéis de parede encontrados</string>
 </resources>

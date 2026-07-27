@@ -157,4 +157,30 @@
     <string name="btn_delete">हटाएं</string>
     <!-- Loading Dialog -->
     <string name="loading_ads">लोड हो रहा है, कृपया प्रतीक्षा करें…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">सेटिंग्स कस्टमाइज़ करें</string>
+    <string name="live_wallpaper_mode_desc">आपके चयनित ऐप और फ़ोटो लाइव वॉलपेपर के रूप में रोल करेंगे</string>
+    <string name="home_launcher_mode">होम लॉन्चर मोड</string>
+    <string name="home_launcher_mode_desc">अपनी होम स्क्रीन को इंटरैक्टिव फ़िज़िक्स आइकन से बदलें।</string>
+    <string name="physics_wallpaper_settings">फ़िज़िक्स वॉलपेपर सेटिंग्स</string>
+    <string name="icon_size">आइकन का आकार</string>
+    <string name="set_as_default_home">डिफ़ॉल्ट होम स्क्रीन के रूप में सेट करें</string>
+    <string name="touch_interaction">स्पर्श सहभागिता</string>
+    <string name="touch_interaction_desc">वॉलपेपर पर रोलिंग आइकन पर क्लिक करने की अनुमति दें</string>
+    <string name="enable_float_button_title">फ़्लोटिंग बटन सक्षम करें?</string>
+    <string name="float_button_subdesc">लॉन्चर का फ़्लोटिंग बटन</string>
+    <string name="launcher_settings">लॉन्चर सेटिंग्स</string>
+    <string name="floating_button">फ़्लोटिंग बटन</string>
+    <string name="support_information">सहायता जानकारी</string>
+    <string name="version">संस्करण</string>
+    <string name="shape_crown">मुकुट</string>
+    <string name="shape_diamond">हीरा</string>
+    <string name="home_screen">होम स्क्रीन</string>
+    <string name="home_screen_desc">होम स्क्रीन के लिए वॉलपेपर सेट करें</string>
+    <string name="lock_screen">लॉक स्क्रीन</string>
+    <string name="lock_screen_desc">लॉक स्क्रीन के लिए वॉलपेपर सेट करें</string>
+    <string name="lock_home_screen">लॉक और होम स्क्रीन</string>
+    <string name="lock_home_screen_desc">दोनों स्क्रीन के लिए वॉलपेपर सेट करें</string>
+    <string name="no_internet_or_wallpapers">कोई इंटरनेट कनेक्शन या वॉलपेपर नहीं मिला</string>
 </resources>

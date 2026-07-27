@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/app_font"
-                android:text="Customize Setting"
+                android:text="@string/customize_setting"
                 android:textColor="@color/cosmic_text_primary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -119,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/app_font"
-                            android:text="Your selected apps and photo will roll and tumble as a live wallpaper behind your system home screen"
+                            android:text="@string/live_wallpaper_mode_desc"
                             android:textColor="#757575"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -168,7 +168,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/app_font"
-                            android:text="Home Launcher Mode"
+                            android:text="@string/home_launcher_mode"
                             android:textColor="#1A1A1A"
                             android:textSize="15sp"
                             android:textStyle="bold" />
@@ -178,11 +178,21 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:fontFamily="@font/app_font"
-                            android:text="Fully replace your system home screen with an interactive physics icon desktop and app drawer."
+                            android:text="@string/home_launcher_mode_desc"
                             android:textColor="#757575"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </RelativeLayout>
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/fr_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <include layout="@layout/ads_shimmer_native_media_medium" />
             </FrameLayout>
 
             <!-- 2. Section Physics Wallpaper Settings -->
@@ -191,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/app_font"
-                android:text="Physics Wallpaper Settings"
+                android:text="@string/physics_wallpaper_settings"
                 android:textColor="#8A52FF"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -241,7 +251,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/app_font"
-                                android:text="Icon Size"
+                                android:text="@string/icon_size"
                                 android:textColor="#1A1A1A"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -252,7 +262,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="@font/app_font"
-                                android:text="Set as default home screen"
+                                android:text="@string/set_as_default_home"
                                 android:textColor="#757575"
                                 android:textSize="12sp" />
 
@@ -350,7 +360,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/app_font"
-                                android:text="Touch Interaction"
+                                android:text="@string/touch_interaction"
                                 android:textColor="#1A1A1A"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -360,7 +370,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="@font/app_font"
-                                android:text="Allow clicking on rolling icons on the wallpaper"
+                                android:text="@string/touch_interaction_desc"
                                 android:textColor="#757575"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -420,7 +430,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/app_font"
-                                android:text="Enable float button?"
+                                android:text="@string/enable_float_button_title"
                                 android:textColor="#1A1A1A"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -430,7 +440,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="@font/app_font"
-                                android:text="Launcher's float button"
+                                android:text="@string/float_button_subdesc"
                                 android:textColor="#757575"
                                 android:textSize="11sp" />
                         </LinearLayout>

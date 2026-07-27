@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:minHeight="120dp"
         app:shimmer_auto_start="true">
-        <include layout="@layout/csc_shimer_top_layout_recycler_native" />
+        <include layout="@layout/ads_shimmer_native_media_medium" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 

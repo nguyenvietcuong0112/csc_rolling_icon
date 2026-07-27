@@ -18,8 +18,8 @@ object SharePreferenceUtils {
         }
         if (context == null) return false
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return false;
-//        return prefs.getBoolean(KEY_IS_ORGANIC, false)
+//        return false;
+        return prefs.getBoolean(KEY_IS_ORGANIC, false)
     }
 
     fun setOrganic(context: Context?, isOrganic: Boolean) {

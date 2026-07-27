@@ -154,6 +154,18 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <!-- Native Ad Container -->
+            <FrameLayout
+                android:id="@+id/fr_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_marginHorizontal="16dp">
+
+                <include layout="@layout/ads_shimmer_native_media_medium" />
+            </FrameLayout>
+
             <!-- Card 2: Spinning Icon -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardSpinningIcon"
@@ -512,6 +524,31 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <include layout="@layout/ads_shimmer_banner" />
+    </FrameLayout>
+
+    <!-- Full-screen Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/layoutLoadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoadingData"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/loading_data"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

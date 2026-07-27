@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/app_font"
-                    android:text="Home Screen"
+                    android:text="@string/home_screen"
                     android:textColor="#1A1A1A"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/app_font"
-                    android:text="Set as wallpaper for home screen"
+                    android:text="@string/home_screen_desc"
                     android:textColor="#757575"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -156,7 +156,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/app_font"
-                    android:text="Lock Screen"
+                    android:text="@string/lock_screen"
                     android:textColor="#1A1A1A"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/app_font"
-                    android:text="Set as wallpaper for lock screen"
+                    android:text="@string/lock_screen_desc"
                     android:textColor="#757575"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -229,7 +229,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/app_font"
-                    android:text="Lock &amp; Home Screen"
+                    android:text="@string/lock_home_screen"
                     android:textColor="#1A1A1A"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/app_font"
-                    android:text="Set Wallpaper for both screen"
+                    android:text="@string/lock_home_screen_desc"
                     android:textColor="#757575"
                     android:textSize="12sp" />
             </LinearLayout>

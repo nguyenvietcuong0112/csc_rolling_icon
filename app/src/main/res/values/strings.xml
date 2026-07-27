@@ -160,4 +160,29 @@
     <string name="btn_delete">Delete</string>
     <!-- Loading Dialog -->
     <string name="loading_ads">Loading, please wait…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">Customize Setting</string>
+    <string name="live_wallpaper_mode_desc">Your selected apps and photo will roll and tumble as a live wallpaper behind your system home screen</string>
+    <string name="home_launcher_mode">Home Launcher Mode</string>
+    <string name="home_launcher_mode_desc">Fully replace your system home screen with an interactive physics icon desktop and app drawer.</string>
+    <string name="physics_wallpaper_settings">Physics Wallpaper Settings</string>
+    <string name="set_as_default_home">Set as default home screen</string>
+    <string name="touch_interaction">Touch Interaction</string>
+    <string name="touch_interaction_desc">Allow clicking on rolling icons on the wallpaper</string>
+    <string name="enable_float_button_title">Enable float button?</string>
+    <string name="float_button_subdesc">Launcher\'s float button</string>
+    <string name="launcher_settings">Launcher Settings</string>
+    <string name="floating_button">Floating Button</string>
+    <string name="support_information">Support Information</string>
+    <string name="version">Version</string>
+    <string name="shape_crown">Crown</string>
+    <string name="shape_diamond">Diamond</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="home_screen_desc">Set as wallpaper for home screen</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="lock_screen_desc">Set as wallpaper for lock screen</string>
+    <string name="lock_home_screen">Lock &amp; Home Screen</string>
+    <string name="lock_home_screen_desc">Set Wallpaper for both screen</string>
+    <string name="no_internet_or_wallpapers">No internet connection or wallpapers found</string>
 </resources>

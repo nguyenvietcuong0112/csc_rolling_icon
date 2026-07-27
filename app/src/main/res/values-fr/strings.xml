@@ -156,5 +156,30 @@
     <string name="delete_photo_message">Voulez-vous vraiment supprimer cette photo ?</string>
     <string name="btn_delete">Supprimer</string>
     <!-- Loading Dialog -->
-    <string name="loading_ads">Chargement en cours, veuillez patienter…</string>
+    <string name="loading_ads">Chargement, veuillez patienter…</string>
+
+    <!-- Layout Extracted Strings -->
+    <string name="customize_setting">Personnaliser les paramètres</string>
+    <string name="live_wallpaper_mode_desc">Vos applications et photos sélectionnées rouleront en fond d\'écran animé</string>
+    <string name="home_launcher_mode">Mode Launcher</string>
+    <string name="home_launcher_mode_desc">Remplacez complètement votre écran d\'accueil par des icônes physiques interactives.</string>
+    <string name="physics_wallpaper_settings">Paramètres du fond d\'écran physique</string>
+    <string name="set_as_default_home">Définir comme écran d\'accueil par défaut</string>
+    <string name="touch_interaction">Interaction tactile</string>
+    <string name="touch_interaction_desc">Autoriser le clic sur les icônes en mouvement sur le fond d\'écran</string>
+    <string name="enable_float_button_title">Activer le bouton flottant?</string>
+    <string name="float_button_subdesc">Bouton flottant du Launcher</string>
+    <string name="launcher_settings">Paramètres du Launcher</string>
+    <string name="floating_button">Bouton flottant</string>
+    <string name="support_information">Informations de support</string>
+    <string name="version">Version</string>
+    <string name="shape_crown">Couronne</string>
+    <string name="shape_diamond">Diamant</string>
+    <string name="home_screen">Écran d\'accueil</string>
+    <string name="home_screen_desc">Définir comme fond d\'écran d\'accueil</string>
+    <string name="lock_screen">Écran de verrouillage</string>
+    <string name="lock_screen_desc">Définir comme fond d\'écran de verrouillage</string>
+    <string name="lock_home_screen">Écran d\'accueil et de verrouillage</string>
+    <string name="lock_home_screen_desc">Définir le fond d\'écran pour les deux écrans</string>
+    <string name="no_internet_or_wallpapers">Pas de connexion Internet ou aucun fond d\'écran trouvé</string>
 </resources>

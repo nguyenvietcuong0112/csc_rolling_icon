@@ -16,6 +16,11 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val layoutLoadingOverlay = findViewById<View>(R.id.layoutLoadingOverlay)
+        layoutLoadingOverlay?.postDelayed({
+            layoutLoadingOverlay.visibility = View.GONE
+        }, 2000)
+
         // 1. Nút Settings góc trên bên phải trên header (Không hiện Inter)
         findViewById<ImageView>(R.id.btnHeaderSettings).setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -99,7 +104,7 @@ class MainActivity : BaseActivity() {
             }
         })
 
-        // Load Banner Collab at bottom of MainActivity
+        loadAdsNative()
         loadBanner()
     }
 
@@ -112,6 +117,19 @@ class MainActivity : BaseActivity() {
             id = getString(R.string.banner_collap_home),
             typeAds = CSCBanner.TypeAds.BANNER_COLLAPSIBLE_BOTTOM,
             adFrame = frAds,
+            canShowAd = isEnabled
+        )
+    }
+
+    private fun loadAdsNative() {
+        val isEnabled = RemoteConfigs.native_home
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+
+        com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
+            adFrame = frAds,
+            adName = "native_home",
+            adId = getString(R.string.native_home),
+            adLayout = R.layout.layout_native_media_medium,
             canShowAd = isEnabled
         )
     }
