@@ -64,7 +64,7 @@ object AdsConfig {
             activity = activity,
             adId = interClickId,
             timeDelay = 500L,
-            timeOut = 20000L,
+            timeOut = 30000L,
             canShowId = isEnabled,
             onShown = {
                 dismissLoading()

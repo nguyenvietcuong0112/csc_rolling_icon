@@ -78,7 +78,7 @@ class App : Application() {
                     resLayout = R.layout.activity_splash,
                     showFOForever = true,
                     homeActivity = PermissionActivity::class.java,
-                    timeout = 15_000
+                    timeout = 30_000
                 ),
                 adsSplashConfig = AdsSplashConfig(
                     bannerId = getString(R.string.banner_splash),
