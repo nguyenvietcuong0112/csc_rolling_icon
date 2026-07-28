@@ -12,8 +12,8 @@
     <string name="btn_start">Iniciar</string>
     <string name="spinning_icon_title">Icono Giratorio</string>
     <string name="spinning_icon_desc">Haz que tus iconos giren continuamente</string>
-    <string name="shape_path_title">Trayectoria de Forma</string>
-    <string name="shape_path_desc">Movimiento periódico en formas: Corazón, Trébol, Mariposa...</string>
+    <string name="shape_path_title">Icono de Corazón</string>
+    <string name="shape_path_desc">Animación de latido para iconos llenos de vida</string>
     <string name="emoji_icon_title">Icono Emoji</string>
     <string name="emoji_icon_desc">Gestionar emojis activos</string>
     <string name="photo_icon_title">Icono de Foto</string>

@@ -6,14 +6,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#F8F8F8">
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <FrameLayout
         android:id="@+id/shimmer_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="250dp"
-        app:shimmer_auto_start="true">
+        android:minHeight="250dp">
         <include layout="@layout/csc_shimer_top_layout_recycler_native" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ad_unit_content"

@@ -12,8 +12,8 @@
     <string name="btn_start">Iniciar</string>
     <string name="spinning_icon_title">Ícone Giratório</string>
     <string name="spinning_icon_desc">Faça seus ícones girarem continuamente</string>
-    <string name="shape_path_title">Trajetória</string>
-    <string name="shape_path_desc">Movimento periódico em formas: Coração, Trevo, Borboleta...</string>
+    <string name="shape_path_title">Ícone de Coração</string>
+    <string name="shape_path_desc">Animação de batimento cardíaco para ícones cheios de vida</string>
     <string name="emoji_icon_title">Ícone Emoji</string>
     <string name="emoji_icon_desc">Gerenciar emojis ativos</string>
     <string name="photo_icon_title">Ícone de Foto</string>

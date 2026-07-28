@@ -12,8 +12,8 @@
     <string name="btn_start">Mulai</string>
     <string name="spinning_icon_title">Ikon Berputar</string>
     <string name="spinning_icon_desc">Buat ikon Anda berputar terus menerus</string>
-    <string name="shape_path_title">Jalur Bentuk</string>
-    <string name="shape_path_desc">Gerakan periodik sepanjang bentuk: Hati, Semanggi, Kupu-kupu...</string>
+    <string name="shape_path_title">Ikon Hati</string>
+    <string name="shape_path_desc">Animasi detak jantung untuk ikon yang hidup</string>
     <string name="emoji_icon_title">Ikon Emoji</string>
     <string name="emoji_icon_desc">Kelola emoji aktif</string>
     <string name="photo_icon_title">Ikon Foto</string>

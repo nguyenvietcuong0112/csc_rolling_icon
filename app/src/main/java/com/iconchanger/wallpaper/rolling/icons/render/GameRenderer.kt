@@ -195,6 +195,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
             }
 
             override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
+                if (!isWallpaperTouchEnabled) return false
                 touchPoint.set(x, y, 0f)
                 camera.unproject(touchPoint)
 

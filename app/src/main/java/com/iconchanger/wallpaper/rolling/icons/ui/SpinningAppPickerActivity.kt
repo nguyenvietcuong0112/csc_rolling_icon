@@ -104,7 +104,12 @@ class SpinningAppPickerActivity : BaseActivity() {
         val singleMode = intent.getBooleanExtra("single_mode", false)
 
         val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
-        txtHeaderTitle.text = getString(R.string.spinning_icon_title)
+        val pattern = intent.getStringExtra("spinning_pattern") ?: "dual_circle"
+        txtHeaderTitle.text = when (pattern) {
+            "single_circle" -> getString(R.string.single_circle_title)
+            "vortex" -> getString(R.string.vortex_spiral_title)
+            else -> getString(R.string.dual_circle_title)
+        }
 
         // Bind layouts
         tabLayout = findViewById(R.id.tabLayout)
@@ -233,6 +238,8 @@ class SpinningAppPickerActivity : BaseActivity() {
                         appRepository.saveSelectedApps(selectedAppsSet)
                         preferenceRepository.setSelectedEmojis(selectedEmojisSet)
                         preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
+                        val pattern = intent.getStringExtra("spinning_pattern") ?: "dual_circle"
+                        preferenceRepository.setSpinningPattern(pattern)
                     }
 
                     if (singleMode) {
@@ -246,7 +253,6 @@ class SpinningAppPickerActivity : BaseActivity() {
                             putExtra("mode", "spinning")
                         }
                         startActivity(intent)
-                        finish()
                     }
                 }
             }
@@ -388,7 +394,7 @@ class SpinningAppPickerActivity : BaseActivity() {
             }
         }
 
-        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.fr_ads)
+        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.layoutAds)
         if (frAds != null) {
             com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
                 adFrame = frAds,

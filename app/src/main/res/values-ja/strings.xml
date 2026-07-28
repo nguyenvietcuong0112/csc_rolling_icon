@@ -12,8 +12,8 @@
     <string name="btn_start">スタート</string>
     <string name="spinning_icon_title">スピニングアイコン</string>
     <string name="spinning_icon_desc">アイコンを連続して回転させます</string>
-    <string name="shape_path_title">シェイプパス</string>
-    <string name="shape_path_desc">図形に沿った周期運動：ハート、クローバー、バタフライ...</string>
+    <string name="shape_path_title">ハートアイコン</string>
+    <string name="shape_path_desc">生き生きとしたアイコンのための心臓の鼓動アニメーション</string>
     <string name="emoji_icon_title">絵文字アイコン</string>
     <string name="emoji_icon_desc">アクティブな絵文字を管理</string>
     <string name="photo_icon_title">写真アイコン</string>

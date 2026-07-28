@@ -71,14 +71,14 @@ class App : Application() {
         val nativeOBFull2Id = if (isOrganic) "" else getString(R.string.native_onboarding_full_2)
 
         cscLibrary.initSdk(
-            adjustAppToken = "",
+            adjustAppToken = "copks912rmkg",
             gsmAppId = "6a60762b359ab2ad822596f2",
             splashConfig = SplashConfig(
                 uiSplashConfig = UiSplashConfig(
                     resLayout = R.layout.activity_splash,
                     showFOForever = true,
                     homeActivity = PermissionActivity::class.java,
-                    timeout = 30_000
+                    timeout = 15_000
                 ),
                 adsSplashConfig = AdsSplashConfig(
                     bannerId = getString(R.string.banner_splash),
@@ -144,8 +144,8 @@ class App : Application() {
                     adsOBConfig = AdsOBConfig(
                         nativeOB1Id = getString(R.string.native_onboarding_1),
                         nativeOB4Id = getString(R.string.native_onboarding_4),
-                        nativeOBFull1Id = nativeOBFull1Id,
-                        nativeOBFull2Id = nativeOBFull2Id,
+                        nativeOBFull1Id = getString(R.string.native_onboarding_full_1),
+                        nativeOBFull2Id = getString(R.string.native_onboarding_full_2),
                         layoutNativeOB1 = R.layout.layout_native_media,
                         layoutNativeOB4 = R.layout.layout_native_media,
                         layoutNativeFullOB = R.layout.admob_layout_native_full,

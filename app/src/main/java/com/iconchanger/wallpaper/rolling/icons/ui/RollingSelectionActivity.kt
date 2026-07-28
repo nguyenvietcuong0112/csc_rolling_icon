@@ -103,6 +103,9 @@ class RollingSelectionActivity : BaseActivity() {
         val defaultTab = intent.getIntExtra("default_tab", 0)
         val singleMode = intent.getBooleanExtra("single_mode", false)
 
+        val txtHeaderTitle = findViewById<TextView>(R.id.txtHeaderTitle)
+        txtHeaderTitle?.text = getString(R.string.rolling_icon_title)
+
         // Bind layouts
         tabLayout = findViewById(R.id.tabLayout)
         layoutTabApps = findViewById(R.id.layoutTabApps)
@@ -261,7 +264,6 @@ class RollingSelectionActivity : BaseActivity() {
                             putExtra("mode", "rolling")
                         }
                         startActivity(intent)
-                        finish()
                     }
                 }
             }
@@ -398,7 +400,7 @@ class RollingSelectionActivity : BaseActivity() {
             }
         }
 
-        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.fr_ads)
+        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.layoutAds)
         if (frAds != null) {
             com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
                 adFrame = frAds,

@@ -180,7 +180,7 @@ class SettingsActivity : BaseActivity() {
 
     private fun loadAdsNative() {
         val isEnabled = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_all
-        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.layoutAds) ?: return
 
         com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
             adFrame = frAds,

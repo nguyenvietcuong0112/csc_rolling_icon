@@ -38,66 +38,77 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true"/>
 
         <activity
             android:name=".ui.PermissionActivity"
             android:label="Permission"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.SpinningIconActivity"
             android:label="Spinning Icons"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.SpinningAppPickerActivity"
             android:label="Select Apps"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.WallpaperPickerActivity"
             android:label="Select Wallpaper"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.ApiWallpaperActivity"
             android:label="Online Wallpapers"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.ApiWallpaperDetailActivity"
             android:label="Wallpaper Detail"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/settings_label"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true" />
 
         <activity
             android:name=".ui.RollingSelectionActivity"
             android:label="Select Items"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.ShapeSelectorActivity"
             android:label="Select Shape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".ui.ShapeSelectionActivity"
             android:label="Select Items for Shape"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
@@ -118,6 +129,7 @@
         <activity
             android:name=".ui.CustomizeActivity"
             android:label="Customize"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 

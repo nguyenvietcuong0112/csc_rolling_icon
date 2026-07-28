@@ -12,8 +12,8 @@
     <string name="btn_start">Démarrer</string>
     <string name="spinning_icon_title">Icône Tournante</string>
     <string name="spinning_icon_desc">Faites tourner vos icônes en continu</string>
-    <string name="shape_path_title">Trajectoire</string>
-    <string name="shape_path_desc">Mouvement périodique le long de formes : Cœur, Trèfle, Papillon...</string>
+    <string name="shape_path_title">Icône Cœur</string>
+    <string name="shape_path_desc">Animation de battement de cœur pour icônes vivantes</string>
     <string name="emoji_icon_title">Icône Emoji</string>
     <string name="emoji_icon_desc">Gérer les émojis actifs</string>
     <string name="photo_icon_title">Icône Photo</string>

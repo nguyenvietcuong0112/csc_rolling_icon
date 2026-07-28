@@ -1,5 +1,7 @@
 package com.iconchanger.wallpaper.rolling.icons.ui
 
+import android.app.WallpaperManager
+import android.content.ComponentName
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
+import com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -85,14 +88,34 @@ class WallpaperPickerActivity : BaseActivity() {
                             Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_bg_updated), Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
-                            val intent = Intent(this@WallpaperPickerActivity, CustomizeActivity::class.java).apply {
-                                putExtra("mode", wallpaperMode)
-                            }
-                            startActivity(intent)
+                            openLiveWallpaperPreview()
                             finish()
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun openLiveWallpaperPreview() {
+        val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
+            putExtra(
+                WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                ComponentName(this@WallpaperPickerActivity, RollingWallpaperService::class.java)
+            )
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        try {
+            startActivity(intent)
+            Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_apply_wallpaper_tip), Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            val chooserIntent = Intent(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            try {
+                startActivity(chooserIntent)
+            } catch (ex: Exception) {
+                Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_unsupported_wallpaper), Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -21,6 +21,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.model.AppInfo
 import com.iconchanger.wallpaper.rolling.icons.data.AppRepository
+import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
 import com.iconchanger.wallpaper.rolling.icons.render.GameRenderer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -38,6 +39,7 @@ class LauncherActivity : AndroidApplication() {
     private lateinit var btnSearch: ImageView
 
     private lateinit var appRepository: AppRepository
+    private lateinit var preferenceRepository: PreferenceRepository
     private val appList = ArrayList<AppInfo>()
     private lateinit var drawerAdapter: DrawerAppAdapter
     private var cachedApps: List<AppInfo>? = null
@@ -67,6 +69,7 @@ class LauncherActivity : AndroidApplication() {
         btnSearch = findViewById(R.id.btnSearch)
 
         appRepository = AppRepository(this)
+        preferenceRepository = PreferenceRepository(this)
 
         // Thiết lập RecyclerView cho Drawer
         drawerRecyclerView.layoutManager = GridLayoutManager(this, 4)
@@ -119,6 +122,14 @@ class LauncherActivity : AndroidApplication() {
         coroutineScope.launch(kotlinx.coroutines.Dispatchers.IO) {
             val apps = appRepository.getInstalledApps()
             cachedApps = apps
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        coroutineScope.launch {
+            val isFloatEnabled = preferenceRepository.isFloatButtonEnabled()
+            btnDrawer.visibility = if (isFloatEnabled) View.VISIBLE else View.GONE
         }
     }
 

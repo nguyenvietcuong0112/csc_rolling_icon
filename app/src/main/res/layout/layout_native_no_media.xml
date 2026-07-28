@@ -8,13 +8,12 @@
     android:background="#F8F8F8"
     android:layout_height="wrap_content">
 
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <FrameLayout
         android:id="@+id/shimmer_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:shimmer_auto_start="true">
+        android:layout_height="match_parent">
         <include layout="@layout/csc_shimer_top_layout_recycler_native" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/ad_unit_content"

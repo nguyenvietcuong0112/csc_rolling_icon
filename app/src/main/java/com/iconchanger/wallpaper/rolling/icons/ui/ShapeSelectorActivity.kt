@@ -52,6 +52,21 @@ class ShapeSelectorActivity : BaseActivity() {
         cardButterfly.setOnClickListener { selectShapeAndNavigate("butterfly") }
         cardCrown.setOnClickListener { selectShapeAndNavigate("crown") }
         cardDiamond.setOnClickListener { selectShapeAndNavigate("diamond") }
+
+        loadAdsNative()
+    }
+
+    private fun loadAdsNative() {
+        val isEnabled = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_all
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.layoutAds) ?: return
+
+        com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
+            adFrame = frAds,
+            adName = "native_all",
+            adId = getString(R.string.native_all),
+            adLayout = R.layout.layout_native_media,
+            canShowAd = isEnabled
+        )
     }
 
     private fun selectShapeAndNavigate(shape: String) {

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F2FF"
+    android:background="@drawable/bg_splash"
     tools:ignore="ExtraText">
 
     <!-- Splash Centered Geometric Brand Logo -->
@@ -26,7 +26,8 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:textColor="@color/white"
         android:textSize="26sp"
         android:textStyle="bold"
         android:letterSpacing="0.08"
@@ -79,7 +80,7 @@
             android:gravity="center"
             android:layout_marginBottom="40dp"
             android:text="@string/splash_ads_warning"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:letterSpacing="0.02"
             android:fontFamily="@font/app_font" />

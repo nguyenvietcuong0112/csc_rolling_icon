@@ -9,6 +9,8 @@ import com.cscmobi.libraryads.ads.banner_ads.CSCBanner
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig
 import com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
@@ -59,11 +61,14 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        // 4. Click vào thẻ Shape Path Icon
+        // 4. Click vào thẻ Hearting Icon (chạy trực tiếp Heart Path)
         findViewById<View>(R.id.cardShapePathIcon).setOnClickListener {
             AdsConfig.showInterClickAd(this, it) {
-                val intent = Intent(this, ShapeSelectorActivity::class.java)
-                startActivity(intent)
+                lifecycleScope.launch {
+                    com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository(this@MainActivity).setShapePathType("heart")
+                    val intent = Intent(this@MainActivity, ShapeSelectionActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -123,7 +128,7 @@ class MainActivity : BaseActivity() {
 
     private fun loadAdsNative() {
         val isEnabled = RemoteConfigs.native_home
-        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.layoutAds) ?: return
 
         com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
             adFrame = frAds,

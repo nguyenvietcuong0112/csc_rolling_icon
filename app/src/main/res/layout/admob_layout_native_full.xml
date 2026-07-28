@@ -7,13 +7,12 @@
     android:background="#011B1F">
 
     <!-- SHIMMER: Hiện khi đang Load -->
-    <com.facebook.shimmer.ShimmerFrameLayout
+    <FrameLayout
         android:id="@+id/shimmer_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:shimmer_auto_start="true">
+        android:layout_height="match_parent">
         <include layout="@layout/csc_shimmer_bottom_native_full" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+    </FrameLayout>
 
 
     <com.google.android.gms.ads.nativead.NativeAdView

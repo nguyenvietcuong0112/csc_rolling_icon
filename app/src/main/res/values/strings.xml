@@ -13,8 +13,8 @@
     <string name="btn_start">Start</string>
     <string name="spinning_icon_title">Spinning Icon</string>
     <string name="spinning_icon_desc">Make your icons spin continuously</string>
-    <string name="shape_path_title">Shape Path</string>
-    <string name="shape_path_desc">Periodic movement along drawn shapes: Heart, Clover, Butterfly...</string>
+    <string name="shape_path_title">Hearting Icon</string>
+    <string name="shape_path_desc">Heartbeat animation for lively icons</string>
     <string name="emoji_icon_title">Emoji Icon</string>
     <string name="emoji_icon_desc">Manage active emojis</string>
     <string name="photo_icon_title">Photo Icon</string>

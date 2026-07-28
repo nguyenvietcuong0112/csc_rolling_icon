@@ -12,8 +12,7 @@
         android:id="@+id/shimmer_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="250dp"
-        app:shimmer_auto_start="true">
+        android:minHeight="250dp">
         <include layout="@layout/ads_shimmer_native_media" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 

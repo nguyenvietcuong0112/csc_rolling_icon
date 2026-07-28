@@ -246,7 +246,6 @@ class ShapeSelectionActivity : BaseActivity() {
                             putExtra("mode", "shape_path")
                         }
                         startActivity(intent)
-                        finish()
                     }
                 }
             }
@@ -388,7 +387,7 @@ class ShapeSelectionActivity : BaseActivity() {
             }
         }
 
-        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.fr_ads)
+        val frAds = view.findViewById<android.widget.FrameLayout>(R.id.layoutAds)
         if (frAds != null) {
             com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
                 adFrame = frAds,

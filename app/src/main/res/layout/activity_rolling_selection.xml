@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/configure_icons"
+                android:text="@string/rolling_icon_title"
                 android:textColor="@color/cosmic_white"
                 android:textSize="18sp"
                 android:textStyle="bold"

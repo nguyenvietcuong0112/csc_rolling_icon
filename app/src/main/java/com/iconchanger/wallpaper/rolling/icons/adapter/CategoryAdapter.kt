@@ -42,7 +42,7 @@ class CategoryAdapter(
     }
 
     inner class AdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val frAds: FrameLayout = view.findViewById(R.id.fr_ads)
+        val frAds: FrameLayout = view.findViewById(R.id.layoutAds)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

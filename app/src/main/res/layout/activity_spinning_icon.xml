@@ -39,7 +39,8 @@
     <!-- Style Selector List -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fillViewport="true"
         android:scrollbars="none">
 
@@ -224,4 +225,13 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <!-- Bottom Native Ad Container -->
+    <FrameLayout
+        android:id="@+id/layoutAds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/ads_shimmer_native_media" />
+    </FrameLayout>
 </LinearLayout>

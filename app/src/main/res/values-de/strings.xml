@@ -12,8 +12,8 @@
     <string name="btn_start">Starten</string>
     <string name="spinning_icon_title">Drehendes Icon</string>
     <string name="spinning_icon_desc">Lassen Sie Ihre Icons kontinuierlich drehen</string>
-    <string name="shape_path_title">Formpfad</string>
-    <string name="shape_path_desc">Periodische Bewegung entlang von Formen: Herz, Klee, Schmetterling...</string>
+    <string name="shape_path_title">Herz-Icon</string>
+    <string name="shape_path_desc">Herzschlag-Animation für lebendige Icons</string>
     <string name="emoji_icon_title">Emoji-Icon</string>
     <string name="emoji_icon_desc">Aktive Emojis verwalten</string>
     <string name="photo_icon_title">Foto-Icon</string>

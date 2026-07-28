@@ -12,8 +12,8 @@
     <string name="btn_start">शुरू करें</string>
     <string name="spinning_icon_title">स्पिनिंग आइकन</string>
     <string name="spinning_icon_desc">अपने आइकनों को लगातार घुमाएं</string>
-    <string name="shape_path_title">आकार पथ</string>
-    <string name="shape_path_desc">आकारों के साथ गति: दिल, तितली, तितली...</string>
+    <string name="shape_path_title">हार्टिंग आइकन</string>
+    <string name="shape_path_desc">जीवंत आइकनों के लिए दिल की धड़कन एनीमेशन</string>
     <string name="emoji_icon_title">इमोजी आइकन</string>
     <string name="emoji_icon_desc">सक्रिय इमोजी प्रबंधित करें</string>
     <string name="photo_icon_title">फोटो आइकन</string>

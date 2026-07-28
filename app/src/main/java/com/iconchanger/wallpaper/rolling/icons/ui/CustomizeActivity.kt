@@ -90,7 +90,7 @@ class CustomizeActivity : BaseActivity() {
 
     private fun loadAdsNative() {
         val isEnabled = RemoteConfigs.native_all
-        val frAds = findViewById<android.widget.FrameLayout>(R.id.fr_ads) ?: return
+        val frAds = findViewById<android.widget.FrameLayout>(R.id.layoutAds) ?: return
 
         CSCNativeManager.showNative(
             adFrame = frAds,
