@@ -139,8 +139,11 @@
     <string name="tab_all_photo">すべての写真</string>
     <string name="tab_folder">フォルダ</string>
     <string name="selected_files_zero">選択済み: 0 件のファイル</string>
-    <string name="selected_files_format">選択済み: %d 件のファイル</string>
-    <string name="btn_next_arrow">次へ ➔</string>
+    <string name="selected_files_format">選択済み: %d ファイル</string>
+    <string name="toast_max_item_limit">最大%1$d個まで選択できます</string>
+    <string name="btn_go_home">ホームへ</string>
+    <string name="success_title">完了！</string>
+    <string name="success_desc">ローリングアイコンテーマと背景が設定されました</string>
     <string name="btn_save">保存</string>
     <string name="dialog_set_wallpaper_as_title">壁紙を次として設定</string>
     <string name="btn_set_wallpaper">壁紙を設定</string>

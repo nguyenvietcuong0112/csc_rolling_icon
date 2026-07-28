@@ -48,6 +48,7 @@ class LauncherActivity : AndroidApplication() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         val config = AndroidApplicationConfiguration().apply {
             useImmersiveMode = true

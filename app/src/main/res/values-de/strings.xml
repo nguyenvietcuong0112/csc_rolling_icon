@@ -139,7 +139,10 @@
     <string name="tab_all_photo">Alle Fotos</string>
     <string name="tab_folder">Ordner</string>
     <string name="selected_files_zero">Ausgewählt: 0 Dateien</string>
-    <string name="selected_files_format">Ausgewählt: %d Dateien</string>
+    <string name="toast_max_item_limit">Maximal %1$d Elemente erlaubt</string>
+    <string name="btn_go_home">Zur Startseite</string>
+    <string name="success_title">Erfolgreich!</string>
+    <string name="success_desc">Ihr rollendes Symbol-Design und Hintergrund sind eingerichtet</string>
     <string name="btn_next_arrow">Weiter ➔</string>
     <string name="btn_save">Speichern</string>
     <string name="dialog_set_wallpaper_as_title">Hintergrund festlegen als</string>

@@ -68,6 +68,11 @@
     <string name="vortex_spiral_title">Vòng Xoáy Xoắn Ốc</string>
     <string name="vortex_spiral_desc">Biểu tượng xoay tạo hiệu ứng xoáy xoắn ốc</string>
     <string name="selected_count_format">Đã chọn %1$d / %2$d</string>
+    <string name="toast_max_item_limit">Chỉ được chọn tối đa %1$d mục</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_go_home">Về trang chủ</string>
+    <string name="success_title">Thành công!</string>
+    <string name="success_desc">Chủ đề biểu tượng cuộn và hình nền đã được thiết lập</string>
 
     <!-- Settings Activity -->
     <string name="settings_title">Cài Đặt</string>

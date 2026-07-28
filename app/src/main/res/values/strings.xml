@@ -70,6 +70,11 @@
     <string name="vortex_spiral_title">Vortex Spiral</string>
     <string name="vortex_spiral_desc">Icons spin in a swirling vortex spiral pattern</string>
     <string name="selected_count_format">Selected %1$d of %2$d</string>
+    <string name="toast_max_item_limit">Maximum %1$d items allowed</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_go_home">Go home</string>
+    <string name="success_title">Success!</string>
+    <string name="success_desc">Your rolling icon theme and background are set</string>
 
     <!-- Settings Activity -->
     <string name="settings_title">Settings</string>

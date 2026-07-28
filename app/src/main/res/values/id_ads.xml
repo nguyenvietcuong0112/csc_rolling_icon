@@ -32,8 +32,10 @@
 
     <string name="facebook_app_id" translatable="false">1234</string>
     <string name="facebook_client_token" translatable="false">5678</string>
+    
+    
 
-
+//prod
 <!--    <string name="app_id" translatable="false">ca-app-pub-9900730300733887~7847545868</string>-->
 <!--    <string name="inter_splash_high" translatable="false">ca-app-pub-9900730300733887/2918652812</string>-->
 <!--    <string name="inter_splash" translatable="false">ca-app-pub-9900730300733887/7133229994</string>-->
@@ -66,6 +68,40 @@
 
 <!--    <string name="facebook_app_id" translatable="false">2102160324058283</string>-->
 <!--    <string name="facebook_client_token" translatable="false">5ae9f3db7e29f2976302e3b7c048fe64</string>-->
+    
+    //test
+<!--    <string name="app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>-->
+<!--    <string name="inter_splash_high" translatable="false"></string>-->
+<!--    <string name="inter_splash" translatable="false"></string>-->
+<!--    <string name="native_splash_full_high" translatable="false"></string>-->
+<!--    <string name="native_splash_full" translatable="false"></string>-->
+<!--    <string name="banner_splash" translatable="false"></string>-->
+
+<!--    <string name="native_language_high" translatable="false"></string>-->
+<!--    <string name="native_language" translatable="false"></string>-->
+<!--    <string name="native_language_high_click" translatable="false"></string>-->
+<!--    <string name="native_language_click" translatable="false"></string>-->
+
+
+<!--    <string name="native_onboarding_1" translatable="false"></string>-->
+<!--    <string name="native_onboarding_2" translatable="false"></string>-->
+<!--    <string name="native_onboarding_3" translatable="false"></string>-->
+<!--    <string name="native_onboarding_full_1" translatable="false"></string>-->
+<!--    <string name="native_onboarding_full_2" translatable="false"></string>-->
+<!--    <string name="native_onboarding_4" translatable="false"></string>-->
+
+
+<!--    <string name="inter_click" translatable="false"></string>-->
+<!--    <string name="native_all" translatable="false"></string>-->
+<!--    <string name="native_home" translatable="false"></string>-->
+
+<!--    <string name="banner_collap_home" translatable="false"></string>-->
+
+<!--    <string name="resume_open_app" translatable="false"></string>-->
+
+
+<!--    <string name="facebook_app_id" translatable="false">1234</string>-->
+<!--    <string name="facebook_client_token" translatable="false">5678</string>-->
 
 
 

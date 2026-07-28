@@ -98,6 +98,7 @@ class WallpaperPickerActivity : BaseActivity() {
     }
 
     private fun openLiveWallpaperPreview() {
+        PreferenceRepository.isPendingWallpaperSuccess = true
         val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
             putExtra(
                 WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,

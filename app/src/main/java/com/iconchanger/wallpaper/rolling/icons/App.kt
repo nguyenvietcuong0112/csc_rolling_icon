@@ -119,7 +119,7 @@ class App : Application() {
                         nativeLangClickHighId = getString(R.string.native_language_high_click),
                         nativeLangClickId = getString(R.string.native_language_click),
                         layoutNative = R.layout.layout_native_media,
-                        layoutNativeClick = R.layout.layout_native_media
+                        layoutNativeClick = R.layout.layout_native_media_click
                     )
                 ),
             obConfig =

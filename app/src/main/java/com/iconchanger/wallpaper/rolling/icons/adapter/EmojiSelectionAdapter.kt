@@ -14,6 +14,7 @@ class EmojiSelectionAdapter(
     private val selectedEmojisSet: MutableSet<String>,
     private val emojiAppBindingsMap: Map<String, String>,
     private val onLinkAppClick: (String, Int, String?) -> Unit,
+    private val canSelectMore: (() -> Boolean)? = null,
     private val onItemClick: ((String, Boolean) -> Unit)? = null
 ) : RecyclerView.Adapter<EmojiSelectionAdapter.ViewHolder>() {
 
@@ -56,7 +57,12 @@ class EmojiSelectionAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            val nowSelected = if (selectedEmojisSet.contains(emojiName)) {
+            val currentlySelected = selectedEmojisSet.contains(emojiName)
+            if (!currentlySelected && canSelectMore != null && !canSelectMore.invoke()) {
+                return@setOnClickListener
+            }
+
+            val nowSelected = if (currentlySelected) {
                 selectedEmojisSet.remove(emojiName)
                 false
             } else {

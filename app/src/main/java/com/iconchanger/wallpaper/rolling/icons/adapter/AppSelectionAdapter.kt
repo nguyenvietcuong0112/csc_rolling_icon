@@ -12,6 +12,7 @@ import com.iconchanger.wallpaper.rolling.icons.model.AppInfo
 class AppSelectionAdapter(
     private val appList: List<AppInfo>,
     private val selectedAppsSet: MutableSet<String>,
+    private val canSelectMore: (() -> Boolean)? = null,
     private val onItemClick: ((AppInfo, Boolean) -> Unit)? = null
 ) : RecyclerView.Adapter<AppSelectionAdapter.ViewHolder>() {
 
@@ -43,7 +44,12 @@ class AppSelectionAdapter(
         holder.checkedView.setImageResource(if (isSelected) R.drawable.checkbox_selected else R.drawable.checkbox_unselected)
 
         holder.itemView.setOnClickListener {
-            val nowSelected = if (selectedAppsSet.contains(app.packageName)) {
+            val currentlySelected = selectedAppsSet.contains(app.packageName)
+            if (!currentlySelected && canSelectMore != null && !canSelectMore.invoke()) {
+                return@setOnClickListener
+            }
+
+            val nowSelected = if (currentlySelected) {
                 selectedAppsSet.remove(app.packageName)
                 false
             } else {

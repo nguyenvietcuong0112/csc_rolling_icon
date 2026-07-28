@@ -55,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_125"
                 android:background="@drawable/bg_card_border"
+                android:layout_marginBottom="16dp"
                 android:padding="12dp">
 
 
@@ -113,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_125"
                 android:background="@drawable/bg_card_border"
+                android:layout_marginBottom="16dp"
                 android:padding="12dp">
 
                 <ImageView

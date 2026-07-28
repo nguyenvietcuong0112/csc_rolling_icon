@@ -140,7 +140,10 @@
     <string name="tab_folder">फ़ोल्डर</string>
     <string name="selected_files_zero">चयनित: 0 फ़ाइलें</string>
     <string name="selected_files_format">चयनित: %d फ़ाइलें</string>
-    <string name="btn_next_arrow">आगे ➔</string>
+    <string name="toast_max_item_limit">अधिकतम %1$d आइटम की अनुमति है</string>
+    <string name="btn_go_home">होम पर जाएं</string>
+    <string name="success_title">सफलता!</string>
+    <string name="success_desc">आपकी रोलिंग आइकॉन थीम और बैकग्राउंड सेट हो गए हैं</string>
     <string name="btn_save">सहेजें</string>
     <string name="dialog_set_wallpaper_as_title">वॉलपेपर इस रूप में सेट करें</string>
     <string name="btn_set_wallpaper">वॉलपेपर सेट करें</string>

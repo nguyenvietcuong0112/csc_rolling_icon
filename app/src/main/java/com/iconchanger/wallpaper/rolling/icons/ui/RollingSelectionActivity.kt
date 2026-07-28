@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -86,7 +87,28 @@ class RollingSelectionActivity : BaseActivity() {
         }
     }
 
+    private lateinit var txtItemLimitInfo: TextView
+
+    private val maxItemLimit = 60
+
+    private fun updateItemLimitInfo() {
+        if (::txtItemLimitInfo.isInitialized) {
+            val total = selectedAppsSet.size + selectedEmojisSet.size + selectedPhotosList.size
+            txtItemLimitInfo.text = getString(R.string.selected_count_format, total, maxItemLimit)
+        }
+    }
+
+    private fun canSelectMore(): Boolean {
+        val total = selectedAppsSet.size + selectedEmojisSet.size + selectedPhotosList.size
+        if (total >= maxItemLimit) {
+            Toast.makeText(this, getString(R.string.toast_max_item_limit, maxItemLimit), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
     private fun openCustomPicturePicker() {
+        if (!canSelectMore()) return
         val intent = Intent(this, SelectPictureActivity::class.java).apply {
             putStringArrayListExtra("already_selected", selectedPhotosList)
         }
@@ -149,6 +171,9 @@ class RollingSelectionActivity : BaseActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        txtItemLimitInfo = findViewById(R.id.txtItemLimitInfo)
+        updateItemLimitInfo()
+
         // 1. Setup Apps Tab
         appRecyclerView = findViewById(R.id.appRecyclerView)
         appSearchEdit = findViewById(R.id.appSearchEdit)
@@ -156,7 +181,7 @@ class RollingSelectionActivity : BaseActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         appRecyclerView.layoutManager = GridLayoutManager(this, 3)
-        appAdapter = AppSelectionAdapter(filteredAppsList, selectedAppsSet)
+        appAdapter = AppSelectionAdapter(filteredAppsList, selectedAppsSet, canSelectMore = { canSelectMore() }, onItemClick = { _, _ -> updateItemLimitInfo() })
         appRecyclerView.adapter = appAdapter
 
         appSearchEdit.addTextChangedListener(object : TextWatcher {
@@ -200,7 +225,9 @@ class RollingSelectionActivity : BaseActivity() {
                     if (pos >= 0) emojiAdapter.notifyItemChanged(pos)
                 }
                 dialog.show()
-            }
+            },
+            canSelectMore = { canSelectMore() },
+            onItemClick = { _, _ -> updateItemLimitInfo() }
         )
         emojiRecyclerView.adapter = emojiAdapter
 
@@ -240,6 +267,15 @@ class RollingSelectionActivity : BaseActivity() {
 
         // Click Tiếp tục
         btnNext.setOnClickListener {
+            val total = selectedAppsSet.size + selectedEmojisSet.size + selectedPhotosList.size
+            if (total == 0) {
+                Toast.makeText(this, getString(R.string.toast_select_one_app), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (total > maxItemLimit) {
+                Toast.makeText(this, getString(R.string.toast_max_item_limit, maxItemLimit), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
                 scope.launch {
                     // Save everything
@@ -250,10 +286,10 @@ class RollingSelectionActivity : BaseActivity() {
                     }
 
                     if (singleMode) {
-                        val intent = Intent(this@RollingSelectionActivity, CustomizeActivity::class.java).apply {
-                            putExtra("mode", "rolling")
+                        withContext(Dispatchers.IO) {
+                            preferenceRepository.setWallpaperMode("rolling")
                         }
-                        startActivity(intent)
+                        openLiveWallpaperPreview()
                         finish()
                     } else {
                         // Go to wallpaper picker
@@ -266,6 +302,30 @@ class RollingSelectionActivity : BaseActivity() {
                         startActivity(intent)
                     }
                 }
+            }
+        }
+    }
+
+    private fun openLiveWallpaperPreview() {
+        com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess = true
+        val intent = Intent(android.app.WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
+            putExtra(
+                android.app.WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
+                android.content.ComponentName(this@RollingSelectionActivity, com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService::class.java)
+            )
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        try {
+            startActivity(intent)
+            Toast.makeText(this, getString(R.string.toast_apply_wallpaper_tip), Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            val chooserIntent = Intent(android.app.WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            try {
+                startActivity(chooserIntent)
+            } catch (ex: Exception) {
+                Toast.makeText(this, getString(R.string.toast_unsupported_wallpaper), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -339,9 +399,49 @@ class RollingSelectionActivity : BaseActivity() {
             val savedPhotos = preferenceRepository.getSelectedPhotos()
             selectedPhotosList.clear()
             selectedPhotosList.addAll(savedPhotos)
+
+            enforceMaxItemLimitOnLoad()
+
             updatePhotoCount()
             photoAdapter.notifyDataSetChanged()
+            updateItemLimitInfo()
         }
+    }
+
+    private fun enforceMaxItemLimitOnLoad() {
+        val total = selectedAppsSet.size + selectedEmojisSet.size + selectedPhotosList.size
+        if (total <= maxItemLimit) return
+
+        var count = 0
+        val trimmedApps = HashSet<String>()
+        for (app in selectedAppsSet) {
+            if (count < maxItemLimit) {
+                trimmedApps.add(app)
+                count++
+            }
+        }
+        selectedAppsSet.clear()
+        selectedAppsSet.addAll(trimmedApps)
+
+        val trimmedEmojis = HashSet<String>()
+        for (emoji in selectedEmojisSet) {
+            if (count < maxItemLimit) {
+                trimmedEmojis.add(emoji)
+                count++
+            }
+        }
+        selectedEmojisSet.clear()
+        selectedEmojisSet.addAll(trimmedEmojis)
+
+        val trimmedPhotos = ArrayList<String>()
+        for (photo in selectedPhotosList) {
+            if (count < maxItemLimit) {
+                trimmedPhotos.add(photo)
+                count++
+            }
+        }
+        selectedPhotosList.clear()
+        selectedPhotosList.addAll(trimmedPhotos)
     }
 
     private fun filterApps(query: String) {
@@ -365,6 +465,7 @@ class RollingSelectionActivity : BaseActivity() {
             if (isEmpty) View.VISIBLE else View.GONE
         findViewById<View>(R.id.photoRecyclerView)?.visibility =
             if (isEmpty) View.GONE else View.VISIBLE
+        updateItemLimitInfo()
     }
 
     private fun showDeletePhotoConfirmationDialog(photoIndex: Int) {

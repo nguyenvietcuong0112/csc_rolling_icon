@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.map
 class PreferenceRepository(private val context: Context) {
 
     companion object {
+        var isPendingWallpaperSuccess: Boolean = false
         val KEY_ICON_SIZE = floatPreferencesKey("icon_size")
         val KEY_DENSITY = floatPreferencesKey("density")
         val KEY_FRICTION = floatPreferencesKey("friction")

@@ -140,7 +140,10 @@
     <string name="tab_folder">Pasta</string>
     <string name="selected_files_zero">Selecionado: 0 Arquivos</string>
     <string name="selected_files_format">Selecionado: %d Arquivos</string>
-    <string name="btn_next_arrow">Próximo ➔</string>
+    <string name="toast_max_item_limit">Máximo de %1$d itens permitidos</string>
+    <string name="btn_go_home">Ir para o início</string>
+    <string name="success_title">Sucesso!</string>
+    <string name="success_desc">Seu tema de ícones rolantes e plano de fundo foram definidos</string>
     <string name="btn_save">Salvar</string>
     <string name="dialog_set_wallpaper_as_title">Definir Papel de Parede Como</string>
     <string name="btn_set_wallpaper">Definir Papel de Parede</string>

@@ -37,5 +37,21 @@ abstract class BaseActivity : AppCompatActivity() {
         windowInsetsController.hide(WindowInsetsCompat.Type.navigationBars())
         windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (this !is SuccessActivity && com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess) {
+            val wallpaperInfo = android.app.WallpaperManager.getInstance(this).wallpaperInfo
+            val isApplied = wallpaperInfo?.packageName == packageName
+            if (isApplied) {
+                com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess = false
+                val intent = android.content.Intent(this, SuccessActivity::class.java).apply {
+                    flags = android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
 }
 

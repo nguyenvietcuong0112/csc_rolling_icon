@@ -109,6 +109,12 @@
             android:name=".ui.ShapeSelectionActivity"
             android:label="Select Items for Shape"
             android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.SuccessActivity"
+            android:label="Success"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="false" />
 
@@ -136,6 +142,7 @@
         <activity
             android:name=".ui.LauncherActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"

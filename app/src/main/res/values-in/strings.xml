@@ -140,7 +140,10 @@
     <string name="tab_folder">Folder</string>
     <string name="selected_files_zero">Dipilih: 0 Berkas</string>
     <string name="selected_files_format">Dipilih: %d Berkas</string>
-    <string name="btn_next_arrow">Lanjut ➔</string>
+    <string name="toast_max_item_limit">Maksimal %1$d item diperbolehkan</string>
+    <string name="btn_go_home">Ke beranda</string>
+    <string name="success_title">Berhasil!</string>
+    <string name="success_desc">Tema ikon bergulir dan latar belakang Anda telah diatur</string>
     <string name="btn_save">Simpan</string>
     <string name="dialog_set_wallpaper_as_title">Setel Wallpaper Sebagai</string>
     <string name="btn_set_wallpaper">Setel Wallpaper</string>

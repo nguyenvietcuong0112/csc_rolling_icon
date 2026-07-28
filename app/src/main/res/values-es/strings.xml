@@ -140,7 +140,10 @@
     <string name="tab_folder">Carpeta</string>
     <string name="selected_files_zero">Seleccionado: 0 archivos</string>
     <string name="selected_files_format">Seleccionado: %d archivos</string>
-    <string name="btn_next_arrow">Siguiente ➔</string>
+    <string name="toast_max_item_limit">Máximo %1$d elementos permitidos</string>
+    <string name="btn_go_home">Ir al inicio</string>
+    <string name="success_title">¡Éxito!</string>
+    <string name="success_desc">Tu tema de iconos rodantes y fondo están configurados</string>
     <string name="btn_save">Guardar</string>
     <string name="dialog_set_wallpaper_as_title">Establecer fondo de pantalla como</string>
     <string name="btn_set_wallpaper">Establecer fondo de pantalla</string>
