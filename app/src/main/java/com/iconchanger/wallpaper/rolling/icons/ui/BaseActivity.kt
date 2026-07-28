@@ -1,15 +1,30 @@
 package com.iconchanger.wallpaper.rolling.icons.ui
 
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.iconchanger.wallpaper.rolling.icons.utils.SystemUtil
+import java.util.Locale
 
 abstract class BaseActivity : AppCompatActivity() {
 
+    override fun attachBaseContext(newBase: Context) {
+        val lang = SystemUtil.getPreLanguage(newBase)
+        val locale = Locale(if (lang.isNullOrEmpty()) "en" else lang)
+        Locale.setDefault(locale)
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        val context = newBase.createConfigurationContext(config)
+        super.attachBaseContext(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        SystemUtil.setLocale(this)
         super.onCreate(savedInstanceState)
 
         // Edge-to-edge Full Screen style
@@ -40,18 +55,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (this !is SuccessActivity && com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess) {
-            val wallpaperInfo = android.app.WallpaperManager.getInstance(this).wallpaperInfo
-            val isApplied = wallpaperInfo?.packageName == packageName
-            if (isApplied) {
-                com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess = false
-                val intent = android.content.Intent(this, SuccessActivity::class.java).apply {
-                    flags = android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-                startActivity(intent)
-                finish()
-            }
-        }
+        window.decorView.postDelayed({
+            com.cscmobi.libraryads.ads.utils.StatusShowAd.ignoreAOA = false
+        }, 1000)
     }
 }
-

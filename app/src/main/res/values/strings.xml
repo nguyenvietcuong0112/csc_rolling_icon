@@ -116,14 +116,14 @@
     <string name="toast_select_language_continue">Please select a language to continue</string>
     <string name="language">Language</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">Ads may load shortly, please wait…</string>
     <string name="intro_slide_1_title">Make Your Home Screen Shine</string>
@@ -148,6 +148,7 @@
     <string name="tab_folder">Folder</string>
     <string name="selected_files_zero">Selected: 0 Files</string>
     <string name="selected_files_format">Selected: %d Files</string>
+    <string name="selected_files_count_only_format">%1$d Files</string>
     <string name="btn_next_arrow">Next ➔</string>
     <string name="btn_save">Save</string>
     <string name="dialog_set_wallpaper_as_title">Set Wallpaper AS</string>

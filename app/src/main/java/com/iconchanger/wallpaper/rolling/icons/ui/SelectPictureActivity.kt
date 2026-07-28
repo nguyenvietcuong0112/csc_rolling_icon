@@ -33,6 +33,7 @@ class SelectPictureActivity : BaseActivity() {
     private lateinit var gridRecyclerView: RecyclerView
     private lateinit var selectedRecyclerView: RecyclerView
     private lateinit var txtSelectedCount: TextView
+    private lateinit var layoutBottomSelectedBar: View
     private lateinit var btnNext: View
     private lateinit var btnBack: View
     private lateinit var tabAllPhoto: View
@@ -79,6 +80,7 @@ class SelectPictureActivity : BaseActivity() {
         gridRecyclerView = findViewById(R.id.gridRecyclerView)
         selectedRecyclerView = findViewById(R.id.selectedRecyclerView)
         txtSelectedCount = findViewById(R.id.txtSelectedCount)
+        layoutBottomSelectedBar = findViewById(R.id.layoutBottomSelectedBar)
         btnNext = findViewById(R.id.btnNext)
         btnBack = findViewById(R.id.btnBack)
 
@@ -93,6 +95,7 @@ class SelectPictureActivity : BaseActivity() {
             if (isFolderTabActive && gridRecyclerView.adapter is PhotoGridAdapter) {
                 // Back from folder photo view to folder list
                 gridRecyclerView.adapter = folderAdapter
+                layoutBottomSelectedBar.visibility = View.GONE
             } else {
                 finish()
             }
@@ -137,6 +140,7 @@ class SelectPictureActivity : BaseActivity() {
         displayedPhotosList.addAll(allPhotosList)
         gridRecyclerView.adapter = gridAdapter
         gridAdapter.notifyDataSetChanged()
+        layoutBottomSelectedBar.visibility = View.VISIBLE
     }
 
     private fun switchToFolderTab() {
@@ -151,6 +155,7 @@ class SelectPictureActivity : BaseActivity() {
 
         gridRecyclerView.adapter = folderAdapter
         folderAdapter.notifyDataSetChanged()
+        layoutBottomSelectedBar.visibility = View.GONE
     }
 
     private fun checkPermissionAndLoad() {
@@ -269,7 +274,7 @@ class SelectPictureActivity : BaseActivity() {
     }
 
     private fun updateSelectedUI() {
-        txtSelectedCount.text = getString(R.string.selected_files_format, selectedPhotosList.size)
+        txtSelectedCount.text = getString(R.string.selected_files_count_only_format, selectedPhotosList.size)
         selectedAdapter.notifyDataSetChanged()
     }
 
@@ -357,6 +362,7 @@ class SelectPictureActivity : BaseActivity() {
                 displayedPhotosList.addAll(folder.photos)
                 gridRecyclerView.adapter = gridAdapter
                 gridAdapter.notifyDataSetChanged()
+                layoutBottomSelectedBar.visibility = View.VISIBLE
             }
         }
 

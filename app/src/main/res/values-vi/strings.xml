@@ -114,14 +114,14 @@
     <string name="toast_select_language_continue">Vui lòng chọn ngôn ngữ để tiếp tục</string>
     <string name="language">Ngôn ngữ</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">Quảng cáo sẽ sớm tải, vui lòng chờ trong giây lát…</string>
     <string name="intro_slide_1_title">Làm Màn Hình Chính Rực Rỡ</string>
@@ -144,8 +144,9 @@
     <string name="select_picture_title">Chọn Hình Ảnh</string>
     <string name="tab_all_photo">Tất cả ảnh</string>
     <string name="tab_folder">Thư mục</string>
-    <string name="selected_files_zero">Đã chọn: 0 tệp</string>
-    <string name="selected_files_format">Đã chọn: %d tệp</string>
+    <string name="selected_files_zero">Đã chọn: 0 Tệp</string>
+    <string name="selected_files_format">Đã chọn: %d Tệp</string>
+    <string name="selected_files_count_only_format">%1$d Tệp</string>
     <string name="btn_next_arrow">Tiếp theo ➔</string>
     <string name="btn_save">Lưu</string>
     <string name="dialog_set_wallpaper_as_title">Đặt Hình Nền Thành</string>

@@ -108,14 +108,14 @@
     <string name="toast_select_language_continue">続行するには言語を選択してください</string>
     <string name="language">言語</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">広告がまもなく読み込まれます。しばらくお待ちください…</string>
     <string name="intro_slide_1_title">ホーム画面を華やかに</string>
@@ -137,9 +137,9 @@
     <string name="photos_from_gallery">ギャラリーからの写真</string>
     <string name="select_picture_title">写真を選択</string>
     <string name="tab_all_photo">すべての写真</string>
-    <string name="tab_folder">フォルダ</string>
-    <string name="selected_files_zero">選択済み: 0 件のファイル</string>
+    <string name="selected_files_zero">選択済み: 0 ファイル</string>
     <string name="selected_files_format">選択済み: %d ファイル</string>
+    <string name="selected_files_count_only_format">%1$d ファイル</string>
     <string name="toast_max_item_limit">最大%1$d個まで選択できます</string>
     <string name="btn_go_home">ホームへ</string>
     <string name="success_title">完了！</string>

@@ -276,7 +276,7 @@ class RollingSelectionActivity : BaseActivity() {
                 Toast.makeText(this, getString(R.string.toast_max_item_limit, maxItemLimit), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterNextAd(this, it) {
                 scope.launch {
                     // Save everything
                     withContext(Dispatchers.IO) {
@@ -290,7 +290,6 @@ class RollingSelectionActivity : BaseActivity() {
                             preferenceRepository.setWallpaperMode("rolling")
                         }
                         openLiveWallpaperPreview()
-                        finish()
                     } else {
                         // Go to wallpaper picker
                         val intent = Intent(
@@ -306,24 +305,48 @@ class RollingSelectionActivity : BaseActivity() {
         }
     }
 
+    private var wasWallpaperAlreadyApplied = false
+
+    private val liveWallpaperLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        com.cscmobi.libraryads.ads.utils.StatusShowAd.ignoreAOA = true
+        val wallpaperInfo = android.app.WallpaperManager.getInstance(this).wallpaperInfo
+        val isApplied = wallpaperInfo?.packageName == packageName
+
+        val isSuccess = if (result.resultCode == RESULT_OK) {
+            isApplied
+        } else {
+            !wasWallpaperAlreadyApplied && isApplied
+        }
+
+        if (isSuccess) {
+            val intent = Intent(this, SuccessActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun openLiveWallpaperPreview() {
-        com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository.isPendingWallpaperSuccess = true
+        com.cscmobi.libraryads.ads.utils.StatusShowAd.ignoreAOA = true
+        val wallpaperInfo = android.app.WallpaperManager.getInstance(this).wallpaperInfo
+        wasWallpaperAlreadyApplied = (wallpaperInfo?.packageName == packageName)
+
         val intent = Intent(android.app.WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
             putExtra(
                 android.app.WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 android.content.ComponentName(this@RollingSelectionActivity, com.iconchanger.wallpaper.rolling.icons.wallpaper.RollingWallpaperService::class.java)
             )
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         try {
-            startActivity(intent)
+            liveWallpaperLauncher.launch(intent)
             Toast.makeText(this, getString(R.string.toast_apply_wallpaper_tip), Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
-            val chooserIntent = Intent(android.app.WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+            val chooserIntent = Intent(android.app.WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER)
             try {
-                startActivity(chooserIntent)
+                liveWallpaperLauncher.launch(chooserIntent)
             } catch (ex: Exception) {
                 Toast.makeText(this, getString(R.string.toast_unsupported_wallpaper), Toast.LENGTH_SHORT).show()
             }
@@ -505,10 +528,10 @@ class RollingSelectionActivity : BaseActivity() {
         if (frAds != null) {
             com.cscmobi.libraryads.ads.native_ads.CSCNativeManager.showNative(
                 adFrame = frAds,
-                adName = "native_all",
+                adName = "native_popup",
                 adId = getString(R.string.native_all),
                 adLayout = R.layout.layout_native_media,
-                canShowAd = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_all
+                canShowAd = com.iconchanger.wallpaper.rolling.icons.utils.RemoteConfigs.native_popup
             )
         }
 

@@ -80,7 +80,7 @@ class CustomizeActivity : BaseActivity() {
 
         // Preview & Apply Action Button
         btnPreviewApply.setOnClickListener {
-            AdsConfig.showInterClickAd(this, it) {
+            AdsConfig.showInterApplyAd(this, it) {
                 saveConfigAndNavigate()
             }
         }

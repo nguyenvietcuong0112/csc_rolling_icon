@@ -4,11 +4,12 @@
     android:id="@+id/emoji_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginBottom="4dp"
     android:background="@drawable/bg_item_card"
     android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
+    android:focusable="true">
 
     <FrameLayout
         android:layout_width="match_parent"

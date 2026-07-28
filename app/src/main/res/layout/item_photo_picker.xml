@@ -28,7 +28,7 @@
                     android:id="@+id/imgPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY" />
+                    android:scaleType="centerCrop" />
             </androidx.cardview.widget.CardView>
 
             <!-- Delete Photo Button (Bottom Left) -->

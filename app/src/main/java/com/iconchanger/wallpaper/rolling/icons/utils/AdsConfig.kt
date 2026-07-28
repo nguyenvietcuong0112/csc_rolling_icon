@@ -11,9 +11,10 @@ object AdsConfig {
     @Volatile
     private var isShowingOrLoadingAd = false
 
-    fun showInterClickAd(
+    private fun showGenericInterAd(
         activity: AppCompatActivity,
         view: View? = null,
+        isEnabled: Boolean,
         onAdClosedAction: () -> Unit
     ) {
         if (isShowingOrLoadingAd) {
@@ -30,17 +31,16 @@ object AdsConfig {
             } catch (_: Exception) {}
         }
 
-        val isEnabled = RemoteConfigs.inter_click
         val interClickId = activity.getString(R.string.inter_click)
 
-        // 1. Nếu không bật qc hoặc mất mạng ➔ Chạy thẳng action, không hiện Loading
+        // 1. Check remote config enabled and internet connection
         if (!isEnabled || !activity.isInternetConnected()) {
             resetState()
             onAdClosedAction()
             return
         }
 
-        // 2. Khởi tạo & Hiển thị Dialog Fullscreen Loading
+        // 2. Fullscreen Loading Dialog
         val loadingDialog = DialogLoadingAd(activity)
         try {
             if (!activity.isFinishing && !activity.isDestroyed) {
@@ -52,7 +52,6 @@ object AdsConfig {
             return
         }
 
-        // Hàm phụ trợ ẩn Loading an toàn
         fun dismissLoading() {
             try {
                 if (loadingDialog.isShowing && !activity.isFinishing && !activity.isDestroyed) {
@@ -75,6 +74,62 @@ object AdsConfig {
                 resetState()
                 onAdClosedAction()
             }
+        )
+    }
+
+    // 1. inter_success: inter khi click button back to Home (màn Success)
+    fun showInterSuccessAd(
+        activity: AppCompatActivity,
+        view: View? = null,
+        onAdClosedAction: () -> Unit
+    ) {
+        showGenericInterAd(
+            activity = activity,
+            view = view,
+            isEnabled = RemoteConfigs.inter_success,
+            onAdClosedAction = onAdClosedAction
+        )
+    }
+
+    // 2. inter_apply: inter khi click button apply trong các luồng feature và inter khi click button set wallpaper trong popup
+    fun showInterApplyAd(
+        activity: AppCompatActivity,
+        view: View? = null,
+        onAdClosedAction: () -> Unit
+    ) {
+        showGenericInterAd(
+            activity = activity,
+            view = view,
+            isEnabled = RemoteConfigs.inter_apply,
+            onAdClosedAction = onAdClosedAction
+        )
+    }
+
+    // 3. inter_next: inter khi click button continue/next trong các luồng feature
+    fun showInterNextAd(
+        activity: AppCompatActivity,
+        view: View? = null,
+        onAdClosedAction: () -> Unit
+    ) {
+        showGenericInterAd(
+            activity = activity,
+            view = view,
+            isEnabled = RemoteConfigs.inter_next,
+            onAdClosedAction = onAdClosedAction
+        )
+    }
+
+    // 4. inter_click: inter khi click vào bất kỳ menu nào ở home (trừ setting) & inter khi click button back từ setting về home
+    fun showInterClickAd(
+        activity: AppCompatActivity,
+        view: View? = null,
+        onAdClosedAction: () -> Unit
+    ) {
+        showGenericInterAd(
+            activity = activity,
+            view = view,
+            isEnabled = RemoteConfigs.inter_click,
+            onAdClosedAction = onAdClosedAction
         )
     }
 }

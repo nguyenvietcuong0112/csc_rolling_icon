@@ -44,11 +44,13 @@ class PhotoSelectionAdapter(
             val imgFile = File(uriString)
             if (imgFile.exists()) {
                 holder.imgPhoto.load(imgFile) {
+                    scale(coil.size.Scale.FILL)
                     placeholder(android.R.drawable.ic_menu_gallery)
                     error(android.R.drawable.ic_menu_report_image)
                 }
             } else {
                 holder.imgPhoto.load(Uri.parse(uriString)) {
+                    scale(coil.size.Scale.FILL)
                     placeholder(android.R.drawable.ic_menu_gallery)
                     error(android.R.drawable.ic_menu_report_image)
                 }

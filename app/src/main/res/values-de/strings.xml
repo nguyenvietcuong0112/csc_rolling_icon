@@ -108,14 +108,14 @@
     <string name="toast_select_language_continue">Bitte wählen Sie eine Sprache aus, um fortzufahren</string>
     <string name="language">Sprache</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">Werbung wird in Kürze geladen, bitte warten…</string>
     <string name="intro_slide_1_title">Lassen Sie Ihren Startbildschirm erstrahlen</string>
@@ -136,9 +136,9 @@
     <string name="btn_get_started">Jetzt starten  ➔</string>
     <string name="photos_from_gallery">Fotos aus Ihrer Galerie</string>
     <string name="select_picture_title">Bild auswählen</string>
-    <string name="tab_all_photo">Alle Fotos</string>
-    <string name="tab_folder">Ordner</string>
-    <string name="selected_files_zero">Ausgewählt: 0 Dateien</string>
+    <string name="selected_files_zero">Ausgewählt: 0 Datein</string>
+    <string name="selected_files_format">Ausgewählt: %d Datein</string>
+    <string name="selected_files_count_only_format">%1$d Datein</string>
     <string name="toast_max_item_limit">Maximal %1$d Elemente erlaubt</string>
     <string name="btn_go_home">Zur Startseite</string>
     <string name="success_title">Erfolgreich!</string>

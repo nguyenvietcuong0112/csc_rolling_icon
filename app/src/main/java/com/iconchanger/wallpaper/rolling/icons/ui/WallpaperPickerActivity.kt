@@ -65,7 +65,7 @@ class WallpaperPickerActivity : BaseActivity() {
 
         // Apply selected wallpaper when Apply button is clicked
         btnApply.setOnClickListener {
-            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterApplyAd(this, it) {
                 if (selectedPosition in wallpapers.indices) {
                     val resId = wallpapers[selectedPosition]
                     val uriString = "android.resource://$packageName/$resId"
@@ -89,7 +89,6 @@ class WallpaperPickerActivity : BaseActivity() {
                             finish()
                         } else {
                             openLiveWallpaperPreview()
-                            finish()
                         }
                     }
                 }
@@ -97,24 +96,48 @@ class WallpaperPickerActivity : BaseActivity() {
         }
     }
 
+    private var wasWallpaperAlreadyApplied = false
+
+    private val liveWallpaperLauncher = registerForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        com.cscmobi.libraryads.ads.utils.StatusShowAd.ignoreAOA = true
+        val wallpaperInfo = WallpaperManager.getInstance(this).wallpaperInfo
+        val isApplied = wallpaperInfo?.packageName == packageName
+
+        val isSuccess = if (result.resultCode == RESULT_OK) {
+            isApplied
+        } else {
+            !wasWallpaperAlreadyApplied && isApplied
+        }
+
+        if (isSuccess) {
+            val intent = Intent(this, SuccessActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun openLiveWallpaperPreview() {
-        PreferenceRepository.isPendingWallpaperSuccess = true
+        com.cscmobi.libraryads.ads.utils.StatusShowAd.ignoreAOA = true
+        val wallpaperInfo = WallpaperManager.getInstance(this).wallpaperInfo
+        wasWallpaperAlreadyApplied = (wallpaperInfo?.packageName == packageName)
+
         val intent = Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER).apply {
             putExtra(
                 WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
                 ComponentName(this@WallpaperPickerActivity, RollingWallpaperService::class.java)
             )
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         try {
-            startActivity(intent)
+            liveWallpaperLauncher.launch(intent)
             Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_apply_wallpaper_tip), Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
-            val chooserIntent = Intent(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+            val chooserIntent = Intent(WallpaperManager.ACTION_LIVE_WALLPAPER_CHOOSER)
             try {
-                startActivity(chooserIntent)
+                liveWallpaperLauncher.launch(chooserIntent)
             } catch (ex: Exception) {
                 Toast.makeText(this@WallpaperPickerActivity, getString(R.string.toast_unsupported_wallpaper), Toast.LENGTH_SHORT).show()
             }

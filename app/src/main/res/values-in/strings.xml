@@ -108,14 +108,14 @@
     <string name="toast_select_language_continue">Pilih bahasa untuk melanjutkan</string>
     <string name="language">Bahasa</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">Iklan dapat dimuat sebentar lagi, mohon tunggu…</string>
     <string name="intro_slide_1_title">Buat Layar Utama Anda Bersinar</string>
@@ -138,8 +138,9 @@
     <string name="select_picture_title">Pilih Gambar</string>
     <string name="tab_all_photo">Semua Foto</string>
     <string name="tab_folder">Folder</string>
-    <string name="selected_files_zero">Dipilih: 0 Berkas</string>
-    <string name="selected_files_format">Dipilih: %d Berkas</string>
+    <string name="selected_files_zero">Dipilih: 0 File</string>
+    <string name="selected_files_format">Dipilih: %d File</string>
+    <string name="selected_files_count_only_format">%1$d File</string>
     <string name="toast_max_item_limit">Maksimal %1$d item diperbolehkan</string>
     <string name="btn_go_home">Ke beranda</string>
     <string name="success_title">Berhasil!</string>

@@ -119,7 +119,7 @@
                 android:id="@+id/appRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingHorizontal="6dp"
+                android:paddingHorizontal="8dp"
                 android:clipToPadding="false"
                 android:scrollbars="vertical" />
         </LinearLayout>
@@ -257,8 +257,7 @@
                         android:background="@drawable/bg_card"
                         android:clickable="true"
                         android:focusable="true"
-                        android:padding="10dp"
-                        android:foreground="?android:attr/selectableItemBackground">
+                        android:padding="10dp">
 
                         <FrameLayout
                             android:layout_width="match_parent"

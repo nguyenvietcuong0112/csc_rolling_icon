@@ -87,11 +87,11 @@ class PermissionActivity : BaseActivity() {
 
     private fun loadNativeAd() {
         val frAds = findViewById<FrameLayout>(R.id.layoutAds) ?: return
-        val isEnabled = RemoteConfigs.native_all
+        val isEnabled = RemoteConfigs.native_permission
 
         CSCNativeManager.showNative(
             adFrame = frAds,
-            adName = "native_all",
+            adName = "native_permission",
             adId = getString(R.string.native_all),
             adLayout = R.layout.layout_native_media,
             canShowAd = isEnabled

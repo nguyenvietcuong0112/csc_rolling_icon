@@ -120,11 +120,12 @@ class SpinningModeStrategy(
                 }
 
                 "vortex" -> {
-                    val step = (2f * MathUtils.PI) / count
+                    val totalTurns = MathUtils.PI * 5f
                     for (i in 0 until count) {
-                        val factor = 0.4f + 0.7f * (i.toFloat() / count.toFloat())
+                        val progress = i.toFloat() / count.toFloat()
+                        val factor = 0.38f + 1.12f * progress
                         val r = baseR * factor
-                        val angle = spinningAngle * (1f + 0.5f * factor) + i * step
+                        val angle = spinningAngle * (1f + 0.6f * progress) + progress * totalTurns
                         val x = cx + r * MathUtils.cos(angle)
                         val y = cy + r * MathUtils.sin(angle)
                         drawSpinningIcon(batch, spinningIcons[i], x, y)
@@ -189,11 +190,12 @@ class SpinningModeStrategy(
                 }
 
                 "vortex" -> {
-                    val step = (2f * MathUtils.PI) / count
+                    val totalTurns = MathUtils.PI * 5f
                     for (i in 0 until count) {
-                        val factor = 0.4f + 0.7f * (i.toFloat() / count.toFloat())
+                        val progress = i.toFloat() / count.toFloat()
+                        val factor = 0.38f + 1.12f * progress
                         val r = baseR * factor
-                        val angle = spinningAngle * (1f + 0.5f * factor) + i * step
+                        val angle = spinningAngle * (1f + 0.6f * progress) + progress * totalTurns
                         val x = cx + r * MathUtils.cos(angle)
                         val y = cy + r * MathUtils.sin(angle)
                         val size = spinningIcons[i].size

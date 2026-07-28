@@ -108,14 +108,14 @@
     <string name="toast_select_language_continue">Selecione um idioma para continuar</string>
     <string name="language">Idioma</string>
     <string name="language_english">English</string>
-    <string name="language_french">French</string>
+    <string name="language_french">Français</string>
     <string name="language_german">Deutsch</string>
-    <string name="language_hindi">Hindi</string>
-    <string name="language_indonesian">Indonesian</string>
-    <string name="language_portuguese">Portuguese</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_portuguese">Português</string>
     <string name="language_spanish">Español</string>
     <string name="language_vietnamese">Tiếng Việt</string>
-    <string name="language_japanese">Japanese</string>
+    <string name="language_japanese">日本語</string>
 
     <string name="splash_ads_warning">Anúncios podem ser carregados em breve, aguarde…</string>
     <string name="intro_slide_1_title">Faça sua Tela Inicial Brilhar</string>
@@ -140,6 +140,7 @@
     <string name="tab_folder">Pasta</string>
     <string name="selected_files_zero">Selecionado: 0 Arquivos</string>
     <string name="selected_files_format">Selecionado: %d Arquivos</string>
+    <string name="selected_files_count_only_format">%1$d Arquivos</string>
     <string name="toast_max_item_limit">Máximo de %1$d itens permitidos</string>
     <string name="btn_go_home">Ir para o início</string>
     <string name="success_title">Sucesso!</string>

@@ -144,7 +144,7 @@ class ApiWallpaperDetailActivity : BaseActivity() {
 
         btnSetWallpaper.setOnClickListener {
             dialog.dismiss()
-            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterClickAd(this, it) {
+            com.iconchanger.wallpaper.rolling.icons.utils.AdsConfig.showInterApplyAd(this, it) {
                 progressBar.visibility = View.VISIBLE
                 progressBar.playAnimation()
 

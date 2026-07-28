@@ -84,8 +84,8 @@ class App : Application() {
                     bannerId = getString(R.string.banner_splash),
                     interHighId = getString(R.string.inter_splash_high),
                     interAllId = getString(R.string.inter_splash),
-                    nativeFullId = getString(R.string.native_splash_full),
-                    nativeFullHighId = getString(R.string.native_splash_full_high),
+//                    nativeFullId = getString(R.string.native_splash_full),
+//                    nativeFullHighId = getString(R.string.native_splash_full_high),
                     nativeFullLayout = R.layout.layout_native_full,
                     admobAOAId = getString(R.string.resume_open_app),
                 )
@@ -144,8 +144,8 @@ class App : Application() {
                     adsOBConfig = AdsOBConfig(
                         nativeOB1Id = getString(R.string.native_onboarding_1),
                         nativeOB4Id = getString(R.string.native_onboarding_4),
-                        nativeOBFull1Id = getString(R.string.native_onboarding_full_1),
-                        nativeOBFull2Id = getString(R.string.native_onboarding_full_2),
+                        nativeOBFull1Id = nativeOBFull1Id,
+                        nativeOBFull2Id = nativeOBFull2Id,
                         layoutNativeOB1 = R.layout.layout_native_media,
                         layoutNativeOB4 = R.layout.layout_native_media,
                         layoutNativeFullOB = R.layout.admob_layout_native_full,
