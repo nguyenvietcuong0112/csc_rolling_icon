@@ -73,20 +73,6 @@ class SpinningAppPickerActivity : BaseActivity() {
     private val selectedPhotosList = ArrayList<String>()
     private lateinit var photoAdapter: PhotoSelectionAdapter
 
-    private val selectPictureLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val photos = result.data?.getStringArrayListExtra("selected_photos")
-            if (photos != null) {
-                selectedPhotosList.clear()
-                selectedPhotosList.addAll(photos)
-                updatePhotoCount()
-                photoAdapter.notifyDataSetChanged()
-            }
-        }
-    }
-
     private lateinit var txtItemLimitInfo: TextView
 
     private var maxItemLimit = 30
@@ -107,12 +93,46 @@ class SpinningAppPickerActivity : BaseActivity() {
         return true
     }
 
+    private val pickMultipleVisualMediaLauncher = registerForActivityResult(
+        ActivityResultContracts.PickMultipleVisualMedia()
+    ) { uris ->
+        if (uris.isNotEmpty()) {
+            val total = selectedAppsSet.size + selectedEmojisSet.size + selectedPhotosList.size
+            val remaining = maxItemLimit - total
+            val urisToAdd = if (remaining > 0) uris.take(remaining) else emptyList()
+
+            scope.launch(Dispatchers.IO) {
+                val loader = com.iconchanger.wallpaper.rolling.icons.data.IconLoader(this@SpinningAppPickerActivity)
+                urisToAdd.forEach { uri ->
+                    try {
+                        contentResolver.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    val uriStr = uri.toString()
+                    loader.loadCustomPhotoIcon(uriStr)
+                    if (!selectedPhotosList.contains(uriStr)) {
+                        selectedPhotosList.add(uriStr)
+                    }
+                }
+                withContext(Dispatchers.Main) {
+                    updatePhotoCount()
+                    photoAdapter.notifyDataSetChanged()
+                    updateItemLimitInfo()
+                    preferenceRepository.setSelectedPhotos(selectedPhotosList.toSet())
+                }
+            }
+        }
+    }
+
     private fun openCustomPicturePicker() {
         if (!canSelectMore()) return
-        val intent = Intent(this, SelectPictureActivity::class.java).apply {
-            putStringArrayListExtra("already_selected", selectedPhotosList)
-        }
-        selectPictureLauncher.launch(intent)
+        pickMultipleVisualMediaLauncher.launch(
+            androidx.activity.result.PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -55,7 +55,7 @@
             android:id="@+id/layout_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="16dp"
             app:layout_constraintBottom_toTopOf="@id/layoutAds"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
 
                 <View
                     android:layout_width="40dp"
-                    android:layout_height="6dp"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="4dp"
                     android:background="@drawable/bg_dot_inactive" />
 
@@ -138,6 +138,7 @@
             android:id="@+id/layoutAds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">

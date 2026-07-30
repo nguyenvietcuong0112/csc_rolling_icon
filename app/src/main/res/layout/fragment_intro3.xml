@@ -94,9 +94,9 @@
         <TextView
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginBottom="32dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/bg_purple_gradient_btn"
             android:gravity="center"
             android:text="@string/intro_next"
