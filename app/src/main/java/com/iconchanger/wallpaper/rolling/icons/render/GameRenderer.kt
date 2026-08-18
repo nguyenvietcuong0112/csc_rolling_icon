@@ -82,7 +82,10 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
     private var gravityY = -9.8f
     private var smoothX = 0f
     private var smoothY = -9.8f
-    private val sensorAlpha = 0.15f
+    private var lastAwakeGx = 0f
+    private var lastAwakeGy = -9.8f
+    private val wakeThresholdSq = 0.8f
+    private val sensorAlpha = 0.35f
 
     // Tương tác vật lý
     private var mouseJoint: MouseJoint? = null
@@ -503,9 +506,29 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
         destroyMouseJoint()
     }
 
+    fun wakeAllBodies() {
+        if (wallpaperMode != "rolling") return
+        synchronized(physicsLock) {
+            try {
+                if (!physicsWorld.world.isLocked) {
+                    val bodies = com.badlogic.gdx.utils.Array<com.badlogic.gdx.physics.box2d.Body>()
+                    physicsWorld.world.getBodies(bodies)
+                    for (b in bodies) {
+                        if (b.type == com.badlogic.gdx.physics.box2d.BodyDef.BodyType.DynamicBody && !b.isAwake) {
+                            b.isAwake = true
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                // ignore
+            }
+        }
+    }
+
     override fun resume() {
         sensorManager?.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
         reloadPhysicsSettings()
+        wakeAllBodies()
     }
 
     override fun dispose() {
@@ -531,9 +554,13 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
         physicsWorld.dispose()
     }
 
-    override fun offsetChange(xOffset: Float, yOffset: Float, xOffsetStep: Float, yOffsetStep: Float, xPixelOffset: Int, yPixelOffset: Int) {}
+    override fun offsetChange(xOffset: Float, yOffset: Float, xOffsetStep: Float, yOffsetStep: Float, xPixelOffset: Int, yPixelOffset: Int) {
+        wakeAllBodies()
+    }
 
-    override fun previewStateChange(isPreview: Boolean) {}
+    override fun previewStateChange(isPreview: Boolean) {
+        wakeAllBodies()
+    }
 
     override fun iconDropped(x: Int, y: Int) {}
 
@@ -552,6 +579,14 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
 
         gravityX = smoothX
         gravityY = smoothY
+
+        val deltaSq = (smoothX - lastAwakeGx) * (smoothX - lastAwakeGx) +
+                (smoothY - lastAwakeGy) * (smoothY - lastAwakeGy)
+        if (deltaSq > wakeThresholdSq) {
+            lastAwakeGx = smoothX
+            lastAwakeGy = smoothY
+            wakeAllBodies()
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
