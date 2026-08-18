@@ -80,14 +80,23 @@ public class SystemUtil {
     }
 
     public static String getPreLanguage(Context mContext) {
+        try {
+            String cscLang = new com.cscmobi.libraryads.commons.sharepreference.CSCSPF(mContext).getLanguage_code_selected();
+            if (cscLang != null && !cscLang.trim().isEmpty()) {
+                return cscLang;
+            }
+        } catch (Exception ignored) {}
         SharedPreferences preferences = mContext.getSharedPreferences("data", Context.MODE_PRIVATE);
         return preferences.getString("KEY_LANGUAGE", "en");
     }
 
     public static void setPreLanguage(Context context, String language) {
-        if (language == null || language == "") {
+        if (language == null || language.equals("")) {
             return;
         } else {
+            try {
+                new com.cscmobi.libraryads.commons.sharepreference.CSCSPF(context).setLanguage_code_selected(language);
+            } catch (Exception ignored) {}
             SharedPreferences preferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("KEY_LANGUAGE", language);

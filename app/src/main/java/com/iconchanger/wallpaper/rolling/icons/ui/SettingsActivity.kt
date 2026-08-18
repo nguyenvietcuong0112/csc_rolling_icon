@@ -34,8 +34,10 @@ class SettingsActivity : BaseActivity() {
     private lateinit var switchFloatButton: SwitchCompat
     private lateinit var switchWallpaperTouch: SwitchCompat
     private lateinit var tvSettingsVersionValue: TextView
+    private var currentLangCode: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        currentLangCode = SystemUtil.getPreLanguage(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
@@ -130,6 +132,21 @@ class SettingsActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        val newLang = SystemUtil.getPreLanguage(this)
+        if (newLang.isNotEmpty() && newLang != currentLangCode) {
+            currentLangCode = newLang
+            SystemUtil.saveLocale(this, newLang)
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                androidx.core.os.LocaleListCompat.forLanguageTags(newLang)
+            )
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                putExtra("disable_animation", true)
+            }
+            startActivity(intent)
+            finish()
+            return
+        }
         switchMakeLauncher.isChecked = isDefaultLauncher()
     }
 

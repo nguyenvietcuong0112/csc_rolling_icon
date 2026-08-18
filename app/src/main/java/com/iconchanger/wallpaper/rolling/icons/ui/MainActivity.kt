@@ -14,7 +14,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
+    private var currentLangCode: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        currentLangCode = com.iconchanger.wallpaper.rolling.icons.utils.SystemUtil.getPreLanguage(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -111,6 +114,15 @@ class MainActivity : BaseActivity() {
 
         loadAdsNative()
         loadBanner()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val newLang = com.iconchanger.wallpaper.rolling.icons.utils.SystemUtil.getPreLanguage(this)
+        if (newLang.isNotEmpty() && newLang != currentLangCode) {
+            currentLangCode = newLang
+            recreate()
+        }
     }
 
     private fun loadBanner() {
