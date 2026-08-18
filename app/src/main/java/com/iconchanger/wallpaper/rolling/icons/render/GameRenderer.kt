@@ -97,6 +97,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
     // Cấu hình vật lý từ DataStore
     private var isSensorEnabled = true
     private var isWallpaperTouchEnabled = true
+    private var isPreview = false
     private var lastLaunchTime: Long = 0L
 
     // Chế độ Wallpaper Chiến lược (Strategy Pattern)
@@ -214,9 +215,11 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 if (iconData != null) {
                     lastLaunchTime = now
                     spawnExplosion(touchPoint.x, touchPoint.y)
-                    scope.launch {
-                        delay(150)
-                        launchBoundApp(iconData)
+                    if (!isPreview) {
+                        scope.launch {
+                            delay(150)
+                            launchBoundApp(iconData)
+                        }
                     }
                 }
                 return true
@@ -559,6 +562,7 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
     }
 
     override fun previewStateChange(isPreview: Boolean) {
+        this.isPreview = isPreview
         wakeAllBodies()
     }
 
