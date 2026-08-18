@@ -3,6 +3,7 @@ package com.iconchanger.wallpaper.rolling.icons
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -38,23 +39,8 @@ class App : Application() {
 
         val savedLangCode = CSCSPF(this).language_code_selected
         if (!savedLangCode.isNullOrBlank()) {
-            SystemUtil.changeLang(savedLangCode, this)
+            SystemUtil.setLocale(this)
         }
-
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                val lang = SystemUtil.getPreLanguage(activity)
-                if (!lang.isNullOrBlank()) {
-                    SystemUtil.setLocale(activity)
-                }
-            }
-            override fun onActivityStarted(activity: Activity) {}
-            override fun onActivityResumed(activity: Activity) {}
-            override fun onActivityPaused(activity: Activity) {}
-            override fun onActivityStopped(activity: Activity) {}
-            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-            override fun onActivityDestroyed(activity: Activity) {}
-        })
 
 //        Executors.newSingleThreadExecutor().execute {
 //            FirebaseApp.initializeApp(this)
