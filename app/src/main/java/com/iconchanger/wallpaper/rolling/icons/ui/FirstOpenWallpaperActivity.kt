@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FirstOpenWallpaperActivity : AppCompatActivity() {
+class FirstOpenWallpaperActivity : BaseActivity() {
 
     private var wasWallpaperAlreadyApplied = false
 
@@ -54,6 +54,7 @@ class FirstOpenWallpaperActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_first_open_wallpaper)
         prepareDefaultsAndOpenWallpaper()
     }
 

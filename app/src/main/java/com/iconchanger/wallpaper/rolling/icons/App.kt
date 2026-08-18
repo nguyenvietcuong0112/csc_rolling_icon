@@ -3,6 +3,7 @@ package com.iconchanger.wallpaper.rolling.icons
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.cscmobi.libraryads.CSCApplication
@@ -36,15 +37,13 @@ class App : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val savedLangCode = CSCSPF(this).language_code_selected
-        val localeCode = if (savedLangCode.isNullOrBlank()) {
-            "en"
-        } else {
+        val localeCode = if (!savedLangCode.isNullOrBlank()) {
             savedLangCode
+        } else {
+            SystemUtil.getPreLanguage(this)
         }
-        SystemUtil.saveLocale(this, localeCode)
-        val currentLocales = AppCompatDelegate.getApplicationLocales()
-        if (currentLocales.isEmpty || currentLocales.get(0)?.language != localeCode) {
-            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(localeCode))
+        if (!localeCode.isNullOrBlank()) {
+            SystemUtil.changeLang(localeCode, this)
         }
 
 //        Executors.newSingleThreadExecutor().execute {
@@ -100,16 +99,16 @@ class App : Application() {
                         languageSetting = object : LanguageSetting {
                             override fun onDone(activity: Activity) {
                                 val code = CSCSPF(activity).language_code_selected
-                                SystemUtil.saveLocale(activity, code)
-                                AppCompatDelegate.setApplicationLocales(
-                                    LocaleListCompat.forLanguageTags(code)
-                                )
+                                val finalCode = if (!code.isNullOrBlank()) code else SystemUtil.getPreLanguage(activity)
+                                android.util.Log.d("LanguageDebug", "App languageSetting.onDone: code=$code, finalCode=$finalCode")
+                                SystemUtil.changeLang(finalCode, activity)
                                 val intent = Intent(activity, MainActivity::class.java).apply {
                                     flags =
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     putExtra("disable_animation", true)
                                 }
                                 activity.startActivity(intent)
+                                activity.finish()
                             }
                         }
                     ),

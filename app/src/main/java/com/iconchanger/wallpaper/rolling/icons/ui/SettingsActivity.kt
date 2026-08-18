@@ -139,10 +139,7 @@ class SettingsActivity : BaseActivity() {
         if (newLang.isNotEmpty() && newLang != currentLangCode) {
             android.util.Log.d("LanguageDebug", "SettingsActivity onResume: Language changed detected from $currentLangCode to $newLang. Applying and navigating to MainActivity...")
             currentLangCode = newLang
-            SystemUtil.saveLocale(this, newLang)
-            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
-                androidx.core.os.LocaleListCompat.forLanguageTags(newLang)
-            )
+            SystemUtil.changeLang(newLang, this)
             val intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 putExtra("disable_animation", true)

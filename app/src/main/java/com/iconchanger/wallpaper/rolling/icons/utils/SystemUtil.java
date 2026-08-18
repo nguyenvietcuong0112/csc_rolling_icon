@@ -23,6 +23,7 @@ public class SystemUtil {
 
     // Lưu ngôn ngữ đã cài đặt
     public static void saveLocale(Context context, String lang) {
+        if (lang == null || lang.trim().isEmpty()) return;
         Log.d("LanguageDebug", "SystemUtil.saveLocale called with lang=" + lang);
         setPreLanguage(context, lang);
     }
@@ -30,58 +31,45 @@ public class SystemUtil {
     public static void setLocale(Context context) {
         String language = getPreLanguage(context);
         Log.d("LanguageDebug", "SystemUtil.setLocale called, resolved preLanguage=" + language);
-        if (language.equals("")) {
-            Locale defaultLocale = Locale.getDefault();
-            Configuration currentConfig = context.getResources().getConfiguration();
-            Locale currentLocale = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                if (currentConfig.getLocales().size() > 0) {
-                    currentLocale = currentConfig.getLocales().get(0);
-                }
-            } else {
-                currentLocale = currentConfig.locale;
-            }
-            if (currentLocale != null && currentLocale.getLanguage().equals(defaultLocale.getLanguage())) {
-                return;
-            }
-
-            Configuration config = new Configuration();
-            Locale.setDefault(defaultLocale);
-            config.locale = defaultLocale;
-
-            context.getResources()
-                    .updateConfiguration(config, context.getResources().getDisplayMetrics());
-        } else {
-            changeLang(language, context);
+        if (language == null || language.trim().isEmpty()) {
+            language = "en";
         }
+        changeLang(language, context);
     }
 
     public static void changeLang(String lang, Context context) {
+        if (lang == null || lang.trim().isEmpty())
+            return;
         Log.d("LanguageDebug", "SystemUtil.changeLang called with lang=" + lang);
-        if (lang.equalsIgnoreCase(""))
-            return;
+
         Locale newLocale = new Locale(lang);
-        Configuration currentConfig = context.getResources().getConfiguration();
-        Locale currentLocale = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            if (currentConfig.getLocales().size() > 0) {
-                currentLocale = currentConfig.getLocales().get(0);
+        Locale.setDefault(newLocale);
+        myLocale = newLocale;
+
+        saveLocale(context, lang);
+
+        try {
+            Configuration config = new Configuration(context.getResources().getConfiguration());
+            config.setLocale(newLocale);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                android.os.LocaleList localeList = new android.os.LocaleList(newLocale);
+                android.os.LocaleList.setDefault(localeList);
+                config.setLocales(localeList);
             }
-        } else {
-            currentLocale = currentConfig.locale;
-        }
-        if (currentLocale != null && currentLocale.getLanguage().equals(newLocale.getLanguage())) {
-            Log.d("LanguageDebug", "SystemUtil.changeLang: currentLocale already matches " + lang + ", skipping");
-            return;
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        } catch (Exception e) {
+            Log.e("LanguageDebug", "SystemUtil.changeLang updateConfiguration error: " + e.getMessage());
         }
 
-        myLocale = newLocale;
-        saveLocale(context, lang);
-        Locale.setDefault(myLocale);
-        Configuration config = new Configuration();
-        config.locale = myLocale;
-        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-        Log.d("LanguageDebug", "SystemUtil.changeLang: updated configuration to locale=" + myLocale);
+        try {
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                androidx.core.os.LocaleListCompat.forLanguageTags(lang)
+            );
+        } catch (Exception e) {
+            Log.e("LanguageDebug", "SystemUtil.changeLang setApplicationLocales error: " + e.getMessage());
+        }
+
+        Log.d("LanguageDebug", "SystemUtil.changeLang: successfully applied locale=" + newLocale);
     }
 
     public static String getPreLanguage(Context mContext) {
