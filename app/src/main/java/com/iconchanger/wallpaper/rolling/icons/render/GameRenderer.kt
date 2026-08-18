@@ -215,11 +215,9 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 if (iconData != null) {
                     lastLaunchTime = now
                     spawnExplosion(touchPoint.x, touchPoint.y)
-                    if (!isPreview) {
-                        scope.launch {
-                            delay(150)
-                            launchBoundApp(iconData)
-                        }
+                    scope.launch {
+                        delay(150)
+                        launchBoundApp(iconData)
                     }
                 }
                 return true
