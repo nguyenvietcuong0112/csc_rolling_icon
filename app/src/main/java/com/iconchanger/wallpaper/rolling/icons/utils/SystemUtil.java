@@ -88,7 +88,7 @@ public class SystemUtil {
         if (dataLang != null && !dataLang.trim().isEmpty()) {
             return dataLang;
         }
-        return "en";
+        return Locale.getDefault().getLanguage();
     }
 
     public static void setPreLanguage(Context context, String language) {

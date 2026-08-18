@@ -37,14 +37,24 @@ class App : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val savedLangCode = CSCSPF(this).language_code_selected
-        val localeCode = if (!savedLangCode.isNullOrBlank()) {
-            savedLangCode
-        } else {
-            SystemUtil.getPreLanguage(this)
+        if (!savedLangCode.isNullOrBlank()) {
+            SystemUtil.changeLang(savedLangCode, this)
         }
-        if (!localeCode.isNullOrBlank()) {
-            SystemUtil.changeLang(localeCode, this)
-        }
+
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                val lang = SystemUtil.getPreLanguage(activity)
+                if (!lang.isNullOrBlank()) {
+                    SystemUtil.setLocale(activity)
+                }
+            }
+            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityResumed(activity: Activity) {}
+            override fun onActivityPaused(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
 
 //        Executors.newSingleThreadExecutor().execute {
 //            FirebaseApp.initializeApp(this)
@@ -135,6 +145,10 @@ class App : Application() {
                         resFragmentOBAdFull = R.layout.fragment_ob_ad_full,
                         activityCallback = object : OnActivityCallBack {
                             override fun onNextActivity(activity: Activity, inSession2: Boolean) {
+                                val savedLang = CSCSPF(activity).language_code_selected
+                                if (!savedLang.isNullOrBlank()) {
+                                    SystemUtil.changeLang(savedLang, activity)
+                                }
                                 if (inSession2) {
                                     val intent = Intent(activity, PermissionActivity::class.java).apply {
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
