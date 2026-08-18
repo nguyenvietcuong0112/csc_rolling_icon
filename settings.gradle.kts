@@ -32,7 +32,7 @@ dependencyResolutionManagement {
             url = uri("https://maven.pkg.github.com/cscappstudio/csc_ads_lib")
             credentials {
                 username = "csccuong"
-                password = "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"
+                password = "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"
             }
         }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }

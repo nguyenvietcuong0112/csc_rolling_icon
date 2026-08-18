@@ -312,19 +312,37 @@ class LauncherActivity : AndroidApplication() {
             val appInfo = appList[position]
             holder.titleView.text = appInfo.appName
 
-            // Tải icon mặc định của ứng dụng
-            try {
-                val icon = packageManager.getApplicationIcon(appInfo.packageName)
-                holder.iconView.setImageDrawable(icon)
-            } catch (e: PackageManager.NameNotFoundException) {
+            val cachedIcon = com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.get(appInfo.packageName)
+            if (cachedIcon != null) {
+                holder.iconView.setImageDrawable(cachedIcon)
+            } else {
                 holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
+                holder.iconView.tag = appInfo.packageName
+                coroutineScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                    try {
+                        val icon = packageManager.getApplicationIcon(appInfo.packageName)
+                        com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.put(appInfo.packageName, icon)
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            if (holder.iconView.tag == appInfo.packageName) {
+                                holder.iconView.setImageDrawable(icon)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        // ignore, fallback already set
+                    }
+                }
             }
 
             holder.itemView.setOnClickListener {
                 val launchIntent = packageManager.getLaunchIntentForPackage(appInfo.packageName)
                 if (launchIntent != null) {
-                    startActivity(launchIntent)
-                    appDrawerLayout.visibility = View.GONE
+                    try {
+                        startActivity(launchIntent)
+                        appDrawerLayout.visibility = View.GONE
+                    } catch (t: Throwable) {
+                        t.printStackTrace()
+                        Toast.makeText(this@LauncherActivity, getString(R.string.toast_cannot_open_app), Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(this@LauncherActivity, getString(R.string.toast_cannot_open_app), Toast.LENGTH_SHORT).show()
                 }

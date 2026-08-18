@@ -1,10 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -12,14 +13,14 @@ plugins {
 val formattedDate = SimpleDateFormat("ddMMyyyy", Locale.US).format(Date())
 android {
     namespace = "com.iconchanger.wallpaper.rolling.icons"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.iconchanger.wallpaper.rolling.icons"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 2
-        versionName = "0.0.2"
+        targetSdk = 37
+        versionCode = 5
+        versionName = "0.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,54 +40,45 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs += listOf(
-            "-Xuse-k2=false",
-            "-Xskip-metadata-version-check"
-        )
-    }
     buildFeatures {
         viewBinding = true
         buildConfig = true
         dataBinding = true
     }
+}
 
-    applicationVariants.all {
-        val variant = this
-        val type = variant.buildType.name
+androidComponents {
+    onVariants { variant ->
+        val versionName = android.defaultConfig.versionName ?: "0.0.5"
+        val versionCode = android.defaultConfig.versionCode ?: 5
+        val type = variant.buildType ?: variant.name
 
-        // APK
-        variant.outputs.all {
-            val output = this as? com.android.build.gradle.api.ApkVariantOutput
-            output?.outputFileName =
-                "D72_RollingIcons_v${variant.versionName}_c${variant.versionCode}_${formattedDate}-${type}.apk"
-        }
-
-        // AAB
-        applicationVariants.all {
-            val variant = this
-            val type = variant.buildType.name
-
-            // APK
-            variant.outputs.all {
-                val output = this as? com.android.build.gradle.api.ApkVariantOutput
-                output?.outputFileName =
-                    "D72_RollingIcons_v${variant.versionName}_c${variant.versionCode}_${formattedDate}-${type}.apk"
-            }
+        variant.outputs.forEach { output ->
+            output.outputFileName.set(
+                "D72_RollingIcons_v${versionName}_c${versionCode}_${formattedDate}-${type}.apk"
+            )
         }
     }
-    tasks.whenTaskAdded {
-        if (name == "bundleRelease") {
-            doLast {
-                val bundleDir = File(project.buildDir, "outputs/bundle/release")
-                bundleDir.listFiles { f -> f.extension == "aab" }?.forEach { aab ->
-                    val newName =
-                        "D72_RollingIcons_v${android.defaultConfig.versionName}_c${android.defaultConfig.versionCode}_${formattedDate}-release.aab"
-                    aab.renameTo(File(aab.parent, newName))
-                }
-            }
+}
+
+tasks.matching { it.name == "bundleRelease" }.configureEach {
+    doLast {
+        val bundleDir = layout.buildDirectory.dir("outputs/bundle/release").get().asFile
+        bundleDir.listFiles { f -> f.extension == "aab" }?.forEach { aab ->
+            val newName =
+                "D72_RollingIcons_v${android.defaultConfig.versionName}_c${android.defaultConfig.versionCode}_${formattedDate}-release.aab"
+            aab.renameTo(File(aab.parent, newName))
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        freeCompilerArgs.addAll(
+            "-Xuse-k2=false",
+            "-Xskip-metadata-version-check"
+        )
     }
 }
 
@@ -129,16 +121,17 @@ dependencies {
 
 
     //lib ads
-    implementation("com.cscapp:library-test:0.0.7")
+    implementation("com.cscapp:library-test:0.2.3")
 
     // sdk mediation
     implementation("com.facebook.android:facebook-android-sdk:18.3.0")
-    implementation("com.google.ads.mediation:facebook:6.21.0.4")
-    implementation("com.google.ads.mediation:applovin:13.6.3.0")
+    implementation("com.google.ads.mediation:facebook:6.22.0.0")
+    implementation("com.google.ads.mediation:applovin:13.6.4.0")
     implementation("com.google.ads.mediation:inmobi:11.4.0.0")
-    implementation("com.google.ads.mediation:pangle:8.1.0.5.0")
-    implementation("com.google.ads.mediation:mintegral:17.1.61.1")
-    implementation("com.unity3d.ads:unity-ads:4.19.0")
-    implementation("com.google.ads.mediation:unity:4.19.0.0")
+    implementation("com.google.ads.mediation:pangle:8.2.0.4.0")
+    implementation("com.google.ads.mediation:mintegral:17.1.71.0")
+    implementation("com.unity3d.ads:unity-ads:4.20.0")
+    implementation("com.google.ads.mediation:unity:4.19.0.1")
+    implementation("com.pubscale.ads:admob-adapter:1.0.5")
 }
 

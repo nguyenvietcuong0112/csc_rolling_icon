@@ -118,16 +118,12 @@ class IconLoader(private val context: Context) {
     }
 
     private fun drawableToBitmap(drawable: Drawable, width: Int, height: Int): Bitmap {
-        if (drawable is BitmapDrawable) {
-            if (drawable.bitmap != null) {
-                return Bitmap.createScaledBitmap(drawable.bitmap, width, height, true)
-            }
-        }
-
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        val oldBounds = drawable.copyBounds()
+        drawable.setBounds(0, 0, width, height)
         drawable.draw(canvas)
+        drawable.bounds = oldBounds
         return bitmap
     }
 
@@ -142,10 +138,22 @@ class IconLoader(private val context: Context) {
     }
 
     fun bitmapToTexture(bitmap: Bitmap): com.badlogic.gdx.graphics.Texture {
-        val stream = java.io.ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val bytes = stream.toByteArray()
-        val pixmap = com.badlogic.gdx.graphics.Pixmap(bytes, 0, bytes.size)
+        val width = bitmap.width
+        val height = bitmap.height
+        val pixmap = com.badlogic.gdx.graphics.Pixmap(width, height, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888)
+        val argbBitmap = if (bitmap.config == Bitmap.Config.ARGB_8888) {
+            bitmap
+        } else {
+            bitmap.copy(Bitmap.Config.ARGB_8888, false)
+        }
+        pixmap.pixels.clear()
+        argbBitmap.copyPixelsToBuffer(pixmap.pixels)
+        pixmap.pixels.position(0)
+
+        if (argbBitmap != bitmap) {
+            argbBitmap.recycle()
+        }
+
         val texture = com.badlogic.gdx.graphics.Texture(pixmap)
         pixmap.dispose()
         return texture

@@ -5,6 +5,49 @@ import com.badlogic.gdx.backends.android.AndroidLiveWallpaperService
 import com.iconchanger.wallpaper.rolling.icons.render.GameRenderer
 
 class RollingWallpaperService : AndroidLiveWallpaperService() {
+
+    override fun onCreateEngine(): Engine {
+        return object : AndroidWallpaperEngine() {
+            override fun onPause() {
+                try {
+                    if (app != null) {
+                        super.onPause()
+                    }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+
+            override fun onResume() {
+                try {
+                    if (app != null) {
+                        super.onResume()
+                    }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+
+            override fun onVisibilityChanged(visible: Boolean) {
+                try {
+                    if (app != null) {
+                        super.onVisibilityChanged(visible)
+                    }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+
+            override fun onDestroy() {
+                try {
+                    super.onDestroy()
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            }
+        }
+    }
+
     override fun onCreateApplication() {
         super.onCreateApplication()
         

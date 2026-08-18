@@ -147,7 +147,11 @@ class PhysicsWorld {
         val bodies = com.badlogic.gdx.utils.Array<Body>()
         world.getBodies(bodies)
         for (body in bodies) {
-            world.destroyBody(body)
+            try {
+                world.destroyBody(body)
+            } catch (t: Throwable) {
+                t.printStackTrace()
+            }
         }
     }
 

@@ -88,10 +88,13 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
     private var mouseJoint: MouseJoint? = null
     private var selectedBody: Body? = null
     private val touchPoint = Vector3()
+    private val pendingJointsToDestroy = ArrayList<com.badlogic.gdx.physics.box2d.Joint>()
+    private val physicsLock = Any()
 
     // Cấu hình vật lý từ DataStore
     private var isSensorEnabled = true
     private var isWallpaperTouchEnabled = true
+    private var lastLaunchTime: Long = 0L
 
     // Chế độ Wallpaper Chiến lược (Strategy Pattern)
     private var wallpaperMode = "rolling"
@@ -128,38 +131,40 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
                 touchPoint.set(x, y, 0f)
                 camera.unproject(touchPoint)
 
-                try {
-                    if (!physicsWorld.world.isLocked) {
-                        physicsWorld.world.QueryAABB(object : QueryCallback {
-                            override fun reportFixture(fixture: Fixture): Boolean {
-                                if (fixture.testPoint(touchPoint.x, touchPoint.y)) {
-                                    val body = fixture.body
-                                    if (body.userData is IconData) {
-                                        selectedBody = body
-                                        return false
+                synchronized(physicsLock) {
+                    try {
+                        if (!physicsWorld.world.isLocked) {
+                            physicsWorld.world.QueryAABB(object : QueryCallback {
+                                override fun reportFixture(fixture: Fixture): Boolean {
+                                    if (fixture.testPoint(touchPoint.x, touchPoint.y)) {
+                                        val body = fixture.body
+                                        if (body.userData is IconData) {
+                                            selectedBody = body
+                                            return false
+                                        }
                                     }
+                                    return true
                                 }
-                                return true
-                            }
-                        }, touchPoint.x - 0.1f, touchPoint.y - 0.1f, touchPoint.x + 0.1f, touchPoint.y + 0.1f)
+                            }, touchPoint.x - 0.1f, touchPoint.y - 0.1f, touchPoint.x + 0.1f, touchPoint.y + 0.1f)
 
-                        val targetBody = selectedBody
-                        val ground = physicsWorld.groundBody
-                        if (targetBody != null && ground != null) {
-                            val jointDef = MouseJointDef().apply {
-                                bodyA = ground
-                                bodyB = targetBody
-                                target.set(touchPoint.x, touchPoint.y)
-                                maxForce = 1000f * targetBody.mass
-                                frequencyHz = 5.0f
-                                dampingRatio = 0.7f
+                            val targetBody = selectedBody
+                            val ground = physicsWorld.groundBody
+                            if (targetBody != null && ground != null) {
+                                val jointDef = MouseJointDef().apply {
+                                    bodyA = ground
+                                    bodyB = targetBody
+                                    target.set(touchPoint.x, touchPoint.y)
+                                    maxForce = 1000f * targetBody.mass
+                                    frequencyHz = 5.0f
+                                    dampingRatio = 0.7f
+                                }
+                                mouseJoint = physicsWorld.world.createJoint(jointDef) as MouseJoint
+                                targetBody.isAwake = true
                             }
-                            mouseJoint = physicsWorld.world.createJoint(jointDef) as MouseJoint
-                            targetBody.isAwake = true
                         }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
                 }
                 return true
             }
@@ -196,11 +201,15 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
 
             override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
                 if (!isWallpaperTouchEnabled) return false
+                val now = System.currentTimeMillis()
+                if (now - lastLaunchTime < 500L) return true
+                
                 touchPoint.set(x, y, 0f)
                 camera.unproject(touchPoint)
 
                 val iconData = activeStrategy?.checkTouch(touchPoint, camera)
                 if (iconData != null) {
+                    lastLaunchTime = now
                     spawnExplosion(touchPoint.x, touchPoint.y)
                     scope.launch {
                         delay(150)
@@ -217,60 +226,68 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
         reloadPhysicsSettings()
     }
 
-    private suspend fun launchBoundApp(iconData: IconData) = withContext(Dispatchers.Main) {
-        destroyMouseJoint()
+    private suspend fun launchBoundApp(iconData: IconData) {
+        try {
+            destroyMouseJoint()
 
-        if (iconData.appInfo.type == AppInfo.TYPE_PHOTO) {
-            val intent = Intent(context, PhotoShowActivity::class.java).apply {
-                putExtra("photo_uri", iconData.appInfo.packageName)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            try {
-                context.startActivity(intent)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } else if (iconData.appInfo.type == AppInfo.TYPE_APP) {
-            try {
-                val intent = context.packageManager.getLaunchIntentForPackage(iconData.appInfo.packageName)
-                if (intent != null) {
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-                    context.startActivity(intent)
+            if (iconData.appInfo.type == AppInfo.TYPE_PHOTO) {
+                val intent = Intent(context, PhotoShowActivity::class.java).apply {
+                    putExtra("photo_uri", iconData.appInfo.packageName)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } else if (iconData.appInfo.type == AppInfo.TYPE_EMOJI) {
-            try {
-                val prefs = PreferenceRepository(context)
-                val bindings = prefs.getEmojiAppBindings()
-                val rawPkg = iconData.appInfo.packageName
-                val emojiKey = if (bindings.containsKey(rawPkg)) rawPkg else rawPkg.removePrefix("emoji_")
-                val boundPackage = bindings[emojiKey] ?: bindings[rawPkg]
-                if (!boundPackage.isNullOrEmpty()) {
-                    val intent = context.packageManager.getLaunchIntentForPackage(boundPackage)
+                try {
+                    context.startActivity(intent)
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
+            } else if (iconData.appInfo.type == AppInfo.TYPE_APP) {
+                try {
+                    val intent = context.packageManager.getLaunchIntentForPackage(iconData.appInfo.packageName)
                     if (intent != null) {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
                         context.startActivity(intent)
                     }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } else if (iconData.appInfo.type == AppInfo.TYPE_EMOJI) {
+                try {
+                    val prefs = PreferenceRepository(context)
+                    val bindings = prefs.getEmojiAppBindings()
+                    val rawPkg = iconData.appInfo.packageName
+                    val emojiKey = if (bindings.containsKey(rawPkg)) rawPkg else rawPkg.removePrefix("emoji_")
+                    val boundPackage = bindings[emojiKey] ?: bindings[rawPkg]
+                    if (!boundPackage.isNullOrEmpty()) {
+                        val intent = context.packageManager.getLaunchIntentForPackage(boundPackage)
+                        if (intent != null) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                            context.startActivity(intent)
+                        }
+                    }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
+                }
             }
+        } catch (t: Throwable) {
+            t.printStackTrace()
         }
     }
 
     fun destroyMouseJoint() {
-        val joint = mouseJoint
-        mouseJoint = null
-        selectedBody = null
-        if (joint != null) {
-            try {
-                if (!physicsWorld.world.isLocked) {
-                    physicsWorld.world.destroyJoint(joint)
+        synchronized(physicsLock) {
+            val joint = mouseJoint
+            mouseJoint = null
+            selectedBody = null
+            if (joint != null) {
+                try {
+                    if (!physicsWorld.world.isLocked) {
+                        physicsWorld.world.destroyJoint(joint)
+                    } else {
+                        pendingJointsToDestroy.add(joint)
+                    }
+                } catch (t: Throwable) {
+                    t.printStackTrace()
                 }
-            } catch (t: Throwable) {
-                // Catch native SIGSEGV or double free exception
             }
         }
     }
@@ -371,12 +388,25 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         if (wallpaperMode == "rolling") {
-            if (isSensorEnabled) {
-                physicsWorld.world.gravity = Vector2(gravityX, gravityY)
-            } else {
-                physicsWorld.world.gravity = Vector2(0f, -9.8f)
+            synchronized(physicsLock) {
+                if (pendingJointsToDestroy.isNotEmpty()) {
+                    for (joint in pendingJointsToDestroy) {
+                        try {
+                            physicsWorld.world.destroyJoint(joint)
+                        } catch (t: Throwable) {
+                            t.printStackTrace()
+                        }
+                    }
+                    pendingJointsToDestroy.clear()
+                }
+
+                if (isSensorEnabled) {
+                    physicsWorld.world.gravity = Vector2(gravityX, gravityY)
+                } else {
+                    physicsWorld.world.gravity = Vector2(0f, -9.8f)
+                }
+                physicsWorld.step(Gdx.graphics.deltaTime)
             }
-            physicsWorld.step(Gdx.graphics.deltaTime)
         }
 
         renderBackground()
@@ -481,6 +511,18 @@ class GameRenderer(private val context: Context) : ApplicationListener, AndroidW
     override fun dispose() {
         sensorManager?.unregisterListener(this)
         destroyMouseJoint()
+        synchronized(physicsLock) {
+            if (pendingJointsToDestroy.isNotEmpty()) {
+                for (joint in pendingJointsToDestroy) {
+                    try {
+                        physicsWorld.world.destroyJoint(joint)
+                    } catch (t: Throwable) {
+                        t.printStackTrace()
+                    }
+                }
+                pendingJointsToDestroy.clear()
+            }
+        }
         spriteBatch.dispose()
         shapeRenderer.dispose()
         backgroundTexture?.dispose()

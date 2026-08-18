@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.model.AppInfo
+import kotlinx.coroutines.launch
 
 class AppSelectionAdapter(
     private val appList: List<AppInfo>,
@@ -32,11 +33,25 @@ class AppSelectionAdapter(
         holder.titleView.text = app.appName
 
         val context = holder.itemView.context
-        try {
-            val icon = context.packageManager.getApplicationIcon(app.packageName)
-            holder.iconView.setImageDrawable(icon)
-        } catch (e: Exception) {
+        val cachedIcon = com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.get(app.packageName)
+        if (cachedIcon != null) {
+            holder.iconView.setImageDrawable(cachedIcon)
+        } else {
             holder.iconView.setImageResource(android.R.drawable.sym_def_app_icon)
+            holder.iconView.tag = app.packageName
+            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                try {
+                    val icon = context.packageManager.getApplicationIcon(app.packageName)
+                    com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.put(app.packageName, icon)
+                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                        if (holder.iconView.tag == app.packageName) {
+                            holder.iconView.setImageDrawable(icon)
+                        }
+                    }
+                } catch (e: Exception) {
+                    // ignore, fallback already set
+                }
+            }
         }
 
         val isSelected = selectedAppsSet.contains(app.packageName)

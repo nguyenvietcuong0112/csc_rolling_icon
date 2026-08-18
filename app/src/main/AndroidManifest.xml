@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
+        android:largeHeap="true"
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
@@ -39,6 +40,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true"/>
+
+        <activity
+            android:name=".ui.FirstOpenWallpaperActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            android:exported="false" />
 
         <activity
             android:name=".ui.PermissionActivity"

@@ -126,7 +126,6 @@ class RollingModeStrategy(
                     // Apps
                     appBitmaps.forEach { (app, bitmap) ->
                         val texture = loader.bitmapToTexture(bitmap)
-                        bitmap.recycle()
                         val iconData = GameRenderer.IconData(texture, baseSize, app)
 
                         val body = physicsWorld.createIconBody(
@@ -150,7 +149,6 @@ class RollingModeStrategy(
                     // Photos
                     photoBitmaps.forEach { (photoUri, bitmap) ->
                         val texture = loader.bitmapToTexture(bitmap)
-                        bitmap.recycle()
                         val photoApp = AppInfo(
                             packageName = photoUri,
                             appName = "Photo",
@@ -180,7 +178,6 @@ class RollingModeStrategy(
                     // Emojis
                     emojiBitmaps.forEach { (emoji, bitmap) ->
                         val texture = loader.bitmapToTexture(bitmap)
-                        bitmap.recycle()
                         val emojiApp = AppInfo(
                             packageName = emoji,
                             appName = "Emoji",

@@ -14,6 +14,7 @@ object RemoteConfigs : CSCKonfigModel {
     val inter_success by konfig("inter_success", true)
     val inter_next by konfig("inter_next", true)
     val inter_apply by konfig("inter_apply", true)
+    val inter_set_wallpaper by konfig("inter_set_wallpaper", true)
 
 
 }

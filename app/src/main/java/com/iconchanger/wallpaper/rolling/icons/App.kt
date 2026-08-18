@@ -19,6 +19,7 @@ import com.cscmobi.libraryads.data.SplashConfig
 import com.cscmobi.libraryads.data.UiLanguageConfig
 import com.cscmobi.libraryads.data.UiOBConfig
 import com.cscmobi.libraryads.data.UiSplashConfig
+import com.iconchanger.wallpaper.rolling.icons.ui.FirstOpenWallpaperActivity
 import com.iconchanger.wallpaper.rolling.icons.ui.MainActivity
 import com.iconchanger.wallpaper.rolling.icons.ui.PermissionActivity
 import com.iconchanger.wallpaper.rolling.icons.utils.EnumSelectLanguage
@@ -63,12 +64,7 @@ class App : Application() {
         val cscLibrary = CSCApplication(this, RemoteConfigs, BuildConfig.DEBUG)
         val isOrganic = SharePreferenceUtils.isOrganic(this)
 
-        val nativeFullId = if (isOrganic) "" else getString(R.string.native_splash_full)
-        val nativeFullHighId = if (isOrganic) "" else getString(R.string.native_splash_full_high)
-        val nativeOB2Id = if (isOrganic) "" else getString(R.string.native_onboarding_2)
-        val nativeOB3Id = if (isOrganic) "" else getString(R.string.native_onboarding_3)
-        val nativeOBFull1Id = if (isOrganic) "" else getString(R.string.native_onboarding_full_1)
-        val nativeOBFull2Id = if (isOrganic) "" else getString(R.string.native_onboarding_full_2)
+
 
         cscLibrary.initSdk(
             adjustAppToken = "copks912rmkg",
@@ -77,17 +73,21 @@ class App : Application() {
                 uiSplashConfig = UiSplashConfig(
                     resLayout = R.layout.activity_splash,
                     showFOForever = true,
-                    homeActivity = PermissionActivity::class.java,
+                    homeActivity = MainActivity::class.java,
                     timeout = 30_000
                 ),
                 adsSplashConfig = AdsSplashConfig(
                     bannerId = getString(R.string.banner_splash),
                     interHighId = getString(R.string.inter_splash_high),
                     interAllId = getString(R.string.inter_splash),
+                    bannerIdS2 = getString(R.string.banner_splash_ss2),
+                    interHighIdS2 = getString(R.string.inter_splash_high_ss2),
+                    interAllIdS2 = getString(R.string.inter_splash_ss2),
 //                    nativeFullId = getString(R.string.native_splash_full),
 //                    nativeFullHighId = getString(R.string.native_splash_full_high),
                     nativeFullLayout = R.layout.layout_native_full,
                     admobAOAId = getString(R.string.resume_open_app),
+                    isCheckOrganicUser = true
                 )
             ),
             languageConfig =
@@ -104,7 +104,7 @@ class App : Application() {
                                 AppCompatDelegate.setApplicationLocales(
                                     LocaleListCompat.forLanguageTags(code)
                                 )
-                                val intent = Intent(activity, PermissionActivity::class.java).apply {
+                                val intent = Intent(activity, MainActivity::class.java).apply {
                                     flags =
                                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     putExtra("disable_animation", true)
@@ -118,6 +118,10 @@ class App : Application() {
                         nativeLangId = getString(R.string.native_language),
                         nativeLangClickHighId = getString(R.string.native_language_high_click),
                         nativeLangClickId = getString(R.string.native_language_click),
+                        nativeLangHighIdS2 = getString(R.string.native_language_high_ss2),
+                        nativeLangIdS2 = getString(R.string.native_language_ss2),
+                        nativeLangClickHighIdS2 = getString(R.string.native_language_high_click_ss2),
+                        nativeLangClickIdS2 = getString(R.string.native_language_click_ss2),
                         layoutNative = R.layout.layout_native_media,
                         layoutNativeClick = R.layout.layout_native_media_click
                     )
@@ -137,19 +141,29 @@ class App : Application() {
                                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                     }
                                     activity.startActivity(intent)
+                                } else {
+                                    val intent = Intent(activity, FirstOpenWallpaperActivity::class.java).apply {
+                                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    }
+                                    activity.startActivity(intent)
                                 }
                             }
-                        }
+                        },
+//                        nextOBActivity = PermissionActivity::class.java
                     ),
                     adsOBConfig = AdsOBConfig(
                         nativeOB1Id = getString(R.string.native_onboarding_1),
                         nativeOB4Id = getString(R.string.native_onboarding_4),
-                        nativeOBFull1Id = nativeOBFull1Id,
-                        nativeOBFull2Id = nativeOBFull2Id,
+                        nativeOBFull12Id = getString(R.string.native_onboarding_full_1),
+                        nativeOBFull23Id = getString(R.string.native_onboarding_full_2),
+                        nativeOB1IdS2 = getString(R.string.native_onboarding_1_ss2),
+                        nativeOB4IdS2 = getString(R.string.native_onboarding_4_ss2),
+                        nativeOBFull12IdS2 = getString(R.string.native_onboarding_full_1_2_ss2),
+                        nativeOBFull23IdS2 = getString(R.string.native_onboarding_full_2_3_ss2),
                         layoutNativeOB1 = R.layout.layout_native_media,
                         layoutNativeOB4 = R.layout.layout_native_media,
                         layoutNativeFullOB = R.layout.admob_layout_native_full,
-                        isLoadNativeOBInLanguage = true
+                        isLoadNativeOBInLanguage = true,
                     )
                 ))
     }

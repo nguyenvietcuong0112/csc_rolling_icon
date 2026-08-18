@@ -137,11 +137,25 @@ class BindAppDialog(
             val app = appsList[position]
             holder.txtAppName.text = app.appName
 
-            try {
-                val icon = context.packageManager.getApplicationIcon(app.packageName)
-                holder.imgAppIcon.setImageDrawable(icon)
-            } catch (e: Exception) {
+            val cachedIcon = com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.get(app.packageName)
+            if (cachedIcon != null) {
+                holder.imgAppIcon.setImageDrawable(cachedIcon)
+            } else {
                 holder.imgAppIcon.setImageResource(android.R.drawable.sym_def_app_icon)
+                holder.imgAppIcon.tag = app.packageName
+                scope.launch(Dispatchers.IO) {
+                    try {
+                        val icon = context.packageManager.getApplicationIcon(app.packageName)
+                        com.iconchanger.wallpaper.rolling.icons.data.AppIconCache.put(app.packageName, icon)
+                        withContext(Dispatchers.Main) {
+                            if (holder.imgAppIcon.tag == app.packageName) {
+                                holder.imgAppIcon.setImageDrawable(icon)
+                            }
+                        }
+                    } catch (e: Exception) {
+                        // ignore, fallback set
+                    }
+                }
             }
 
             val isSelected = (app.packageName == selectedPackageName)

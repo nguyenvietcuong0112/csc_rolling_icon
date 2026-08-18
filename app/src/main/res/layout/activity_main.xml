@@ -63,6 +63,7 @@
         android:fillViewport="true"
         android:scrollbars="none"
         android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
         app:layout_constraintTop_toBottomOf="@id/headerBar"
         app:layout_constraintBottom_toTopOf="@id/layoutBanner"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:descendantFocusability="beforeDescendants"
             android:paddingBottom="24dp">
 
             <!-- Card 1: Rolling Icon -->

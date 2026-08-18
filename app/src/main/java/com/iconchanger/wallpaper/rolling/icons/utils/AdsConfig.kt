@@ -13,6 +13,7 @@ object AdsConfig {
 
     private fun showGenericInterAd(
         activity: AppCompatActivity,
+        adId: String = activity.getString(R.string.inter_click),
         view: View? = null,
         isEnabled: Boolean,
         onAdClosedAction: () -> Unit
@@ -31,7 +32,7 @@ object AdsConfig {
             } catch (_: Exception) {}
         }
 
-        val interClickId = activity.getString(R.string.inter_click)
+        val targetAdId = adId
 
         // 1. Check remote config enabled and internet connection
         if (!isEnabled || !activity.isInternetConnected()) {
@@ -62,7 +63,7 @@ object AdsConfig {
 
         CSCInter.loadAndShowInter(
             activity = activity,
-            adId = interClickId,
+            adId = targetAdId,
             timeDelay = 500L,
             timeOut = 30000L,
             canShowId = isEnabled,
@@ -85,6 +86,7 @@ object AdsConfig {
     ) {
         showGenericInterAd(
             activity = activity,
+            adId = activity.getString(R.string.inter_click),
             view = view,
             isEnabled = RemoteConfigs.inter_success,
             onAdClosedAction = onAdClosedAction
@@ -99,6 +101,7 @@ object AdsConfig {
     ) {
         showGenericInterAd(
             activity = activity,
+            adId = activity.getString(R.string.inter_click),
             view = view,
             isEnabled = RemoteConfigs.inter_apply,
             onAdClosedAction = onAdClosedAction
@@ -113,6 +116,7 @@ object AdsConfig {
     ) {
         showGenericInterAd(
             activity = activity,
+            adId = activity.getString(R.string.inter_click),
             view = view,
             isEnabled = RemoteConfigs.inter_next,
             onAdClosedAction = onAdClosedAction
@@ -127,8 +131,24 @@ object AdsConfig {
     ) {
         showGenericInterAd(
             activity = activity,
+            adId = activity.getString(R.string.inter_click),
             view = view,
             isEnabled = RemoteConfigs.inter_click,
+            onAdClosedAction = onAdClosedAction
+        )
+    }
+
+    // 5. inter_set_wallpaper: inter khi set wallpaper ở màn FirstOpenWallpaperActivity
+    fun showInterSetWallpaperAd(
+        activity: AppCompatActivity,
+        view: View? = null,
+        onAdClosedAction: () -> Unit
+    ) {
+        showGenericInterAd(
+            activity = activity,
+            adId = activity.getString(R.string.inter_set_wallpaper),
+            view = view,
+            isEnabled = RemoteConfigs.inter_set_wallpaper,
             onAdClosedAction = onAdClosedAction
         )
     }

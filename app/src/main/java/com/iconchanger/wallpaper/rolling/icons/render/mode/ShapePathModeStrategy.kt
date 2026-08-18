@@ -59,13 +59,11 @@ class ShapePathModeStrategy(
 
                 appBitmaps.forEach { (app, bitmap) ->
                     val texture = loader.bitmapToTexture(bitmap)
-                    bitmap.recycle()
                     newIcons.add(GameRenderer.IconData(texture, baseSize, app))
                 }
 
                 photoBitmaps.forEach { (photoUri, bitmap) ->
                     val texture = loader.bitmapToTexture(bitmap)
-                    bitmap.recycle()
                     val photoApp = AppInfo(
                         packageName = photoUri,
                         appName = "Photo",
@@ -77,7 +75,6 @@ class ShapePathModeStrategy(
 
                 emojiBitmaps.forEach { (emoji, bitmap) ->
                     val texture = loader.bitmapToTexture(bitmap)
-                    bitmap.recycle()
                     val emojiApp = AppInfo(
                         packageName = emoji,
                         appName = "Emoji",
