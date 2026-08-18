@@ -21,13 +21,15 @@ import java.util.Locale;
 public class SystemUtil {
     private static Locale myLocale;
 
-    // LÆ°u ngÃ´n ngá»¯ Ä‘Ã£ cÃ i Ä‘áº·t
+    // Lưu ngôn ngữ đã cài đặt
     public static void saveLocale(Context context, String lang) {
+        Log.d("LanguageDebug", "SystemUtil.saveLocale called with lang=" + lang);
         setPreLanguage(context, lang);
     }
 
     public static void setLocale(Context context) {
         String language = getPreLanguage(context);
+        Log.d("LanguageDebug", "SystemUtil.setLocale called, resolved preLanguage=" + language);
         if (language.equals("")) {
             Locale defaultLocale = Locale.getDefault();
             Configuration currentConfig = context.getResources().getConfiguration();
@@ -55,6 +57,7 @@ public class SystemUtil {
     }
 
     public static void changeLang(String lang, Context context) {
+        Log.d("LanguageDebug", "SystemUtil.changeLang called with lang=" + lang);
         if (lang.equalsIgnoreCase(""))
             return;
         Locale newLocale = new Locale(lang);
@@ -68,6 +71,7 @@ public class SystemUtil {
             currentLocale = currentConfig.locale;
         }
         if (currentLocale != null && currentLocale.getLanguage().equals(newLocale.getLanguage())) {
+            Log.d("LanguageDebug", "SystemUtil.changeLang: currentLocale already matches " + lang + ", skipping");
             return;
         }
 
@@ -77,30 +81,44 @@ public class SystemUtil {
         Configuration config = new Configuration();
         config.locale = myLocale;
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        Log.d("LanguageDebug", "SystemUtil.changeLang: updated configuration to locale=" + myLocale);
     }
 
     public static String getPreLanguage(Context mContext) {
+        String cscLang = null;
         try {
-            String cscLang = new com.cscmobi.libraryads.commons.sharepreference.CSCSPF(mContext).getLanguage_code_selected();
-            if (cscLang != null && !cscLang.trim().isEmpty()) {
-                return cscLang;
-            }
-        } catch (Exception ignored) {}
+            cscLang = new com.cscmobi.libraryads.commons.sharepreference.CSCSPF(mContext).getLanguage_code_selected();
+        } catch (Exception e) {
+            Log.e("LanguageDebug", "SystemUtil.getPreLanguage: CSCSPF read error=" + e.getMessage());
+        }
         SharedPreferences preferences = mContext.getSharedPreferences("data", Context.MODE_PRIVATE);
-        return preferences.getString("KEY_LANGUAGE", "en");
+        String dataLang = preferences.getString("KEY_LANGUAGE", null);
+        Log.d("LanguageDebug", "SystemUtil.getPreLanguage: cscLang=" + cscLang + ", dataLang=" + dataLang);
+        if (cscLang != null && !cscLang.trim().isEmpty()) {
+            return cscLang;
+        }
+        if (dataLang != null && !dataLang.trim().isEmpty()) {
+            return dataLang;
+        }
+        return "en";
     }
 
     public static void setPreLanguage(Context context, String language) {
+        Log.d("LanguageDebug", "SystemUtil.setPreLanguage called with language=" + language);
         if (language == null || language.equals("")) {
             return;
         } else {
             try {
                 new com.cscmobi.libraryads.commons.sharepreference.CSCSPF(context).setLanguage_code_selected(language);
-            } catch (Exception ignored) {}
+                Log.d("LanguageDebug", "SystemUtil.setPreLanguage: saved to CSCSPF=" + language);
+            } catch (Exception e) {
+                Log.e("LanguageDebug", "SystemUtil.setPreLanguage: CSCSPF write error=" + e.getMessage());
+            }
             SharedPreferences preferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("KEY_LANGUAGE", language);
             editor.apply();
+            Log.d("LanguageDebug", "SystemUtil.setPreLanguage: saved to SharedPreferences(data)=" + language);
         }
     }
 

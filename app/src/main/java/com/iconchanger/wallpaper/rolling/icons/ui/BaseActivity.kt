@@ -15,6 +15,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val lang = SystemUtil.getPreLanguage(newBase)
+        android.util.Log.d("LanguageDebug", "${this.javaClass.simpleName} attachBaseContext: resolved lang=$lang")
         val locale = Locale(if (lang.isNullOrEmpty()) "en" else lang)
         Locale.setDefault(locale)
         val config = Configuration(newBase.resources.configuration)
@@ -26,6 +27,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         SystemUtil.setLocale(this)
         super.onCreate(savedInstanceState)
+        android.util.Log.d("LanguageDebug", "${this.javaClass.simpleName} onCreate: locale=${resources.configuration.locales.get(0)?.language}")
 
         // Edge-to-edge Full Screen style
         WindowCompat.setDecorFitsSystemWindows(window, false)

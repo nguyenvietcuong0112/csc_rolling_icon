@@ -19,6 +19,7 @@ import com.cscmobi.libraryads.commons.utils.Constants
 import com.cscmobi.libraryads.views.language.CSCLanguageActivity
 import com.iconchanger.wallpaper.rolling.icons.R
 import com.iconchanger.wallpaper.rolling.icons.data.PreferenceRepository
+import com.iconchanger.wallpaper.rolling.icons.utils.SystemUtil
 import kotlinx.coroutines.launch
 
 class SettingsActivity : BaseActivity() {
@@ -112,6 +113,7 @@ class SettingsActivity : BaseActivity() {
 
         // Support Information Actions
         findViewById<View>(R.id.btnLanguage)?.setOnClickListener {
+            android.util.Log.d("LanguageDebug", "SettingsActivity: btnLanguage clicked, currentLangCode=$currentLangCode")
             val intent = Intent(this, CSCLanguageActivity::class.java).apply {
                 putExtra(Constants.FROM_SETTING, true)
                 putExtra(Constants.NAME_AD_NATIVE_LANGUAGE, "native_all")
@@ -133,7 +135,9 @@ class SettingsActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         val newLang = SystemUtil.getPreLanguage(this)
+        android.util.Log.d("LanguageDebug", "SettingsActivity onResume: currentLangCode=$currentLangCode, newLang=$newLang")
         if (newLang.isNotEmpty() && newLang != currentLangCode) {
+            android.util.Log.d("LanguageDebug", "SettingsActivity onResume: Language changed detected from $currentLangCode to $newLang. Applying and navigating to MainActivity...")
             currentLangCode = newLang
             SystemUtil.saveLocale(this, newLang)
             androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
