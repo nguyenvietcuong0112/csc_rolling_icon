@@ -25,7 +25,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        SystemUtil.setLocale(this)
         super.onCreate(savedInstanceState)
         android.util.Log.d("LanguageDebug", "${this.javaClass.simpleName} onCreate: locale=${resources.configuration.locales.get(0)?.language}")
 
