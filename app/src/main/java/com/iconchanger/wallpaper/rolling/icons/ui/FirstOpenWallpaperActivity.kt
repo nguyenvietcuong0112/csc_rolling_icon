@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
 class FirstOpenWallpaperActivity : BaseActivity() {
 
     private var wasWallpaperAlreadyApplied = false
+    private var hasLaunchedPreview = false
 
     private val liveWallpaperLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -55,7 +56,17 @@ class FirstOpenWallpaperActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_open_wallpaper)
-        prepareDefaultsAndOpenWallpaper()
+
+        hasLaunchedPreview = savedInstanceState?.getBoolean("has_launched_preview", false) ?: false
+        if (!hasLaunchedPreview) {
+            hasLaunchedPreview = true
+            prepareDefaultsAndOpenWallpaper()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("has_launched_preview", hasLaunchedPreview)
     }
 
     override fun onBackPressed() {
