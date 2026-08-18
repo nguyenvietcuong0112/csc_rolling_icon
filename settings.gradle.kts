@@ -28,13 +28,13 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://artifact.bytedance.com/repository/pangle/")
         }
-//        maven {
-//            url = uri("https://maven.pkg.github.com/cscappstudio/csc_ads_lib")
-//            credentials {
-//                username = ""
-//                password = ""
-//            }
-//        }
+        maven {
+            url = uri("https://maven.pkg.github.com/cscappstudio/csc_ads_lib")
+            credentials {
+                username = "csccuong"
+                password = "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"
+            }
+        }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }

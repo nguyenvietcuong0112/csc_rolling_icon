@@ -11,24 +11,27 @@
         android:id="@+id/imgFlag"
         android:layout_width="40dp"
         android:layout_height="30dp"
+        android:visibility="gone"
         android:layout_gravity="center_vertical|start"
         android:scaleType="centerCrop" />
+
+    <ImageView
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_gravity="center_vertical|start"
+        android:src="@drawable/ic_lang_checked" />
 
     <TextView
         android:id="@+id/txtLanguage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="56dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="40dp"
         android:textSize="16sp"
         android:textStyle="bold"
         android:fontFamily="@font/app_font"
-        android:textColor="@color/cosmic_item_selected_border" />
+        android:textColor="#333333" />
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center_vertical|end"
-        android:src="@drawable/ic_lang_checked" />
+
 </FrameLayout>
