@@ -121,7 +121,7 @@ dependencies {
 
 
     //lib ads
-    implementation("com.cscapp:library-test:0.2.3")
+    implementation("com.cscapp:library-test:0.2.4")
 
     // sdk mediation
     implementation("com.facebook.android:facebook-android-sdk:18.3.0")

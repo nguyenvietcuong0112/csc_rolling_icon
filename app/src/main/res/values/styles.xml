@@ -13,7 +13,7 @@
 
     <!-- Theme for MainActivity with matching header preview -->
     <style name="AppTheme.MainActivity" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/bg_main_window</item>
+        <item name="android:windowBackground">@color/transparent</item>
     </style>
 
     <!-- Theme for FirstOpenWallpaperActivity with dark wallpaper background -->
